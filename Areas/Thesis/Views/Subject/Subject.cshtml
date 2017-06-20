@@ -1,0 +1,77 @@
+﻿@model Subject
+    @if (Model != null)
+    {
+        var annex = StaticHelper.GetAnnex(Model.AnnexID ?? 0);
+  
+<div class="form-group">
+    <label class="col-sm-2 control-label">课题名称：</label>
+    <div class="col-sm-8">
+        <p class="form-control-static">@Model.Title</p>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">描述：</label>
+    <div class="col-sm-8">
+        <p class="form-control-static">@Html.Raw(Model.Comment)</p>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">课题性质：</label>
+    <div class="col-sm-8">
+        <p class="form-control-static">@Html.Raw(Model.Nature)</p>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">研究方向：</label>
+    <div class="col-sm-8">
+        <p class="form-control-static">@Html.Raw(Model.ResearchAreas)</p>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">研究价值：</label>
+    <div class="col-sm-8">
+        <p class="form-control-static">@Html.Raw(Model.ResearchValue)</p>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">考核标准：</label>
+    <div class="col-sm-8">
+        <p class="form-control-static">@Html.Raw(Model.PassStandard)</p>
+
+    </div>
+</div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">相关附件：</label>
+            <div class="col-sm-8">
+                @if (annex != null)
+                {
+                    <p class="form-control-static">
+                        <a target="_block" href="@Url.Action("annex", "downLoad", new {area = "", id = annex.ID})">@(annex.AnnexName ?? "未命名")</a>
+                    </p>
+                }
+                else
+                {
+                    <p class="form-control-static">
+                        暂无附件
+                    </p>
+                }
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="form-group">
+            <label class="col-sm-2 control-label"></label>
+            <div class="col-sm-8">
+                <p class="form-control-static">
+                    未找到对应课题！
+                </p>
+            </div>
+        </div>
+    }

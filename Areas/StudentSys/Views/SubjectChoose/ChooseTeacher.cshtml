@@ -1,0 +1,70 @@
+﻿@model  StudentChooseViewModel
+<style>
+    td {
+        width: 24%;
+    }
+    .cdiv {
+        height: 90%;
+    }
+    .ptmg_tsdv {
+        height: 90%;
+    }
+</style>
+<div class="tycdv bd_rd10 bg_wite">
+    <div class="dhg4"></div>
+    <div class="cdiv  ptmg">
+        <div class="r_con_over hei_about_sm30 hei_about_sm40" tabindex="5000" style="overflow: hidden; outline: none;">
+            <div class="cdiv ctbord">
+                <div class="ptmg_tsdv_dt ow">
+                    <font>选择课题</font><font class="ftcolor">*每人最多选 @Model.Treatise.SubjectMax 个课题@(Model.FirstProcess != null ? string.Format("，选题截止时间:{0:yyyy年MM月dd日 HH:mm}。", Model.FirstProcess.StartTime) : "！")*</font>
+                </div>
+                <div class="dhg2"></div>
+                <dl class="ptmg_tsdv ow" id="page-scrollbar">
+                    @foreach (var item in Model.TeachersList.Where(d => d.TreatiseSubjects.Any()))
+                    {
+                        <dd>
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <th></th>
+                                    <th colspan="4">
+                                        导师名称： @(Model.ShowTeacher ? item.Teacher.UserInfo.TrueName : "******")
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <td colspan="3" class="ptmg_tsdv_tit">
+                                        所属院系： @StaticHelper.GetSchoolName(item.Teacher.SchoolID ?? 0)
+                                    </td>
+                                    <td><a href="@Url.Action("choosesubject", new {id = item.ID})" data-ajax-update="#studentpage" data-ajax-mode="replace" data-ajax="true">查看选题>> </a></td>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <td>课题数量： @item.TreatiseSubjects.Count(d=>d.CheckState==1)</td>
+                                    <td>学生总数：@item.StudentSum </td>
+                                    <td>已选人数：@item.TreatiseSubjects.Sum(d => d.TreatiseStudents.Count(c => c.CheckState == 3)) </td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </dd>
+                    }
+                </dl>
+            </div>
+        </div>
+        <div class="dhg4"></div>
+        <div class="cdiv_cen" id="mg-btn-pos">
+            <div class="cdiv_cen" style="height: 10%">
+                <a href="@Url.Action("search","subject")" data-ajax-update="#studentpage" data-ajax-mode="replace" data-ajax="true" class="but_ptmg ow bd_rd5 fr">返回</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#page-scrollbar").mCustomScrollbar({
+            scrollButtons: {
+                enable: true
+            },
+            theme: "dark-thin"
+        });
+    });
+</script>

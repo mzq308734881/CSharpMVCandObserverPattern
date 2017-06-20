@@ -1,0 +1,57 @@
+﻿@model SchoolDTO
+<div class="row">
+    <div class="col-md-10">
+        <div class="input-group">
+            <form action="/prms/school/search" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#schoolist">
+                <div class="input-group">
+                    <input type="text" name="keyword" placeholder="信息名称" class="form-control"> <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary">
+                            搜索
+                        </button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <div class="input-group">
+            <a class="btn btn-sm btn-primary" href="@Url.Action("add",new { id=Model.SchoolID})"> 添加</a>
+            <a class="btn btn-sm btn-primary" href="@Url.Action("import",new { id=Model.SchoolID})"> 导入</a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>信息名称</th>
+                    <th>信息类型</th>
+                    <th>创建时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.SchoolList)
+                {
+                    <tr id="item_@item.ID">
+                        <td>@item.InfoName</td>
+                        <td>@SelectListHelper.SchoolNameList(item.InfoType ?? 0)</td>
+                        <td>@string.Format("{0:yyyy年 MM月 dd日}", item.CreateTime)</td>
+                        <td>
+                            <a href="/prms/school/edit/@item.ID" class="btn btn-info ">
+                                <i class="fa fa-paste"></i>
+                                编辑
+                            </a>
+                            <a href="javascript:void(0)" class="btn btn-info" onclick="btndel(@item.ID)">
+                                <i class="fa fa-paste"></i>
+                                刪除
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

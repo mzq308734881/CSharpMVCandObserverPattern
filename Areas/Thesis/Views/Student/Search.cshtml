@@ -1,0 +1,134 @@
+﻿@model TreatiseConfigViewModel
+@{
+    Layout = null;
+    var instage = Model.TreatiseStage ==0;
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="col-sm-4">
+            <label class="col-sm-5 control-label">总学生数:</label>
+            <div class="col-sm-7">
+                @Model.StudentPage.TotalCount
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="input-group">
+            @using (Ajax.BeginForm("search", new AjaxOptions()
+            {
+                HttpMethod = "post",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "tab-student"
+            }))
+            {
+                <form role="form" class="form-control" method="post" action="@Url.Action("search")/">
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="stuno" placeholder="学号">
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="stuname" placeholder="姓名">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-primary">
+                                    搜索
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+    <div class="col-md-8">
+        @if (instage)
+        {
+            <div class="col-md-4 col-md-offset-6">
+                <div class="input-group">
+                    <a class="btn btn-sm btn-primary" href="@Url.Action("import")" data-ajax-update="#tab-student" data-ajax-mode="replace" data-ajax="true"> 导入</a>
+                    <a class="btn btn-sm btn-primary" href="@Url.Action("add")" data-ajax-update="#tab-student" data-ajax-mode="replace" data-ajax="true"> 添加</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>学号</th>
+                        <th>姓名</th>
+                        <th>专业</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.StudentPage != null)
+                    {
+                        foreach (var item in Model.StudentPage)
+                        {
+                            <tr id="item_@item.ID">
+                                @if (item.StudentID != null && item.Student.UserInfo != null)
+                                {
+                                    <td>@item.Student.UserInfo.LoginName</td>
+                                    <td>@item.Student.UserInfo.TrueName</td>
+                                    <td>@item.Student.School.InfoName</td>
+                                }
+                                else
+                                {
+                                    <td rowspan="3">参数错误！</td>
+                                }
+                                <td>
+                                    <a class="btn btn-info" onclick="showstudent(@item.ID)">
+                                        <i class="fa fa-paste"></i>
+                                        查看
+                                    </a>
+                                    @if (instage)
+                                    {
+                                        <a href="javascript:void(0)" class="btn btn-info" onclick="treastudel(@item.ID)">
+                                            <i class="fa fa-paste"></i>
+                                            刪除
+                                        </a>
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        @UIHelper.ThesisPageHelper("#tab-student", "student", null, null, Model.StudentPage.TotalPages, Model.StudentPage.PageIndex, Model.StudentPage.PageSize, Model.StudentPage.TotalCount, Model.StudentPage.HasPreviousPage, Model.StudentPage.HasNextPage, Model.StudentPage.PageList)
+    </div>
+</div>
+<script>
+    function treastudel(id) {
+        layer.confirm('"删除后数据无法恢复，确定要删除吗?"', { icon: 3, title: '确认删除' }, function (index) {
+            
+            $.post("@Url.Action("delete")", { id: id }, function (data) {
+                if (data == "OK") {
+                    layer.msg("删除成功！");
+                    $("#item_" + id).hide();
+                } else {
+                    layer.alert(data);
+                }
+            });
+            layer.close(index);
+        });
+    }
+    function showstudent(id) {
+        $.get("@Url.Action("detail")", { id: id }, function(data) {
+            layer.open({
+                title:"学生基本信息",
+                type: 1,
+                skin: 'layui-layer-rim', //加上边框
+                //  area: ['50%', '50%'], //宽高
+                area: '75%', //宽度
+                content:data
+            });  
+        });
+    }
+</script>

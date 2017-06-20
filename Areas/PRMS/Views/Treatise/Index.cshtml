@@ -1,0 +1,112 @@
+﻿@model Pager<Treatise>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>项目管理</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/prms/">主页</a>
+            </li>
+            <li>
+                <strong>项目管理</strong>
+            </li>
+            <li>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form action="@Url.Action("search")" method="post">
+                                <div class="col-md-4">
+                                    @Html.DropDownList("Year", ViewBag.Year as SelectList, new { @class = "form-control" })
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.DropDownList("Stage", ViewBag.Stage as SelectList, new { @class = "form-control" })
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" name="keyword" placeholder="项目标题" class="form-control"> <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-primary">
+                                                搜索
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-1 col-md-offset-5">
+                            <div class="input-group">
+                                <a class="btn btn-sm btn-primary" href="@Url.Action("add")"> 添加</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>项目年份</th>
+                                <th>项目标题</th>
+                                <th>专业</th>
+                                <th>项目状态</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr id="item_@item.ID">
+                                    <td>@item.ApplicableYear</td>
+                                    <td>@item.TreatiseName</td>
+                                    <td>@item.School.InfoName</td>
+                                    <td>@SelectListHelper.TreatiseStageName(item.TreatiseStage)</td>
+                                    <td>
+                                        <a href="@Url.Action("change",new {id=item.ID})" class="btn btn-info ">
+                                            <i class="fa fa-paste"></i>
+                                            进入设置
+                                        </a>
+                                        @if (item.TreatiseStage == 0)
+                                        {
+                                            <a href="@Url.Action("edit",new {id=item.ID})" class="btn btn-info ">
+                                                <i class="fa fa-paste"></i>
+                                                编辑
+                                            </a>
+
+                                        }
+                                        <a href="@Url.Action("detail",new {id=item.ID})" class="btn btn-info ">
+                                            <i class="fa fa-paste"></i>
+                                            查看论文详情
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        @UIHelper.PageHelper("treatise", Model.TotalPages, Model.PageIndex, Model.PageSize, Model.TotalCount, Model.HasPreviousPage, Model.HasNextPage, Model.PageList)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function btndel(id) {
+        layer.confirm('"删除后数据无法恢复，确定要删除吗?"', { icon: 3, title: '确认删除' }, function (index) {
+            $.post("@Url.Action("delete")", { id: id }, function (data) {
+                if (data == "OK") {
+                    layer.msg("删除成功！");
+                    $("#item_" + id).hide();
+                } else {
+                    layer.alert(data);
+                }
+            });
+            layer.close(index);
+        });
+    }
+</script>

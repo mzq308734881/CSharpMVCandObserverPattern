@@ -1,0 +1,98 @@
+﻿@model StudentProcessViewModel
+<form action="@Url.Action("check",new {id=Model.ProcessLog.ID})" method="post" data-ajax-update="#teacherpage" data-ajax-mode="replace" data-ajax="true">
+    <div class="ablogs_pwd_item">
+        <p class="">
+            <span class="fl tydvrg_hf_title mg_top10">姓名：</span>
+            <span class="fl tydvrg_hf_content mg_top10">@Model.UserInfo.TrueName</span>
+        </p>
+    </div>
+
+    <div class="ablogs_pwd_item">
+        <p class="">
+            <span class="fl tydvrg_hf_title mg_top10">选择课题：</span>
+            <span class="fl tydvrg_hf_content mg_top10">@Model.TreatiseSubject.SubjectTitle</span>
+        </p>
+    </div>
+    <div class="ablogs_pwd_item">
+        <p class="">
+            <span class="fl tydvrg_hf_title mg_top10">相关说明：</span>
+            <span class="fl tydvrg_hf_content mg_top10">@Model.ProcessLog.Comment</span>
+        </p>
+    </div>
+
+    <div class="ablogs_pwd_item">
+        <p class="">
+            <span class="fl tydvrg_hf_title mg_top10">下载文档：</span>
+            @if (Model.Annex != null)
+            {
+                <span class="fl  tydvrg_hf_content mg_top10" style="width: 98%; height: 600px">
+                    @Html.Raw(Model.Word)
+                </span>
+            }
+            else
+            {
+                <span class="fl  tydvrg_hf_content mg_top10">暂未上传</span>
+            }
+        </p>
+    </div>
+    <div class="ablogs_pwd_item">
+        <p class="">
+            <span class="fl tydvrg_hf_title mg_top10">评阅结果：</span>
+            <span class="fl tydvrg_hf_content mg_top10">
+                @Html.DropDownList("CheckState", ViewBag.CheckState as SelectList, new { @class = "wid300 text_indent1" })
+            </span>
+
+        </p>
+    </div>
+    <div class="ablogs_pwd_item">
+        <p class="">
+            <span class="fl tydvrg_hf_title mg_top10">评阅说明： </span>
+            <span class="fl tydvrg_hf_content mg_top10">
+                @Html.TextBox("CheckComment", null, new { @class = "text_indent1", style = "width:100%" })
+            </span>
+        </p>
+    </div>
+
+    <div class="ablogs_pwd_item">
+        <p class="">
+            <span class="fl tydvrg_hf_title mg_top10"></span>
+            <span class="fl tydvrg_hf_content mg_top10">
+                <input type="submit" class="tydv_btn_pka bd_rd5" value="提交" />
+            </span>
+        </p>
+    </div>
+</form>
+<script>
+    $(document).ready(function () {
+
+            $.getScript("/Content/kindeditor/kindeditor-all-min.js", function () {
+                KindEditor.basePath = '/Content/kindeditor/';
+                var editor = KindEditor.create('#CheckComment', {
+                    resizeType: 1,
+                    allowPreviewEmoticons: false,
+                    allowImageUpload: false,
+                    items: [
+                        'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                        'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                        'insertunorderedlist', '|', 'emoticons', 'image', 'link'],
+                    afterBlur: function(){this.sync();}
+                });
+            });
+    });
+    function SaveWord() {
+        var div = document.getElementById("PageOfficeDiv");
+        div.WebSave();
+        if (div.CustomSaveResult != "OK") {
+            location.href = "#CheckComment"
+            layer.open({
+                title: '保存失败!'
+  ,content: div.CustomSaveResult,
+  offset: 't',
+                zIndex :9999999999999999999999999999999999
+            });
+        } else {
+            $.get("@Url.Action("search")", { id: @Model.ProcessID }, function (data) {
+                $("#studentright").html(data);
+            });
+    }};
+</script>

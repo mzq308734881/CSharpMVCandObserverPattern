@@ -1,0 +1,94 @@
+﻿@model Pager<Question>
+<div class="ps hei-a85">
+    <!-- <div class="myts_tm">提交截止时间： 2015年2月1日</div> -->
+    <h3 class="tydvrg_tit">公开提问</h3>
+
+    <div class="tysearch bd_rd5">
+        <form action="@Url.Action("search")" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage">
+            <input type="text" class="tyshtxt" placeholder="按标题查询" name="keyword"><button type="submit" class="tyshbut"></button>
+        </form>
+    </div>
+
+    <div class="dhg2"></div>
+    <div class="cdiv ps" id="content_cp" style="height:65%;">
+
+        <div class="r_con_over chenposi" id="abloeds">
+            <div class="addv">
+                <table width="100%" cellpadding="0" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>编号</th>
+                            <th>名称</th>
+                            <th>是否共享</th>
+                            <th>上传时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr id="item_@item.ID">
+                                <td>@item.ID</td>
+                                <td>@StringHelper.GetNoHtmlSubString(item.Title, 30)</td>
+                                <td class="center col035">
+                                    是
+                                </td>
+                                <td>@string.Format("{0:yyyy-MM-dd HH:ss}", item.CreateTime)</td>
+                                <td>
+                                    <span>
+                                        <a class="btn btn-primary" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" href="@Url.Action("detail", new {id = item.ID})">查看详情</a>
+
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="dhg2"></div>
+
+
+    </div>
+
+    <div class="cdiv_cen" id="mg-btn-pos" style="height: 10%; width: 80%">
+        @UIHelper.StudentPageHelper("#teacherpage", "tool", "search", null, null, null, Model.TotalPages, Model.PageIndex, Model.PageSize, Model.TotalCount, Model.HasPreviousPage, Model.HasNextPage, Model.PageList)
+        <div class="fl">
+            <dl class="mytc_ad2">
+                <dd>
+                    <a href="@Url.Action("add")" class="tydv_but bd_rd5" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage">添加</a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+
+@if (IsAjax)
+{
+    <script>
+        $(document).ready(function () {
+            $("#abloeds").mCustomScrollbar({
+                scrollButtons: {
+                    enable: true
+                },
+                theme: "dark-thin"
+            });
+        });
+    </script>
+}
+else
+{
+    @section Scripts{
+        <script>
+            $(document).ready(function () {
+                $("#abloeds").mCustomScrollbar({
+                    scrollButtons: {
+                        enable: true
+                    },
+                    theme: "dark-thin"
+                });
+            });
+        </script>
+    }
+}

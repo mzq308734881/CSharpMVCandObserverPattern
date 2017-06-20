@@ -1,0 +1,106 @@
+﻿@model TreatiseConfigViewModel
+@{
+    var issecoud = Model.TreatiseStage == 2;
+}
+@if (issecoud && Model.ProcessList.All(d => d.IsOpen == 2))
+{
+    <div class="col-lg-offset-10 col-lg-2">
+        <button type="button" class="btn btn-info" onclick="stagetoend()">结束当前论文</button>
+    </div>
+}
+<div class="row m-t-sm">
+    <div class="col-lg-12">
+        <div class="panel blank-panel">
+            <div class="panel-heading">
+                <div class="panel-options">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a data-toggle="tab" href="#tab-processinfo">8、流程信息</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tabajax" href="@Url.Action("search", "progressprocess")" data-target="#tab-progressprocess">9、学生流程进度</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tabajax" href="@Url.Action("search", "progressstudent")" data-target="#tab-progressstudent">10、学生论文进度</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="tab-content">
+                    <div id="tab-processinfo" class="tab-pane active">
+                        <div class="vertical-container light-timeline">
+                            @foreach (var item in Model.ProcessList.OrderBy(d => d.Sort))
+                            {
+                                <div class="vertical-timeline-block">
+                                    <div class="vertical-timeline-icon navy-bg">
+                                        <i class="fa fa-star"></i>
+                                    </div>
+
+                                    <div class="vertical-timeline-content">
+                                        <h2>
+                                            @item.ProcessName
+                                            @switch (item.IsOpen)
+                                            {
+                                                case 0:
+                                                    <small class="label label-primary">暂未开始</small>
+                                                    break;
+                                                case 1:
+                                                    <small class="label label-danger">进行中</small>
+                                                    break;
+                                                case 2:
+                                                    <small class="label label-info">已结束</small>
+                                                    break;
+                                            }
+                                        </h2>
+
+                                        <p>
+                                            @Html.Raw(item.Comment)
+                                        </p>
+                                        @switch (item.IsOpen)
+                                        {
+                                            //暂未开始
+                                            case 0:
+                                                if (item.Sort == Model.ProcessList.Min(d => d.Sort))
+                                                {
+                                                    <a href="#" class="btn btn-sm btn-success" onclick="changeprocess(@item.ID)"> 开启流程</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="#" class="btn btn-sm btn-primary"> 暂未开始</a>
+                                                }
+                                                break;
+                                            //进行中
+                                            case 1:
+                                                <a href="#" class="btn btn-sm btn-danger" onclick="changeprocess(@item.ID)"> 开启下一流程</a>
+                                                break;
+                                            //已结束
+                                            case 2:
+                                                <a href="#" class="btn btn-sm btn-info"> 已结束</a>
+                                                break;
+                                        }
+
+                                        <span class="vertical-date">
+                                            @string.Format("{0:yyyy年MM月dd日}", item.StartTime)
+                                            <small>@string.Format("{0:yyyy年MM月dd日}", item.EndTime)</small>
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div id="tab-progressprocess" class="tab-pane">
+
+                    </div>
+                    <div id="tab-progressstudent" class="tab-pane">
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

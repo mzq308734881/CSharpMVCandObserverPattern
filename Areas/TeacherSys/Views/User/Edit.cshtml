@@ -1,0 +1,77 @@
+﻿@model Teacher
+<h3 class="tydvrg_tit">修改个人信息</h3>
+<div class="dhg2"></div>
+<div class="cdiv ps" id="content_cp" style="height: 65%;">
+    <div class="r_con_over chenposi" id="abloeds">
+        <form class="ablogs_pwd" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" action="@Url.Action("edit")">
+            <div class="ablogs_pwd_item">
+                <label>姓名：</label>
+                @Model.UserInfo.LoginName
+            </div>
+            <div class="ablogs_pwd_item">
+                <label>性别：</label>
+                <div>
+                    @Html.DropDownListFor(d => d.UserInfo.Sex, ViewData["UserInfo.Sex"] as SelectList, new { @class = "wid300 ctbord" })
+                </div>
+            </div>
+            <div class="ablogs_pwd_item">
+                <label>联系方式：</label>
+                @Html.TextBoxFor(d => d.UserInfo.Tel, new { @class = "wid300 ctbord" })
+            </div>
+            <div class="ablogs_pwd_item">
+                <label>邮箱：</label>
+                @Html.TextBoxFor(d => d.UserInfo.Email, new { @class = "wid300 ctbord" })
+            </div>
+            <div class="ablogs_pwd_item">
+                <label>QQ：</label>
+                @Html.TextBoxFor(d => d.UserInfo.QQ, new { @class = "wid300 ctbord" })
+            </div>
+            <div class="dhg2"></div>
+            <div class="ablogs_pwd_item">
+                <label></label>
+                <button class="btn btn-primary" type="submit">保存内容</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="cdiv_cen" id="mg-btn-pos" style="height: 10%;width: 10%">
+    <dl class="tydl mytc_ad2">
+        <dd>
+            <a class="tydv_btn_pka bd_rd5 fl" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" href="@Url.Action("search")">取消</a>
+        </dd>
+    </dl>
+</div>
+<script>
+    $("#abloeds").mCustomScrollbar({
+        scrollButtons: {
+            enable: true
+        },
+        theme: "dark-thin"
+    });
+
+</script>
+<script>
+    $.getScript("/Content/scrollbar/js/minified/jquery.mCustomScrollbar.min.js", function () {
+        $.getScript("/Content/kindeditor/kindeditor-all-min.js", function () {
+            $("#abloeds").mCustomScrollbar({
+                scrollButtons: {
+                    enable: true
+                },
+                theme: "dark-thin"
+            });
+            KindEditor.basePath = '/Content/kindeditor/';
+            var editor = KindEditor.create('input[class="text_indent1"]', {
+                resizeType: 1,
+                allowPreviewEmoticons: false,
+                allowImageUpload: false,
+                items: [
+                    'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                    'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                    'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+            });
+
+        });
+    });
+</script>
+
+

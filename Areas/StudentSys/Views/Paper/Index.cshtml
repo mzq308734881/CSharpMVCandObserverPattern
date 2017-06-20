@@ -1,0 +1,120 @@
+﻿@model StudentProcess
+@{
+    Layout = null;
+    var log = new StudentProcessLog() { StudentProcessID = Model.ID };
+}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>@Model.TreatiseProcess.ProcessName</h2>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    @if (Model.StudentProcessLogs.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>内容截取</th>
+                                        <th>创建时间</th>
+                                        <th>附件</th>
+                                        <th>手机号</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.StudentProcessLogs)
+                                    {
+                                        <tr>
+
+
+                                            <td>
+                                                @StringHelper.GetNoHtmlSubString(item.PaperComment, 20)
+                                                @if (item.IsBest == 1)
+                                                {
+                                                    <span class="label label-primary">
+                                                        <i class="fa fa-chevron-right "></i> 最佳版本
+                                                    </span>
+                                                }
+                                            </td>
+                                            <td>@item.CreateTime</td>
+                                            <td><a href="@item.PaperFileUrl"> @item.PaperFileName </a></td>
+                                            <td>
+                                                <a href="/studentsys/paper/detail/@item.ID" class="btn btn-info" data-ajax-update="#logform" data-ajax-mode="replace" data-ajax="true">
+                                                    <i class="fa fa-paste"></i>
+                                                    查看
+                                                </a>
+
+                                                @if (Model.TreatiseProcess.IsOpen == 1 && Model.SubmitTime == null)
+                                                {
+                                                    <a href="/studentsys/paper/edit/@item.ID" class="btn btn-info" data-ajax-update="#logform" data-ajax-mode="replace" data-ajax="true">
+                                                        <i class="fa fa-paste"></i>编辑
+                                                    </a>
+                                                    if (Model.SubmitTime == null)
+                                                    {
+                                                        if (item.IsBest == 1)
+                                                        {
+                                                            <a href="#" class="btn btn-info" onclick="submitit(@item.StudentProcessID)">
+                                                                <i class="fa fa-paste"></i>提交
+                                                            </a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="#" class="btn btn-info" onclick="setbest(@item.ID)">
+                                                                <i class="fa fa-paste"></i>设为最佳
+                                                            </a>
+                                                        }
+                                                    }
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row"> <p style="text-align:center"> 暂未提交论文 </p></div>
+                    }
+                    <div id="logform">
+                        @Html.Partial("add", log)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function setbest(id) {
+        if (confirm("设定为最佳后可以重新调整，确定要设置为最佳吗?")) {
+            var pid=@Model.ProcessID;
+            $.post("/studentsys/paper/setbest", { id: id }, function (data) {
+                if (data == "OK") {
+                    alert("设置成功！");
+                    $.get("/studentsys/paper/index", { id: pid }, function (data) {
+                        $("#rightpart").html(data);
+                    });
+                } else {
+                    alert(data);
+                }
+            });
+        };
+    }
+    function submitit(id) {
+        if (confirm("提交后无法再做修改，确定要提交吗?")) {
+            $.post("/studentsys/paper/submitit", { id: id }, function (data) {
+                if (data == "OK") {
+                    alert("设置成功！");
+                    window.location.reload();
+                } else {
+                    alert(data);
+                }
+            });
+        };
+    }
+</script>

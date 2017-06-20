@@ -1,0 +1,118 @@
+﻿<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>学生信息管理</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/prms/">主页</a>
+            </li>
+            <li>
+                <strong>学生信息管理</strong>
+            </li>
+            <li>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>学生信息管理</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <ul id="schooltree" class="ztree"></ul>
+                            </div>
+                            <div class="col-lg-9" id="studentpage">
+                                @Html.Partial("search")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section scripts{
+    <script src="~/Content/plugins/zTree/js/jquery.ztree.all.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var setting = {
+                data: {
+                    simpleData: { enable: true },
+                    idKey: "id",
+                    pIdKey: "pid",
+                    rootPid: 0,
+                },
+                callback: {
+                    onClick: zTreeOnClick
+                }
+            };
+
+            $.ajax({
+                type: "get",
+                dataType: "json",
+                traditional: true,
+                url: "@(Url.Action("ztree", "ajax"))",
+                async: false,//表示同步执行
+                success: function (data, textStatus) {
+                    if (data != null) {
+                        $.fn.zTree.init($("#schooltree"), setting, data);
+                    }
+                },
+                error: function (e) {
+                    layer.alert("学校信息加载失败，请刷新页面重新加载！");
+                }
+            });
+
+        });
+        function zTreeOnClick(event, treeId, treeNode) {
+            $.get("@Url.Action("search")", { id: treeNode.id }, function (data) {
+                $("#studentpage").html(data);
+            });
+        };
+        //-->
+    </script>
+    <script>
+        function btndel(id) {
+            layer.confirm('"删除后数据无法恢复，确定要删除吗?"', { icon: 3, title: '确认删除' }, function (index) {
+                $.post("@Url.Action("delete")", { id: id }, function (data) {
+                    if (data == "OK") {
+                        layer.msg("删除成功！");
+                        $("#item_" + id).hide();
+                    } else {
+                        layer.alert(data);
+                    }
+                });
+                layer.close(index);
+            });
+        }
+    </script>
+    <script>
+        function resetpwd(id) {
+            layer.confirm('"重置后密码将为初始密码，确定要重置吗?"', { icon: 3, title: '确认重置' }, function (index) {
+                $.post("@Url.Action("resetpwd")", { id: id }, function (data) {
+                    if (data == "OK") {
+                        layer.msg("重置成功！");
+                        window.location.reload();
+                    } else {
+                        layer.alert(data);
+                    }
+                });
+                layer.close(index);
+            });
+        }
+    </script>
+}

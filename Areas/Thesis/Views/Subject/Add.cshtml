@@ -1,0 +1,82 @@
+﻿@model TreatiseSubject
+@{
+    Layout = null;
+
+}
+@using (Ajax.BeginForm("add", null, new AjaxOptions()
+{
+
+    Confirm = "确认要保存吗？",
+    HttpMethod = "post",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "tab-subject"
+}, new { @class = "form-horizontal", id = "treasubje" }))
+{
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">导师：</label>
+        <div class="col-sm-6">
+            @Html.DropDownListFor(d => d.TreatiseTeacherID, ViewBag.TreatiseTeacherID as SelectList, new { @class = "chosen-select", onchange = "GetTreatiseTeacherSubject(this.value)", datatype = "n", nullmsg = "请选择导师！", errormsg = "请选择导师！", sucmsg = "" })
+            <span class="help-block m-b-none Validform_checktip"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">课题：</label>
+        <div class="col-sm-6">
+            <select id="SubjectID" name="SubjectID" class="chosen-select" onchange="GetSubject(this.value)" datatype="n" nullmsg="请选择课题！" errormsg="请选择课题！"></select>
+            <span class="help-block m-b-none Validform_checktip"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">学生人数：</label>
+        <div class="col-sm-6">
+            @Html.TextBoxFor(d => d.Total, new { @class = "form-control", datatype = "isIntGteZero", nullmsg = "请输入课题人数！", errormsg = "请输入课题人数！", ajaxurl = Url.Action("SubjectStudentCount", "ajax", new { id = @Model.ID }) })
+            <span class="help-block m-b-none Validform_checktip"></span>
+        </div>
+    </div>
+    <div id="SubjectComment"></div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <div class="col-sm-4 col-sm-offset-2">
+            <button class="btn btn-primary" type="submit">保存内容</button>
+            <a class="btn btn-white" href="@Url.Action("search")" data-ajax-update="#tab-subject" data-ajax-mode="replace" data-ajax="true">取消</a>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.getScript('/Content/Scripts/select2/select2.js', function () {
+            $.getScript("/Content/Scripts/Validform_v5.3.2.js", function () {
+                $(".chosen-select").select2();
+                $("#treasubje").Validform(
+              {
+                  tiptype: 3,
+                  ignoreHidden: false
+              });
+            });
+        });
+    });
+    function GetTreatiseTeacherSubject(id) {
+        if (id - 0 == 0) return;
+        $.getJSON("@Url.Action("GetTreatiseTeacherSubject", "ajax")", { id: id }, function (data) {
+
+            if (data == null || data.length == 0) {
+                html = '<option value="0">未找到导师课题</option>';
+            } else {
+                html = '<option value="0">请选择导师课题</option>';
+                for (var i = 0; i < data.length; i++) {
+                    html += '<option value="' + data[i].ItemID + '">' + data[i].ItemName + '</option>';
+                }
+            }
+            $("#SubjectID").html(html);
+            $("#SubjectID").val(null).trigger("change");
+            $("#SubjectComment").html('');
+        });
+    }//编辑器
+    function GetSubject(id) {
+        if (id - 0 == 0) return;
+        $.get("@Url.Action("subject")", { id: id }, function (data) {
+            $("#SubjectComment").html(data);
+        });
+    }
+</script>

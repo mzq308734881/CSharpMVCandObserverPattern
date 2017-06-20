@@ -1,0 +1,51 @@
+﻿@model TreatiseStudentViewModel
+    <div class="footer_menu_box">
+        <div class="menu">
+            <div class="bt-name">工作计划</div>
+            <div class="sanjiao"></div>
+            <div class="new-sub">
+                <ul>
+                    <li><a href="@Url.Action("search", "plan")" class="ty_tcurrt" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#rightbody">我的工作计划</a></li>
+                    <li><a href="@Url.Action("process", "plan")" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#rightbody">毕业论文安排</a></li>
+                </ul>
+                <div class="tiggle"></div>
+                <div class="innertiggle"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cdiv pd20 ptmg ow tyhg5">
+        <div class="ps hei-a85">
+            <h3 class="tydvrg_tit ps">
+                毕业论文计划安排
+            </h3>
+            <div class="dhg2"></div>
+            <div class="cdiv ps" id="content_cp" style="height:65%;">
+                <div class="dhg3"></div>
+                <div class="r_con_over chenposi" id="abloeds">
+                    <div class="addv">
+                        <table width="100%" cellpadding="0" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>流程</th>
+                                <th>开始时间</th>
+                                <th>结束时间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var item in Model.ProcessList)
+                            {
+                            <tr>
+                                <td>@item.ProcessName</td>
+                                <td>@string.Format("{0:yyyy年MM月dd日}",item.StartTime)</td>
+                                <td>@string.Format("{0:yyyy年MM月dd日}", item.EndTime)</td>
+                            </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,52 @@
+﻿@model StudentProcessViewModel
+@{
+    var num = 0;
+}
+<div class="dhg4"></div>
+<div class="addv">
+    <div class="tydl ptmg_stp_dl ">
+        <lable>学生论文原件：</lable>
+        @if (Model.Annex != null)
+        {
+                <a href="@Url.Action("Annex", "DownLoad", new {area = "", id = Model.Annex.ID})" target="_blank">@Model.Annex.AnnexName</a>
+            
+        }
+        else
+        {
+            <div class="stp_txtarea">
+              暂无附件
+            </div>
+        }
+     
+    </div>
+    <div class="dhg4"></div>
+    <div class="tydl ptmg_stp_dl ">
+        <lable>相关说明：</lable>
+            @Html.Raw(Model.ProcessLog.Comment)
+    </div>
+    <div class="dhg4"></div>
+    <div class="tydl ptmg_stp_dl ">
+        <lable>相关说明：</lable>@if (Model.CheckAnnex != null)
+        {
+            <a href="@Url.Action("Annex", "DownLoad", new {area = "", id = Model.CheckAnnex.ID})" target="_blank">@Model.CheckAnnex.AnnexName</a>
+        }
+        else
+        {
+            <div class="stp_txtarea">
+                暂无附件
+            </div>
+        }
+    </div>
+    <div class="dhg4"></div>
+    <div class="tydl ptmg_stp_dl ">
+        <label>导师评语：</label>
+            @Html.Raw(Model.ProcessLog.CheckComment)
+    </div>
+    <div class="dhg4"></div>
+    <div class="tydl ptmg_stp_dl ">
+        <lable>评阅结果：</lable>
+            @SelectListHelper.StudentProcessLogCheckStateName(Model.ProcessLog.CheckState)
+    </div>
+    <div class="dhg4"></div>
+</div>
+<div class="dhg4"></div>

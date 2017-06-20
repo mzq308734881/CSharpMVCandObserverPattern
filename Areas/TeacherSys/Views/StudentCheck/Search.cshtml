@@ -1,0 +1,86 @@
+﻿@model StudentChooseViewModel
+@{
+    var isfirst = true;
+    var issort = Model.CheckOrder != 0;
+}
+<h3 class="tydvrg_tit">学生课题审核</h3>
+<div class="dhg2"></div>
+<div id="content_cp" class="cdiv ps" style="height:90%;">
+    <div class="dhg2"></div>
+    <div class="r_con_over wid_a100 chenposi" id="abloeds" tabindex="5000">
+        <div class="cdiv">
+            <div class="dhg3"></div>
+            @foreach (var item in Model.StudentList)
+            {
+                <div class="addvcp">
+                    <div class="xslw_manven_project">@item.Name [ @item.StudentNo ]</div>
+                    <div class="xslw_manven_project_content" style="@(isfirst ? "" : "display: none")">
+                        <table width="100%" cellpadding="0" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>编号</th>
+                                    <th>标题</th>
+                                    @if (issort)
+                                    {
+                                        <th>选题审核顺序（@(Model.CheckOrder == 1 ? "顺序" : "倒序")）</th>
+                                    }
+                                    <th>审核状态</th>
+                                    <th>课题导师</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var open in item.OpenList)
+                                {
+                                    <tr>
+                                        <td>@open.ID</td>
+                                        <td>@open.Title</td>
+                                        @if (issort)
+                                        {
+                                            <td>@open.Sort</td>
+                                        }
+                                        <td>@SelectListHelper.GetTreatiseOpeningCheckStateName(open.CheckState)</td>
+                                        <td>@AjaxHelpsController.GetTeacherName(open.TeacherID)</td>
+                                        <td>
+                                            @if (open.CanCheck)
+                                            {
+                                                if (issort)
+                                                {
+                                                    if (open.IsFirst)
+                                                    {
+                                                        <span><a class="btn btn-primary" href="@Url.Action("check", new {id = open.ID})" data-ajax-update="#teacherpage" data-ajax-mode="replace" data-ajax="true">审核</a></span>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <span><a class="btn btn-primary" href="@Url.Action("check", new {id = open.ID})" data-ajax-update="#teacherpage" data-ajax-mode="replace" data-ajax="true">审核</a></span>
+                                                }
+                                            }
+                                            <span><a class="btn btn-primary" href="@Url.Action("detail", new {id = open.ID})" data-ajax-update="#teacherpage" data-ajax-mode="replace" data-ajax="true">查看</a></span>
+                                        </td>
+                                    </tr>
+
+
+
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="dhg2"></div>
+                </div>
+
+                isfirst = false;
+            }
+        </div>
+    </div>
+</div>
+<script>
+    $("#abloeds").mCustomScrollbar({
+        scrollButtons: {
+            enable: true
+        },
+        theme: "dark-thin"
+    });
+</script>
+
+

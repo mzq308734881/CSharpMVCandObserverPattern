@@ -1,0 +1,50 @@
+﻿@model StudentChooseViewModel
+<div class="tycdv bd_rd10">
+    <div class="dhg4"></div>
+    <div class="cdiv pd20 ptmg">
+        @*<div class="ptmg_tmdv ow">
+                <span class="icon_ptmg_tm ft18 fr">课题截止日期：</span>
+            </div>*@
+        <div class="dhg4"></div>
+        <dl class="tydl ptmg_dl">
+
+            @switch (Model.State)
+            {
+                case 0:
+                    <dt>
+                        <span><a href="#" onclick="layer.msg('选题未开始或已结束！')" class="ptmg_tm ptmg_tmbg1 bd_sd">暂未开始</a></span>
+                        <span><a href="@Url.Action("subjectlist")" class="ptmg_tm ptmg_tmbg2 bd_sd" data-ajax-update="#studentpage" data-ajax-mode="replace" data-ajax="true">查看选题</a></span>
+                    </dt>
+                    break;
+                case 1:
+                    <dt>
+                        <span><a class="ptmg_tm ptmg_tmbg1 bd_sd" href="@Url.Action("chooseteacher", "subjectchoose")" data-ajax-update="#studentpage" data-ajax-mode="replace" data-ajax="true">课题选择</a></span>
+                        <span><a href="@Url.Action("subjectlist")" class="ptmg_tm ptmg_tmbg2 bd_sd" data-ajax-update="#studentpage" data-ajax-mode="replace" data-ajax="true">查看选题</a></span>
+                    </dt>
+                    break;
+                case 2:
+                    <dt>
+                        <span><a href="#" onclick="layer.msg('选题已满，请等候审核……')" class="ptmg_tm ptmg_tmbg1 bd_sd">选题已满</a></span>
+                        <span><a href="@Url.Action("subjectlist")" class="ptmg_tm ptmg_tmbg2 bd_sd" data-ajax-update="#studentpage" data-ajax-mode="replace" data-ajax="true">查看选题</a></span>
+                    </dt>
+                    break;
+                case 3:
+                    <dt>
+                        <span><a href="@Url.Action("subjectlist")" class="ptmg_tm ptmg_tmbg1 bd_sd" data-ajax-update="#studentpage" data-ajax-mode="replace" data-ajax="true">审核通过</a></span>
+                        <span><a href="@Url.Action("subjectlist")" class="ptmg_tm ptmg_tmbg2 bd_sd" data-ajax-update="#studentpage" data-ajax-mode="replace" data-ajax="true">查看选题</a></span>
+                    </dt>
+                    break;
+                case 4:
+                    <dt>
+                        <span><a class="ptmg_tm ptmg_tmbg1 bd_sd" href="@Url.Action("chooseteacher", "subjectchoose")" data-ajax-update="#studentpage" data-ajax-mode="replace" data-ajax="true">重新选题</a></span>
+                        <span><a href="@Url.Action("subjectlist")" class="ptmg_tm ptmg_tmbg2 bd_sd" data-ajax-update="#studentpage" data-ajax-mode="replace" data-ajax="true">查看选题</a></span>
+                    </dt>
+                    break;
+            }
+            <dd class="dhg4"></dd>
+            <dd>
+                流程说明：<br />课题选择模式 审核通过，进入我的论文；审核未通过，系统将提示重新选题 审核通过，进入我的论文；审核未通过，系统会重新跳转课题选择页面
+            </dd>
+        </dl>
+    </div>
+</div>

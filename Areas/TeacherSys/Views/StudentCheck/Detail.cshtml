@@ -1,0 +1,95 @@
+﻿@model OpeningReport
+@{
+    var student = AjaxHelpsController.GetUserInfo(Model.StudentID, 2);
+}
+<style>
+    .ablogs_pwd_item label {
+        width: 14em;
+    }
+</style>
+<h3 class="tydvrg_tit">学生课题审核</h3>
+<div class="dhg2"></div>
+<div id="content_cp" class="cdiv ps" style="height:90%;">
+    <div class="dhg2"></div>
+    <div class="r_con_over chenposi" id="abloeds" tabindex="5000" style="overflow: hidden; outline: none;">
+        <div class="ablogs_pwd">
+            <div class="ablogs_pwd_item">
+                <label>课题名称：</label>
+                @(Model.TreatiseSubject != null ? Model.TreatiseSubject.SubjectTitle : "暂未选题")
+            </div>
+            @if (student != null)
+            {
+                <div class="ablogs_pwd_item">
+                    <label>学号：</label>
+                    @student.LoginName
+                </div>
+                <div class="ablogs_pwd_item">
+                    <label>学生姓名：</label>
+                    @student.TrueName
+                </div>
+                <div class="ablogs_pwd_item">
+                    <label>所属专业：</label>
+                    @StaticHelper.GetSchoolName(student.SchoolID ?? 0)
+                </div>
+                <div class="ablogs_pwd_item">
+                    <label>个人简介：</label>
+                    @(student.Comment ?? "暂未填写")
+                </div>            }
+            else
+            {
+                <div class="ablogs_pwd_item">
+                    <label></label>
+                    未找到对应学生！
+                </div>
+            }
+            <div class="ablogs_pwd_item">
+                <label>审核状态：</label>
+                @SelectListHelper.GetTreatiseOpeningCheckStateName(Model.CollegeState)
+            </div>
+            @if (Model.TreatiseStudent.Treatise.IsReport == 1)
+            {
+                <div class="ablogs_pwd_item">
+                    <label>本选题的研究目的及意义：</label>
+                    @Html.Raw(Model.Meaning)
+                </div>
+                <div class="ablogs_pwd_item">
+                    <label>国内外研究状况评述：</label>
+                    @Html.Raw(Model.Review)
+                </div>
+                <div class="ablogs_pwd_item">
+                    <label>本课题的研究内容及写作大纲：</label>
+                    @Html.Raw(Model.Outline)
+                </div>
+                <div class="ablogs_pwd_item">
+                    <label>本课题完成措施及进度计划：</label>
+                    @Html.Raw(Model.Plan)
+                </div>
+                <div class="ablogs_pwd_item">
+                    <label>主要参考文献：</label>
+                    @Html.Raw(Model.Reference)
+                </div>
+                <div class="ablogs_pwd_item">
+                    <label>指导教师意见：</label>
+                    @Html.Raw(Model.TeacherComment)
+                </div>
+                <div class="ablogs_pwd_item">
+                    <label>管理员意见：</label>
+                    @Html.Raw(Model.CollegeComment)
+                </div>
+            }
+            <div class="ablogs_pwd_item">
+                <label> </label>
+                <a class="btn btn-white" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" href="@Url.Action("search")">返回</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    $("#abloeds").mCustomScrollbar({
+        scrollButtons: {
+            enable: true
+        },
+        theme: "dark-thin"
+    });
+</script>

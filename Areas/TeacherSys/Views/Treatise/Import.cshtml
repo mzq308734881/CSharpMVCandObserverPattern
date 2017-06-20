@@ -1,0 +1,140 @@
+﻿@model TreatiseTeacherViewModel
+
+<form id="form0" method="post" data-ajax-update="#replacecontent" data-ajax-mode="replace" data-ajax-method="post" data-ajax-confirm="确认要保存此流程吗？" data-ajax="true" action="/teachersys/treatise/import/@Model.Treatise.ID" class="form-horizontal">
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">项目名称</label>
+        <div class="col-sm-8">
+            @Model.Treatise.TreatiseName
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">剩余未分配学生数</label>
+        <div class="col-sm-8" id="surplussum">
+            @Model.SurplusSum
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+
+    <div class="form-group" id="divlist">
+        <div style="display:none" id="hidediv">
+            <div class="row center-block">
+                <div class="col-sm-3  col-sm-offset-3">
+                    @Html.DropDownList("SubjectID", ViewData["SubjectID"] as SelectList, new { @class = "form-control subjectid" })
+                </div>
+                <div class="col-sm-3">
+                    <input name="StudentSum" id="StudentSum" class="form-control studentsum" onkeyup="checksum() " />
+                </div>
+                <div class="col-sm-1">
+                    <input type="button" value="删除" onclick="delparent(this)" />
+                </div>
+            </div>
+        </div>
+        <div class="row center-block">
+            <div class="col-sm-3  col-sm-offset-3 ">
+                课题选择
+            </div>
+            <div class="col-sm-3">
+                课题人数配置
+            </div>
+            <div class="col-sm-1">
+                <a class="btn btn-sm btn-primary" onclick="adddiv()" style="float:right" href="javascript:void(0)"> 增加</a>
+            </div>
+        </div>
+        <div class="row center-block">
+            <div class="col-sm-3  col-sm-offset-3">
+                @Html.DropDownList("SubjectID", ViewBag.SubjectID as SelectList, new { @class = "form-control subjectid" })
+            </div>
+            <div class="col-sm-3">
+                <input name="StudentSum" id="StudentSum" class="form-control studentsum" onkeyup="checksum() " />
+            </div>
+            <div class="col-sm-1">
+                <input type="button" value="删除" onclick="delparent(this)" />
+            </div>
+        </div>
+        <div class="row center-block">
+            <div class="col-sm-3  col-sm-offset-3">
+                @Html.DropDownList("SubjectID", ViewBag.SubjectID as SelectList, new { @class = "form-control subjectid" })
+            </div>
+            <div class="col-sm-3">
+                <input name="StudentSum" id="StudentSum" class="form-control studentsum" onkeyup="checksum() " />
+            </div>
+            <div class="col-sm-1">
+                <input type="button" value="删除" onclick="delparent(this)" />
+            </div>
+        </div>
+        <div id="hieeee"></div>
+    </div>
+
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <div class="col-sm-4 col-sm-offset-2">
+            <button class="btn btn-primary" type="submit" onclick="return formsubmit()">导入</button>
+            <a class="btn btn-white" href="@Url.Action("search")" data-ajax-update="#wizard-p-2" data-ajax-mode="replace" data-ajax="true">取消</a>
+        </div>
+    </div>
+    <div style="display:none" id="replacecontent"></div>
+</form>
+@section Scripts{
+    <script>
+        function adddiv() {
+            var copy = $("#hidediv").html();
+            $("#divlist ").append(copy);
+        }
+        function delparent(a) {
+            $(a).parent().parent().remove();
+        }
+        function formsubmit() {
+            if (checksub() == true) {
+                if (checksum()) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+
+        }
+        function checksum() {
+            var i = 0;
+            var sum = $("#surplussum").html() - 0;
+            $(".studentsum").each(function (index, item) {
+                //item为遍历的当前td,是DOM对象
+                if (i != 0) {
+                    var b = $(item).val() - 0;
+                    if (isNaN(b) == true) {
+                        $(item).val("");
+                    }
+                    if (b == 0) {
+                        $(item).val("");
+                        b = "aaa";
+                    }
+                    sum = sum - b;
+                    console.log(sum);
+                }
+               
+                i++;
+            });
+            if (isNaN(sum) == true) { alert("人数仅能输入大于0的数字！！"); return false; }
+            if (sum < 0) { alert("当前学生数大于未分配总人数！"); return false; }
+            return true;
+        }
+        function checksub() {
+            var i = 0;
+            var boo = true;
+            $(".subjectid").each(function (index, item) {
+                //item为遍历的当前td,是DOM对象
+                var b = $(item).val() - 0;
+                if (i != 0 && b == 0) {
+                    alert("第" + i + "项未选择课题！"); boo = false;
+                }
+                i++;
+            });
+            if (boo && i <= 1) { alert("请添加课题后再提交！！"); boo = false; }
+            if (!boo) return false;
+            return true;
+        }
+    </script>
+}

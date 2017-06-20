@@ -1,0 +1,145 @@
+﻿@model Treatise
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>项目详情</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/prms/">主页</a>
+            </li>
+            <li>
+                <a href="/prms/treatise">项目管理</a>
+            </li>
+            <li>
+                <strong>项目详情</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <form method="post" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">标题:</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">@Model.TreatiseName</p>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label">选择专业:</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-static">@StaticHelper.GetSchoolFullName(Model.SchoolID ?? 0)</p>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label">开题报告方式:</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-static">@SelectListHelper.TreatiseIsReportName(Model.IsReport)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label">开始时间:</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-static">@string.Format("{0:yyyy-MM-dd}", Model.StartTime)</p>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label">结束时间:</label>
+                                <div class="col-sm-8">
+
+                                    <p class="form-control-static">@string.Format("{0:yyyy-MM-dd}", Model.EndTime)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">描述:</label>
+                            <div class="col-sm-10">
+
+                                <p class="form-control-static">@Html.Raw(Model.Comment)</p>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label">选题显示老师姓名:</label>   
+                                <div class="col-sm-8">
+                                    <p class="form-control-static">@SelectListHelper.TreatiseShowTeacherName(Model.ShowTeacher)</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label">选题方式:</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-static">@SelectListHelper.TreatiseChooseTeacherName(Model.ChooseTeacher)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label">时间分:</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-static">@Model.TimeGrades</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label">质量分:</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-static">@Model.QualityGrades</p>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label">及格分:</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-static">@Model.PassMark</p>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label">是否提交给管理员审核:</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-static">@SelectListHelper.GetIsAdminName(Model.AdminChoose)</p>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-4 control-label">阶段开启模式:</label>
+                                <div class="col-sm-8">
+                                    <p class="form-control-static">@SelectListHelper.TreatiseStageModeName(Model.StageMode)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">选题审核顺序:</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">@SelectListHelper.TreatiseCheckOrderName(Model.CheckOrder)</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <a href="/prms/treatise" class="btn btn-white" type="button">取消</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

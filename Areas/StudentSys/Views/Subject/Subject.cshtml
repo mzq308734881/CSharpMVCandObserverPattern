@@ -1,0 +1,55 @@
+﻿@model TreatiseSubject
+<div class="tycdv bd_rd10 bg_wite">
+    <div class="dhg2"></div>
+    <div class="cdiv pd20 ptmg">
+        <div class="r_con_over" id="abloeds">
+            <div class="cdiv ptmg_stp">
+                <h3 class="ptmg_zmt">@Model.SubjectTitle</h3>
+                <div class="dhg4"></div>
+                <dl class="tydl ptmg_stp_dl">
+                    <dt>主题：</dt>
+                    <dd>
+                        @Model.SubjectTitle
+                    </dd>
+                </dl>
+                <div class="dhg2"></div>
+                <dl class="tydl ptmg_stp_dl">
+                    <dt>课题性质：</dt>
+                    <dd>
+                        @Model.SubjectNature
+                    </dd>
+                </dl>
+                <div class="dhg2"></div>
+                <dl class="tydl ptmg_stp_dl">
+                    <dt>研究方向：</dt>
+                    <dd>
+                        @Model.SubjectResearchAreas
+                    </dd>
+                </dl>
+                <div class="dhg2"></div>
+                <dl class="tydl ptmg_stp_dl">
+                    <dt>研究价值：</dt>
+                    <dd>
+                        @Model.SubjectResearchValue
+                    </dd>
+                </dl>
+                <div class="dhg2"></div>
+                <dl class="tydl ptmg_stp_dl">
+                    <dt>考核标准：</dt>
+                    <dd>
+                        @Model.SubjectPassStandard
+                    </dd>
+                </dl>
+                <div class="dhg2"></div>
+            </div>
+        </div>
+        <div class="dhg4"></div>
+        <dl class="tydl ptmg_stp_dl">
+            <dt></dt>
+            <dd>
+                <a href="@Url.Action("opening",new { id =Model.ID})" data-ajax-update="#studentpage" data-ajax-mode="replace" data-ajax="true" class="ow bd_rd5 fl stp_but">确认选题</a>
+            <dd>
+                <a href="@Url.Action("subjectlist")" data-ajax-update="#studentpage" data-ajax-mode="replace" data-ajax="true" class="ow bd_rd5 fl stp_but">返回</a>
+        </dl>
+    </div>
+</div>

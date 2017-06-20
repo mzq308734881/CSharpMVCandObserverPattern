@@ -1,0 +1,390 @@
+﻿@model TreatiseTeacherViewModel
+@{Layout = null; var userModel = new TeacherViewModel();}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <title>@(ConfigHelper.SchoolName + "论文管理系统")</title>
+    <link rel="stylesheet" href="/Content/css/common.css" type="text/css" media="screen" />
+    <link href="~/Content/layer/skin/layer.css" rel="stylesheet" />
+    <link href="~/Content/css/common.css" rel="stylesheet" />
+    <script src="~/Content/Scripts/MyStudent.js"></script>
+    <link href="~/Content/css/normalize.css" rel="stylesheet" />
+    <link href="~/Content/css/liMarquee.css" rel="stylesheet" />
+    <style type="text/css">
+        .str_wrap {
+            position: fixed;
+            top: 80px;
+            padding-left: 3em;
+            padding-right: 3em;
+            /*background: #fefefe;*/
+            height: 3em;
+            line-height: 3em;
+            font-size: 1.2em;
+        }
+    </style>
+    <!-- <link rel="stylesheet" href="css/easydropdown.flat.css" type="text/css" media="screen"/> -->
+</head>
+<body>
+    <!-- 代码 开始 -->
+
+    <h1 class="hdtitle">@userModel.UserInfo.TrueName 您好，欢迎登录 @userModel.SchoolName 毕业论文(设计)管理系统</h1>
+    <div class="tools">
+
+        <a href="@Url.Action("","")"><i><img src="/Content/images/icon_home.png" /></i></a>
+        <span class="imgnd_kio">
+            <font>
+                <select onchange="reloadtreatise(this.value)">
+                    @foreach (var item in userModel.TreatiseList)
+                    {
+                        <option value="@item.ID" @(item.ID == ConfigHelper.TreatiseID ? " selected='selected'" : "")=)>@item.TreatiseName - @SelectListHelper.TreatiseStageName(item.TreatiseStage)</option>
+                    }
+                </select>
+                <!-- <b class="cheok_bosg"></b> -->
+            </font>
+        </span>
+        <a href="@Url.Action("", "user")"><i><img src="/Content/images/icon_name.png" /></i><font>@userModel.UserInfo.TrueName</font></a>
+        <a href="/teachersys/user/detail"><i><img src="/Content/images/icon_help.png" /></i><font>帮助</font></a>
+        <a href="/home/logout"><i><img src="/Content/images/icon_exit.png" /></i><font>退出</font></a>
+    </div>
+    <!--轮播-->
+    <div class="htmleaf-container">
+        <div class="htmleaf-content">
+            <div class="str12 str_wrap">
+                @if (Model.Notices != null && Model.Notices.Any())
+                {
+                    <a href="@Url.Action("detail",new { id=Model.Notices.First().ID})" style="color: #fff; margin-right: 60px;">@Model.Notices.First().Title</a>
+                }
+            </div>
+        </div>
+    </div>
+    <!--轮播-->
+    <div id="im_wrapper" class="im_wrapper">
+        <div>
+            <a href="@Url.Action("","notice")">
+                <img src="/Content/images/icon_nt.png" alt="通告公告" />
+                <font>通告公告</font>
+            </a>
+            @if (Model.UnCount > 0)
+            {
+                <i class="icon_nt bd_rd50 nt_bn_sjq">@Model.UnCount</i>
+            }
+        </div>
+        <div><a href="@Url.Action("","subject")"><img src="/Content/images/icon_kc.png" alt="课题管理" /><font>课题管理</font></a></div>
+        <div><a href="@Url.Action("","student")"><img src="/Content/images/icon_stdm.png" alt="学生管理" /><font>学生管理</font></a></div>
+        <div><a href="@Url.Action("","question")"><img src="/Content/images/icon_dbm.png" alt="" /><font>提问管理</font></a></div>
+        <div><a href="@Url.Action("", "teacherlog")"><img src="/Content/images/icon_lgmg.png" alt="" /><font>日志管理</font></a></div>
+        <div><a href="@Url.Action("","plan")"><img src="/Content/images/icon_wkjh.png" alt="" /><font>工作计划</font></a></div>
+        @*<div><a href="#" onclick="layer.msg('暂未开放');"><img src="/Content/images/icon_tps.png" alt="" /><font>提醒事项</font></a></div>
+            <div><a href="@Url.Action("","resource")"><img src="/Content/images/icon_zyk.png" alt="" /><font>资源库</font></a></div>*@
+        <div><a href="@Url.Action("","tool")"><img src="/Content/images/icon_tool.png" alt="" /><font>资源与工具管理</font></a></div>
+        <div><a href="@Url.Action("","score")"><img src="/Content/images/icon_grade.png" alt="" /><font>统计分析</font></a></div>
+        <div><a href="@Url.Action("", "user")"><img src="/Content/images/icon_uscenter.png" alt="" /><font>个人中心</font></a></div>
+        <div><a href="@Url.Action("", "review")"><img src="/Content/images/icon_aply.png" alt="" /><font>评审管理</font></a></div>
+    </div>
+    <!--反馈-->
+    <form class="ablogs_pwd" method="post" action="@Url.Action("email")">
+        <div class="addv" id="abloeds">
+            <div id="feedback">
+                <div class="clearfix">
+                    <div class="fl">
+                        <div class="fankui_click">
+                            <img src="~/Content/Images/qfk.png" />
+                        </div>
+                    </div>
+                    <div class="fr feedback_message">
+                        <p class="fk_title">请你在下面框框里尽情的骂吧.</p>
+                        <div class="mk_fg clearfix">
+                            <span class="ysbh_fankui" onclick="dian('1')">BUG反馈</span>
+                            <span onclick="dian('2')">功能反馈</span>
+                            <span onclick="dian('3')">意见反馈</span>
+                            <span onclick="dian('4')">服务反馈</span>
+                            <input type="button" style="display:none" id="_change" value="" />
+                        </div>
+                        <div style="clear:both"></div>
+                        <textarea class="bianjifankui" name="commnet"></textarea>
+                        <input type="submit" class="tydv_but bd_rd5" value="提交" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script>
+        function dian(i) {
+            $('#_change').val(i);
+        }
+    </script>
+
+    <script type="text/javascript" src="/Content/Scripts/jquery.min.js"></script>
+    <!-- <script src="js/jquery.easydropdown.js"></script> -->
+    <script src="/Content/Scripts/jquery-1.7.2.js"></script>
+    <script src="/Content/Scripts/MyTeacher.js"></script>
+    <script src="~/Content/layer/layer.js"></script>
+    <script src="~/Content/Scripts/MyTeacher.js"></script>
+    <script src="~/Content/js/feedback.js"></script>
+
+    <!-- The JavaScript -->
+    <script>window.jquery || document.write('<script src="~/Content/js/jquery-2.1.1.min.js"><\/script>')</script>
+    <script src="~/Content/js/jquery.liMarquee.js"></script>
+    <script>
+        $(window).load(function () {
+            $('.str12').liMarquee();
+        });
+    </script>
+    <script type="text/javascript">
+        (function ($, sr) {
+            //从约翰损害消除抖动功能
+            var debounce = function (func, threshold, execAsap) {
+                var timeout;
+                return function debounced() {
+                    var obj = this, args = arguments;
+                    function delayed() {
+                        if (!execAsap)
+                            func.apply(obj, args);
+                        timeout = null;
+                    };
+                    if (timeout)
+                        clearTimeout(timeout);
+                    else if (execAsap)
+                        func.apply(obj, args);
+                    timeout = setTimeout(delayed, threshold || 100);
+                };
+            }
+            //smartresize
+            jQuery.fn[sr] = function (fn) { return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
+        })(jQuery, 'smartresize');
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            //check if the user made the
+            //mistake to open it with IE
+            var ie = false;
+            if ($.browser.msie)
+                ie = true;
+            //flag to control the click event
+            var flg_click = true;
+            //the wrapper
+            var $im_wrapper = $('#im_wrapper');
+            //the thumbs
+            var $thumbs = $im_wrapper.children('div');
+            //all the images
+            var $thumb_imgs = $thumbs.find('img');
+            //number of images
+            var nmb_thumbs = $thumbs.length;
+            //image loading status
+            var $im_loading = $('#im_loading');
+            //the next and previous buttons
+            var $im_next = $('#im_next');
+            var $im_prev = $('#im_prev');
+            //每行的拇指
+            var per_line = 5;
+            //每列的拇指
+            var per_col = Math.ceil(nmb_thumbs / per_line)
+            //指数当前的拇指
+            var current = -1;
+            //网格模式= |单身
+            var mode = 'grid';
+            //一个数组与拇指的位置
+            //我们将使用它在单一导航模式
+            var positionsArray = [];
+            for (var i = 0; i < nmb_thumbs; ++i)
+                positionsArray[i] = i;
+
+
+            //预加载的所有图片
+            $im_loading.show();
+            var loaded = 0;
+            $thumb_imgs.each(function () {
+                var $this = $(this);
+                $('<img/>').load(function () {
+                    ++loaded;
+                    if (loaded == nmb_thumbs * 2)
+                        start();
+                }).attr('src', $this.attr('src'));
+                $('<img/>').load(function () {
+                    ++loaded;
+                    if (loaded == nmb_thumbs * 2)
+                        start();
+                }).attr('src', $this.attr('src').replace('/thumbs', ''));
+            });
+
+            //开始动画
+            function start() {
+                $im_loading.hide();
+                //驱散拇指在网格
+                disperse();
+            }
+
+            //分散的拇指在网格中基于windows意蕴
+            function disperse() {
+                if (!flg_click) return;
+                setflag();
+                mode = 'grid';
+                //中心点为第一拇指沿窗口的宽度
+                var spaces_w = $(window).width() / (per_line + 1);
+                //中心点为第一拇指沿窗口的高度
+                var spaces_h = $(window).height() / (per_col + 1);
+                //让我们分散拇指同样在页面上
+                $thumbs.each(function (i) {
+                    var $thumb = $(this);
+                    //计算左和对于每一个拇指,
+                    //考虑每行多少我们想要的
+                    var left = spaces_w * ((i % per_line) + 1) - $thumb.width() / 2;
+                    var top = spaces_h * (Math.ceil((i + 1) / per_line)) - $thumb.height() / 2;
+                    //让每个拇指给一个随机的程度
+                    var r = Math.floor(Math.random() * 41) - 20;
+                    var t = Math.floor(Math.random() * 41);
+                    var s = Math.floor(Math.random() * ((i % per_line) * 0.1)) + 1;
+                    /*
+                    现在我们动画拇指到最终位置;我们也消失在其图像,动画115 x115,和删除任何背景图像的拇指——这不相关的我们第一次叫驱散,但当从单一网格模式
+                     */
+                    if (ie)
+                        var param = {
+                            'left': left + 'px',
+                            'top': top + 'px',
+                            'scale': s,
+                        };
+                    else
+                        var param = {
+                            'left': left + 'px',
+                            'top': top + 'px',
+                            /*'rotate'	: s + 'px',*/
+                            /*'translate' : t + 'px',*/
+                            'scale': s,
+                            //		'translateX' : r + 'px',
+                            //								'translateY' : r + 'px',
+                            //								'scale' : r
+                        };
+                    $thumb.stop()
+                    .animate(param, 700, function () {
+                        if (i == nmb_thumbs - 1)
+                            setflag();
+                    })
+                    .find('img')
+                    .fadeIn(700, function () {
+                        $thumb.css({
+                            'background-image': 'none'
+                        });
+                        $(this).animate({
+                            'width': '142px',
+                            'height': '142px',
+                            /*'marginTop'	: '0px',
+                            'marginLeft': '0px'*/
+                        }, 150);
+                    });
+                });
+            }
+
+            /*/ /控制如果我们可以点击拇指
+            / /如果有一个动画在进步
+            / /我们不希望用户能够点击*/
+            function setflag() {
+                flg_click = !flg_click
+            }
+
+            /*
+            当我们点击一个大拇指,我们想将它们合并点击并显示完整的图像。我们需要动画拇指的位置中心最终的图像在屏幕上。的图像本身是每一个拇指的背景图像将(不同背景位置)如果我们目前所看到的单一形象,然后我们又要驱散的拇指,和,显示了拇指的图像。
+             */
+
+
+            /*/ /删除导航按钮*/
+            function removeNavigation() {
+                $im_next.stop().animate({ 'right': '-50px' }, 300);
+                $im_prev.stop().animate({ 'left': '-50px' }, 300);
+            }
+
+            /*添加导航按钮*/
+            function addNavigation() {
+                $im_next.stop().animate({ 'right': '0px' }, 300);
+                $im_prev.stop().animate({ 'left': '0px' }, 300);
+            }
+
+            /*/ /用户单击next按钮(单一模式)*/
+            $im_next.bind('click', function () {
+                if (!flg_click) return;
+                setflag();
+
+                ++current;
+                var $next_thumb = $im_wrapper.children('div:nth-child(' + (current + 1) + ')');
+                if ($next_thumb.length > 0) {
+                    var image_src = $next_thumb.find('img').attr('src').replace('/thumbs', '');
+                    var arr = Array.shuffle(positionsArray.slice(0));
+                    $thumbs.each(function (i) {
+                        //we want to change each divs background image
+                        //on a different point of time
+                        var t = $(this);
+                        setTimeout(function () {
+                            t.css({
+                                'background-image': 'url(' + image_src + ')'
+                            });
+                            if (i == nmb_thumbs - 1)
+                                setflag();
+                        }, arr.shift() * 20);
+                    });
+                }
+                else {
+                    setflag();
+                    --current;
+                    return;
+                }
+            });
+
+            //User clicks prev button (single mode)
+            $im_prev.bind('click', function () {
+                if (!flg_click) return;
+                setflag();
+                --current;
+                var $prevThumb = $im_wrapper.children('div:nth-child(' + (current + 1) + ')');
+                if ($prevThumb.length > 0) {
+                    var imageSrc = $prevThumb.find('img').attr('src').replace('/thumbs', '');
+                    var arr = Array.shuffle(positionsArray.slice(0));
+                    $thumbs.each(function (i) {
+                        var t = $(this);
+                        setTimeout(function () {
+                            t.css({
+                                'background-image': 'url(' + imageSrc + ')'
+                            });
+                            if (i == nmb_thumbs - 1)
+                                setflag();
+                        }, arr.shift() * 20);
+                    });
+                }
+                else {
+                    setflag();
+                    ++current;
+                    return;
+                }
+            });
+
+            //on windows resize call the disperse function
+            $(window).smartresize(function () {
+                removeNavigation();
+                disperse();
+            });
+
+            //function to shuffle an array
+            Array.shuffle = function (array) {
+                for (
+                var j, x, i = array.length; i;
+                j = parseInt(Math.random() * i),
+                x = array[--i], array[i] = array[j], array[j] = x
+            );
+                return array;
+            };
+        });
+        function reloadtreatise(id) {
+            $.get("@Url.Action("change","home")/" + id, function (data) {
+                if (data != "" && data.State == 1)
+                    window.location.reload();
+                else
+                    layer.msg(data.Message);
+            });
+        }
+    </script>
+
+    <!-- 代码 结束 -->
+</body>
+</html>

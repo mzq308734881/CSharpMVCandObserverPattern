@@ -1,0 +1,99 @@
+﻿@model OpeningReport
+<form method="post" action="@Url.Action("check",new {id=Model.ID})" data-ajax-update="#tab-studentsubject" data-ajax-mode="replace" data-ajax="true" class="form-horizontal">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">课题名称</label>
+        <div class="col-sm-8 form-control-static">
+            @(Model.TreatiseSubject != null ? Model.TreatiseSubject.SubjectTitle : "暂未选题")
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">学生姓名[学号]</label>
+        <div class="col-sm-8 form-control-static">
+            @StaticHelper.StudentName(Model.StudentID) [@StaticHelper.StudentNo(Model.StudentID)]
+        </div>
+    </div>
+    @if (Model.TreatiseSubject.Treatise.IsReport == 1)
+    {
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">本选题的研究目的及意义:</label>
+            <div class="col-sm-8 form-control-static">
+                @Html.Raw(Model.Meaning)
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">国内外研究状况评述:</label>
+            <div class="col-sm-8 form-control-static">
+                @Html.Raw(Model.Review)
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">本课题的研究内容及写作大纲:</label>
+            <div class="col-sm-8 form-control-static">
+                @Html.Raw(Model.Outline)
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">本课题完成措施及进度计划:</label>
+            <div class="col-sm-8 form-control-static">
+                @Html.Raw(Model.Plan)
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">主要参考文献:</label>
+            <div class="col-sm-8 form-control-static">
+                @Html.Raw(Model.Reference)
+            </div>
+        </div>
+    }
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">当前审核状态</label>
+        <div class="col-sm-8 form-control-static">
+            @SelectListHelper.GetTreatiseStudentCheckStateName(Model.TreatiseStudent.CheckState)
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">指导教师意见</label>
+        <div class="col-sm-8 form-control-static">
+            @if (!string.IsNullOrWhiteSpace(Model.TeacherComment))
+            {
+                @Html.Raw(Model.TeacherComment)
+            }
+            else
+            {
+                <text>未填写意见</text>
+            }
+
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">审核意见</label>
+        <div class="col-sm-8">
+            @Html.TextAreaFor(d => d.CollegeComment, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">审核结果</label>
+        <div class="col-sm-8">
+            @Html.DropDownListFor(d => d.CollegeState, ViewData["CollegeState"] as SelectList, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <div class="col-sm-4 col-sm-offset-2">
+            <button class="btn btn-primary" type="submit">保存内容</button>
+            <a class="btn btn-white" href="@Url.Action("search")" data-ajax-update="#tab-studentsubject" data-ajax-mode="replace" data-ajax="true">
+                取消
+            </a>
+        </div>
+    </div>
+</form>

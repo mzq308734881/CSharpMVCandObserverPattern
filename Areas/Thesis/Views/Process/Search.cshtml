@@ -1,0 +1,218 @@
+﻿@model TreatiseConfigViewModel
+@{Layout = null;
+    var untime = Model.ProcessList.Sum(d => d.TimeMark);
+    var unqu = Model.ProcessList.Sum(d => d.QualityMark);
+    var instage = Model.Treatise.TreatiseStage == 0;
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="col-sm-3">
+            <label class="col-sm-8 control-label">总时间分：</label>
+            <div class="col-sm-4">
+                @Model.Treatise.TimeGrades
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <label class="col-sm-8 control-label">已分配时间分：</label>
+            <div class="col-sm-4">
+                @untime
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <label class="col-sm-8 control-label">未分配时间分：</label>
+            <div class="col-sm-4">
+                @(Model.Treatise.TimeGrades - untime)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="col-sm-3">
+            <label class="col-sm-8 control-label">总质量分：</label>
+            <div class="col-sm-4">
+                @Model.Treatise.QualityGrades
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <label class="col-sm-8 control-label">已分配质量分：</label>
+            <div class="col-sm-4">
+                @unqu
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <label class="col-sm-8 control-label">未分配质量分：</label>
+            <div class="col-sm-4">
+                @(Model.Treatise.QualityGrades - unqu)
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <label class="col-sm-8 control-label">及格分</label>
+            <div class="col-sm-4">
+                @Model.Treatise.PassMark
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    @if (instage)
+    {
+        <div class="col-md-1 col-md-offset-11">
+            <div class="input-group">
+                <a class="btn btn-sm btn-primary" href="@Url.Action("add",new {id=Model.TreatiseID})" data-ajax-update="#tab-process" data-ajax-mode="replace" data-ajax="true"> 添加</a>
+            </div>
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>流程标题</th>
+                        <th>排序</th>
+                        <th>时间分</th>
+                        <th>质量分</th>
+                        <th>及格分</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ProcessList)
+                    {
+                        <tr>
+                            <td>
+                                @item.Sort
+                            </td>
+                            <td>@item.ProcessName</td>
+                            <td>@item.Sort</td>
+                            <td>@item.TimeMark</td>
+                            <td>@item.QualityMark</td>
+                            <td>@item.PassMark</td>
+                            <td>
+                                <a class="btn btn-info" onclick="processshow(@item.ID)">
+                                    <i class="fa fa-paste"></i>
+                                    查看
+                                </a>
+                                @if (instage)
+                                {
+                                    <a class="btn btn-info" href="@Url.Action("edit", new {id = item.ID})" data-ajax-update="#tab-process" data-ajax-mode="replace" data-ajax="true">
+                                        <i class="fa fa-paste"></i>
+                                        编辑
+                                    </a>
+                                    <a href="javascript:void(0)" class="btn btn-info" onclick="processdelete(@item.ID)">
+                                        <i class="fa fa-paste"></i>
+                                        刪除
+                                    </a>
+                                }
+                                else
+                                {
+                                    if (Model.TreatiseStage != 3)
+                                    {
+                                        <a href="javascript:void(0)" class="btn btn-info" onclick="processdelay(@item.ID)">
+                                            <i class="fa fa-paste"></i>
+                                            延期
+                                        </a>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    function processdelete(id) {
+        layer.confirm('是否要删除当前流程？', { icon: 3, title: '是否删除' }, function (index) {
+            $.post("@Url.Action("delete")", { id: id }, function (data) {
+                if (data == "OK") {
+                    layer.msg("删除成功！");
+                    processreload();
+                } else {
+                    layer.alert(data);
+                }
+            });
+            layer.close(index);
+        });
+
+    };
+
+    function processshow(id) {
+        $.get("@Url.Action("detail")", { id: id }, function (data) {
+            layer.open({
+                title: "流程基本信息",
+                type: 1,
+                skin: 'layui-layer-rim', //加上边框
+                area: '75%', //宽度
+                content: data,
+                end: function () {
+                    processreload();
+                }
+            });
+        });
+    };
+
+    function processadd() {
+        $.get("@Url.Action("add")", function (data) {
+            layer.open({
+                title: "添加流程",
+                type: 1,
+                skin: 'layui-layer-rim', //加上边框
+                area: '75%', //宽度
+                content: data,
+                btn: ['取消'],
+                cancel: function (index, layero) {
+                    layer.close(index);
+                },
+            });
+        });
+    };
+    function processedit(id) {
+        $.get("@Url.Action("edit")", { id: id }, function (data) {
+            layer.open({
+                title: "修改流程",
+                type: 1,
+                skin: 'layui-layer-rim', //加上边框
+                area: '75%', //宽度
+                content: data,
+                btn: ['取消'],
+                cancel: function (index, layero) {
+                    layer.close(index);
+                },
+            });
+        });
+    };
+    function processreload() {
+        var index = layer.load(3, { time: 10 * 1000 }); //又换了种风格，并且设定最长等待10秒
+        //关闭
+        $.get("@Url.Action("search")", function (data) {
+            $("#tab-process").html(data);
+            layer.close(index);
+        });
+    }
+    function processdelay(id) {
+        layer.prompt({
+            formType: 0,
+            title: '请输入需要延期的天数'
+        }, function (value, index) {
+            value = parseInt(value);
+            if (value > 0) {
+                $.post("@Url.Action("delay")", { id: id,day:value }, function (data) {
+                    if (data.State == 1) {
+                        layer.msg("延期成功！");
+                        processreload();
+                    } else {
+                        layer.alert(data.Message);
+                    }
+                });
+            } else {
+                layer.alert("天数必须为大于0的整天数！");
+            };
+            layer.close(index);
+        });
+    };
+</script>

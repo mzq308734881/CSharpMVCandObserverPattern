@@ -1,0 +1,221 @@
+﻿@model TreatiseConfigViewModel
+@{    Layout = null;   }
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="col-sm-3">
+            <label class="col-sm-4 control-label">总学生数：</label>
+            <div class="col-sm-8">
+                @Model.SumCount
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <label class="col-sm-4 control-label">未分配人数：</label>
+            <div class="col-sm-8">
+                @Model.UnCount
+            </div>
+        </div>
+        @if (Model.Imports != null && Model.Imports.Any())
+        {
+        <div class="col-sm-3">
+            <label class="col-sm-4 control-label">本次分配人数：</label>
+            <div class="col-sm-8">
+                @Model.ListCount
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <label class="col-sm-4 control-label">信息：</label>
+            <div class="col-sm-8" style="color:red">
+                @Model.Message
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
+
+@if (Model.Imports != null && Model.Imports.Any())
+{
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>导师姓名</th>
+                        <th>学生数量</th>
+                        <th>状态</th>
+                        <th>信息</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Imports)
+                    {
+                    <tr>
+                        <td>@item.ID</td>
+                        <td>@item.Teacher.UserInfo.TrueName</td>
+                        <td>@item.StudentCount</td>
+                        <td>@(item.State == 0 ? "不可导" : "可导")</td>
+                        @if (item.State != 0)
+                            {
+                            <td>@item.Message</td>
+                            }
+                            else
+                            {
+                            <td style="color: red">@item.Message</td>
+                            }
+
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-2">
+                    @if (Model.State == 1)
+                    {
+                        <button class="btn btn-primary" onclick="importdb()" id="importdbbtn">导入</button>
+                    }
+                    <a class="btn btn-info" href="@Url.Action("import")" data-ajax-update="#tab-teacher" data-ajax-mode="replace" data-ajax="true">重新导入</a>
+                    <a class="btn btn-white" href="@Url.Action("search")" data-ajax-update="#tab-teacher" data-ajax-mode="replace" data-ajax="true">返回</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function importdb() {
+            $('#button').attr('disabled', "disabled");
+            $("#importdbbtn").text("导入中，请稍候……");
+            $.get("@Url.Action("importdb")", function(data) {
+                if (data.State == 1) {
+                    layer.msg("导入成功！");
+                    $.get("@Url.Action("search")", function(data) {
+                        $("#tab-teacher").html(data);
+                    });
+                } else {
+                    layer.alert(data.Message);
+                }
+            });
+        };
+    </script>
+}
+else
+{
+    <link href="~/Content/admin/Css/plugins/webuploader/webuploader.css" rel="stylesheet" />
+    <form id="form0" method="post" data-ajax-update="#tab-teacher" data-ajax-mode="replace" data-ajax-method="post" data-ajax-confirm="确认要导入此附件中的老师吗？？" data-ajax="true" action="@Url.Action("import")" class="form-horizontal">
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">项目名称:</label>
+            <div class="col-lg-4">
+                <p class="form-control-static">@Model.Treatise.TreatiseName</p>
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">导入模板下载：</label>
+            <div class="col-sm-8">
+                <a href="/Content/Excel/项目老师导入模板.xls" class="btn btn-primary" target="_blank">模板下载</a>
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">选择文件：</label>
+            <div class="col-sm-8">
+                    <div id="uploader">
+                        <!--用来存放文件信息-->
+                        <div id="thelist" class="uploader-list"></div>
+                        <div class="btns">
+                            <div id="picker">选择文件</div>
+                            <input id="filepath" name="filepath" type="hidden" datatype="*" nullmsg="请先上传模板！" />
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <div class="col-sm-4 col-sm-offset-4">
+                <button class="btn btn-primary" type="submit" style="display: none;" id="submitexcle">导入</button>
+                <a class="btn btn-white" href="@Url.Action("search")" data-ajax-update="#tab-teacher" data-ajax-mode="replace" data-ajax="true">取消</a>
+            </div>
+        </div>
+    </form>
+    <script>
+        $(document).ready(function () {
+            $.getScript('/Content/Admin/js/plugins/webuploader/webuploader.min.js', function () {
+                var uploader = WebUploader.create({
+                    auto: true,
+                    // swf文件路径
+                    swf: + '/Content/js/Uploader.swf',
+                    // 文件接收服务端。
+                    server: '@Url.Action("excel", "upload")',
+                    // 选择文件的按钮。可选。
+                    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                    pick: {
+                        id: '#picker',
+                        multiple: false
+                    },
+
+                    // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+                    resize: false,
+                    fileNumLimit: 1,
+                    fileSingleSizeLimit: 5 * 1024 * 1024,
+                    // 只允许选择Excle文件。
+                    accept: {
+                        title: 'Excles',
+                        extensions: 'xls'
+                    }
+                });
+
+                //验证文件格式以及文件大小
+                uploader.on("error", function (type) {
+                    if (type == "Q_TYPE_DENIED") {
+                        alert("请上传xls格式文件");
+                    } else if (type == "F_EXCEED_SIZE") {
+                        alert("文件大小不能超过5M");
+                    }
+                });
+                // 当有文件被添加进队列的时候
+                uploader.on('fileQueued', function (file) {
+                    $("#thelist").append('<div id="' + file.id + '" class="item">' +
+                        '<h4 class="info">' + file.name + '</h4>' +
+                        '<p class="state">等待上传...</p>' +
+                        '</div>');
+                });
+                // 文件上传过程中创建进度条实时显示。
+                uploader.on('uploadProgress', function (file, percentage) {
+                    var $li = $('#' + file.id),
+                        $percent = $li.find('.progress .progress-bar');
+
+                    // 避免重复创建
+                    if (!$percent.length) {
+                        $percent = $('<div class="progress progress-striped active">' +
+                            '<div class="progress-bar" role="progressbar" style="width: 0%">' +
+                            '</div>' +
+                            '</div>').appendTo($li).find('.progress-bar');
+                    }
+
+                    $li.find('p.state').text('上传中');
+
+                    $percent.css('width', percentage * 100 + '%');
+                });
+                uploader.on('uploadSuccess', function (file, response) {
+                    $('#' + file.id).find('p.state').text('已上传');
+                    $("#filepath").val(response.FilePath);
+                    $("#submitexcle").show();
+                });
+
+                uploader.on('uploadError', function (file) {
+                    $('#' + file.id).find('p.state').text('上传出错');
+                });
+
+                uploader.on('uploadComplete', function (file) {
+                    $('#' + file.id).find('.progress').fadeOut();
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,66 @@
+﻿@model Pager<Subject>
+
+<div class="ps hei-a85">
+    <!-- <div class="myts_tm">提交截止时间： 2015年2月1日</div> -->
+    <h3 class="tydvrg_tit">我的课题</h3>
+    <div class="tysearch_c bd_rd5">
+        @using (Ajax.BeginForm("search", new AjaxOptions()
+        {
+            HttpMethod = "post",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "teacherpage"
+        }))
+        {
+            <input type="text" class="tyshtxt" placeholder="课题名称" name="keywords"><button type="submit" class="tyshbut"></button>
+        }
+    </div>
+    <div class="fr">
+        <dl class="mytc_ad2 ">
+            <dd>
+                <a class="tydv_btn_p bd_rd5" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" href="@Url.Action("add")">添加</a>
+            </dd>
+        </dl>
+    </div>
+    <div class="dhg2"></div>
+    <div class="cdiv ps" id="content_cp" style="height:65%;">
+        <div class="dhg3"></div>
+        <div class="r_con_over chenposi" id="abloeds">
+            <div class="addv">
+
+                <table width="100%" cellpadding="0" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="hidden-phone">标题</th>
+                            <th>专业</th>
+                            <th class="hidden-phone">课题状态</th>
+                            <th>创建时间</th>
+                            <th>最近使用年份</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr id="item_@(item.ID)">
+                            <td>@item.Title</td>
+                            <td>@StaticHelper.GetSchoolName(item.SchoolID ?? 0)</td>
+                            <td>@SelectListHelper.SubjectStateName(item.SubjectState)</td>
+                            <td>@string.Format("{0:F}", item.CreateTime)</td>
+                            <td>@string.Format("{0:yyyy}", item.LastYear)</td>
+                            <td>
+                                <a href="@Url.Action("edit", new {id = item.ID})" class="tydv_btn_p bd_rd5" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage">修改</a>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div class="dhg2"></div>
+    </div>
+    <div class="cdiv_cen" id="mg-btn-pos">
+        @UIHelper.TeacherPageHelper("#teacherpage", "subject", "search", null, null, null, Model.TotalPages, Model.PageIndex, Model.PageSize, Model.TotalCount, Model.HasPreviousPage, Model.HasNextPage, Model.PageList)
+    </div>
+</div>

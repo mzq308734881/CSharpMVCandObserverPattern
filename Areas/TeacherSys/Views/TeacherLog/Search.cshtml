@@ -1,0 +1,77 @@
+﻿@model Pager<StudentLog>
+<div class="ps hei-a85">
+    <h3 class="tydvrg_tit ps">
+        请求日志
+        <div class="tysearch bd_rd5" style="border:none;width:450px;">
+            @using (Ajax.BeginForm("search", new AjaxOptions()
+        {
+            HttpMethod = "post",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "teacherpage"
+        }))
+            {
+                @Html.DropDownList("Reply", ViewBag.Reply as SelectList, new { @class = "wid100 yu_css fl" })
+                <input type="text" class="tyshtxt" placeholder="日志标题名称" name="keyword" style="border:1px solid #ccc;margin:0 20px" />
+    <button type="submit" class="btn btn-primary" style="padding: 1px 6px;">
+        搜索
+    </button>
+            }
+        </div>
+    </h3>
+    <div class="dhg2"></div>
+    <div class="cdiv ps" id="content_cp" style="height:80%;">
+        <div class="r_con_over chenposi" id="abloeds">
+            <div class="salg ow">
+                @foreach (var item in Model)
+                {
+                    <div class="dhg2"></div>
+                    <dl class="tydl salg_dl">
+                        <dt>来自于  @(item.TreatiseStudent!=null? item.TreatiseStudent.Student.UserInfo.TrueName:"未找到对应学生" )        发表时间  @String.Format("{0:yyyy-MM-dd}", item.CreateTime)</dt>
+                        <dd>@StringHelper.GetNoHtmlSubString(item.Title, 50) </dd>
+                        <dt>
+                            @if (!item.StudentLogComments.Any())
+                            {
+                                <a class="btn btn3" href="/TeacherSys/TeacherLog/detail/@item.ID" data-ajax-update="#teacherpage" data-ajax-mode="replace" data-ajax="true">未回复</a>
+                            }
+                            else
+                            {
+                                <a class="btn btn3" href="/TeacherSys/TeacherLog/detail/@item.ID" data-ajax-update="#teacherpage" data-ajax-mode="replace" data-ajax="true">查看</a>
+                            }
+                    </dl>
+                    <div class="dhg2"></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="cdiv_cen" id="mg-btn-pos" style="height: 5%; width: 90%;">
+        @UIHelper.TeacherPageHelper("#teacherpage", "teacherlog", "search", null, null, null, Model.TotalPages, Model.PageIndex, Model.PageSize, Model.TotalCount, Model.HasPreviousPage, Model.HasNextPage, Model.PageList)
+    </div>
+</div>
+@if (IsAjax)
+{
+    <script>
+        $(document).ready(function () {
+            $("#abloeds").mCustomScrollbar({
+                scrollButtons: {
+                    enable: true
+                },
+                theme: "dark-thin"
+            });
+        });
+    </script>
+}
+<script>
+    function btndel(id) {
+        if (confirm("删除后数据无法恢复，确定要删除吗?")) {
+            $.post("/teachersys/teacherlog/delete", { id: id }, function (data) {
+                if (data == "OK") {
+                    alert("删除成功！");
+                    window.location.reload();
+                } else {
+                    alert(data);
+                }
+            });
+        };
+    }
+</script>
+

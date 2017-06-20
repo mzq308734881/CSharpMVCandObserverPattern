@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <title>@(ConfigHelper.SchoolName+"论文管理系统")</title>
+    <meta name="keywords" content="@(ConfigHelper.SchoolName+"论文管理系统")">
+    <meta name="description" content="@(ConfigHelper.SchoolName+"论文管理系统")">
+    <link href="/content/admin/css/bootstrap.min.css?v=3.4.0" rel="stylesheet">
+    <link href="/content/admin/font-awesome/css/font-awesome.css?v=4.3.0" rel="stylesheet">
+    <link href="/content/admin/css/animate.css" rel="stylesheet">
+    <link href="/content/admin/css/style.css?v=2.2.0" rel="stylesheet">
+    <script src="~/Content/Scripts/jquery-1.7.2.js"></script>
+    <!--判断浏览器版本,如果低于IE8就跳转到升级之后的页面-->
+    @*<script type="text/javascript">
+            //页面加载完成时
+            $(function () {
+                //检测IE
+                if (navigator.appName == "Microsoft Internet Explorer") {
+                    if (navigator.appVersion.match(/8./i) == '8.') {
+                    }
+                    else { location.href = 'Content/ie6update.html'; }
+                }
+            });
+        </script>
+    <!--[if IE 8]>
+
+     <script type="text/javascript">
+
+    window.location="Content/ie6update.html";
+
+    </script>
+
+    <![endif]-->
+    <!--[if lte IE 7]>
+
+     <script type="text/javascript">
+
+    window.location="Content/ie6update.html";
+
+    </script>
+
+    <![endif]-->
+    *@
+    <style type="text/css">
+        body {
+            background: url(/content/images/bg_all.jpg) no-repeat;
+            -ms-background-size: 100%;
+            background-size: 100%;
+        }
+
+        .middle-box {
+            max-width: 400px;
+            z-index: 100;
+            margin: 0 auto;
+            padding-top: 140px;
+        }
+
+            .middle-box h1 {
+                font-size: 50px;
+                color: #6B6161;
+            }
+
+        .yzm {
+            display: inline-block;
+            width: 35%;
+            border: 1px solid #ccc;
+            background-color: #FFFFFF;
+            background-image: none;
+            border: 1px solid #e5e6e7;
+            -ms-border-radius: 1px;
+            border-radius: 1px;
+            color: inherit;
+            -webkit-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+            -moz-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+            -ms-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+            -o-transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+            transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+            font-size: 14px;
+        }
+
+        .wjmm {
+            width: 35%;
+        }
+
+        .font26 {
+            font-size: 25px;
+        }
+
+        .yzm img {
+            width: 65px;
+            height: 32px;
+        }
+
+        #message {
+            color: red;
+        }
+    </style>
+</head>
+<body class="gray-bg">
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+            <div>
+                <h1>@ConfigHelper.SchoolName</h1>
+            </div>
+            <h3 class="font26">@ConfigHelper.MajorName</h3>
+            <form class="m-t">
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="用户名" name="username" id="username" tabindex="1">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="密码" name="password" id="password" tabindex="2">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="请输入验证码" style="display: inline-block; width: 63%" name="code" id="code" tabindex="3">
+                    <div class="yzm">
+                        <a href="#" title="点击更换" class="vcodepic">
+                            <img src="@Url.Action("verifycode")" id="verifycode" title="点击更换" onclick="changeImage()" alt="验证码" />
+                        </a>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary block half-width m-b  pull-left" style="display: inline-block; width: 63%" onclick="login()" id="loginbtn">登 录</button>
+                    <div class="yzm" style="border: 0 solid;">
+                        <a class="btn btn-danger block" href="@Url.Action("forgetpwd")">忘记密码</a>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <p class="text-muted text-center" id="message"></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Mainly scripts -->
+    <script src="/content/admin/js/jquery-2.1.1.min.js"></script>
+    <script src="/content/admin/js/bootstrap.min.js?v=3.4.0"></script>
+    <script type="text/javascript">
+        document.onkeydown = function (event) {
+            var e = event || window.event || arguments.callee.caller.arguments[0];
+            if (e && e.keyCode == 13) {
+                $("#loginbtn").removeAttr('disabled').html("登录");
+                login();
+            }
+        };
+        function login() {
+            hidestring();
+            var username = $("#username").val();
+            var password = $("#password").val();
+            var code = $("#code").val();
+            if (username == "") {
+                $("#message").html("请输入账号！");
+                return;
+            }
+            if (password == "") {
+                $("#message").html("请输入密码！");
+                return;
+            }
+            if (code == "") {
+                $("#message").html("请输入验证码！");
+                return;
+            }
+            $("#loginbtn").attr('disabled', 'disabled').html("登录中...");
+            $.post("/home/login", { username: username, password: password, code: code }, function (data) {
+                if (data.State == "0") {
+                    $("#loginbtn").removeAttr('disabled').html("登录");
+                    $("#message").html(data.Message);
+                    changeImage();
+                } else {
+                    $("#loginbtn").html("登录成功，正在跳转...");
+                    window.location.href = data.Url;
+                }
+            });
+        }
+
+        function changeImage() {
+            var src = $("#verifycode").attr("src") + "?";
+            $("#verifycode").attr("src", src + "?");
+        }
+
+        if ($("#username").val() != "" && $("#password").val() != "") {
+            $("#check").attr("checked", 'true');
+            var ro = $("#ro").html();
+            $("#roleselect").val(ro);
+        }
+        function hidestring() {
+            $("#message").html("");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+﻿@model WorkPlan
+<div class="cdiv pd20 ptmg ow tyhg5">
+    <div class="ps hei-a85">
+        <h3 class="tydvrg_tit">
+            我的工作计划
+        </h3>
+        <div class="dhg2"></div>
+        <div class="twp_xq_tit mg_l40">2015-1-10</div>
+        <div class="cdiv ps" id="content_cp" style="height:99%;">
+            <div class="r_con_over chenposi" id="abloeds">
+                <div class="addvcp">
+                    <dl class="tydl twp_xq_dl">
+                        <dt>主题：</dt>
+                        <dd>@Model.Title</dd>
+                    </dl>
+                    <dl class="tydl twp_xq_dl">
+                        <dt>截止时间：</dt>
+                        <dd>@string.Format("{0:yyyy年MM月dd日}", Model.RemindTime)</dd>
+                    </dl>
+                    <dl class="tydl twp_xq_dl">
+                        <dt>内容：</dt>
+                        <dd>
+                          @Html.Raw(Model.Comment)
+                        </dd>
+                    </dl>
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="cdiv_cen" id="mg-btn-pos" style="height: 5%;">
+            <dl class="tydl ptmg_stp_dl">
+                <dt></dt>
+                <dd>
+                    <a class="ow bd_rd5 fl tydv_but" href="@Url.Action("search")" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#rightbody">返回</a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<script>
+    $.getScript("/Content/scrollbar/js/minified/jquery.mCustomScrollbar.min.js", function () {
+        $.getScript("/Content/kindeditor/kindeditor-all-min.js", function () {
+            $.getScript("/Content/My97DatePicker/WdatePicker.js", function () {
+                $("#abloeds").mCustomScrollbar({
+                    scrollButtons: {
+                        enable: true
+                    },
+                    theme: "dark-thin"
+                });
+                $("#RemindTime").click(function () {
+                    WdatePicker({ minDate: "%y-%M-%d", dateFmt: "yyyy-MM-dd", errDealMode: true });
+                });
+                KindEditor.basePath = '/Content/kindeditor/';
+
+                var editor = KindEditor.create('#Comment', {
+                    resizeType: 1,
+                    allowPreviewEmoticons: false,
+                    allowImageUpload: false,
+                    items: [
+                        'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                        'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                        'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+                });
+            });
+        });
+    });
+</script>

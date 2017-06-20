@@ -1,0 +1,75 @@
+﻿@model TreatiseSubject
+<div class="col-lg-12">
+    <div class="ibox float-e-margins">
+        <div class="ibox-content">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">标题:</label>
+                    <div class="col-sm-8 form-control-static">
+                        @Model.Subject.Title
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">导师姓名:</label>
+                    <div class="col-sm-4 form-control-static">
+                      @Model.Teacher.UserInfo.TrueName
+                    </div>
+                    <label class="col-sm-2 control-label">学生数量:</label>
+                    <div class="col-sm-4 form-control-static">
+                        @Model.Total
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">课题描述:</label>
+                    <div class="col-sm-8 form-control-static">
+                        @Html.Raw(Model.Subject.Comment)
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">课题性质:</label>
+                    <div class="col-sm-8 form-control-static">
+                        @Html.Raw(Model.Subject.Nature)
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">研究方向:</label>
+                    <div class="col-sm-8 form-control-static">
+                        @Html.Raw(Model.Subject.ResearchAreas)
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">研究价值:</label>
+                    <div class="col-sm-8 form-control-static">
+                        @Html.Raw(Model.Subject.ResearchValue)
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">考核标准:</label>
+                    <div class="col-sm-8 form-control-static">
+                        @Html.Raw(Model.Subject.PassStandard)
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">审核结果:</label>
+                    <div class="col-sm-8 form-control-static">
+                     @SelectListHelper.TreatiseSubjectCheckStateName(Model.CheckState)
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">审核说明:</label>
+                    <div class="col-sm-8 form-control-static">
+                        @Html.Raw(Model.CheckComment)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

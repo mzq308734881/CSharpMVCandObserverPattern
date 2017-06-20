@@ -1,0 +1,55 @@
+﻿@model StudentProcess
+<link href="~/Content/admin/Css/plugins/webuploader/webuploader.css" rel="stylesheet" />
+<style>
+    .ablogs_pwd_item input {
+        color: #000;
+        height: 28px;
+    }
+
+    .black {
+        color: #fff !important;
+    }
+
+    .ablogs_pwd_item label {
+        width: 12em;
+    }
+</style>
+
+<form action="@Url.Action("point", new {id = Model.ID})" method="post" data-ajax-update="#teacherpage" data-ajax-mode="replace" data-ajax="true">
+    <div class="ablogs_pwd_item">
+        <label>时间分（@Model.TreatiseProcess.TimeMark）：</label>
+        @Html.TextBoxFor(d => d.TimeMark, new { @class = "ctbord wid230 text_indent1" })
+    </div>
+    <div class="ablogs_pwd_item">
+        <label>质量分（@Model.TreatiseProcess.QualityMark）：</label>
+        @Html.TextBoxFor(d => d.QualityMark, new { @class = "ctbord wid230 text_indent1" })
+    </div>
+    <div class="ablogs_pwd_item">
+        <label>评分说明：</label>
+        @Html.TextBoxFor(d => d.ScoreComment, null, new { @class = "ctbord wid230 text_indent1" })
+    </div>
+    <div class="ablogs_pwd_item">
+        <p class="">
+            <span class="fl tydvrg_hf_title mg_top10"></span>
+            <span class="fl tydvrg_hf_content mg_top10">
+                <input type="submit" class="tydv_btn_pka bd_rd5 black" value="提交" />
+            </span>
+        </p>
+    </div>
+</form>
+<script>
+    $(document).ready(function () {
+        $.getScript("/Content/kindeditor/kindeditor-all-min.js", function () {
+            KindEditor.basePath = '/Content/kindeditor/';
+            var editor = KindEditor.create('#ScoreComment', {
+                resizeType: 1,
+                allowPreviewEmoticons: false,
+                allowImageUpload: false,
+                items: [
+                    'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                    'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                    'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+            });
+        });
+    });
+</script>

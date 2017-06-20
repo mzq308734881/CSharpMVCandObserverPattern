@@ -1,0 +1,110 @@
+﻿@{
+    Layout = null;
+}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <title>@(ConfigHelper.SchoolName + "论文管理系统")</title>
+    <link href="/content/admin/css/bootstrap.min.css?v=3.4.0" rel="stylesheet">
+    <link href="/content/admin/font-awesome/css/font-awesome.css?v=4.3.0" rel="stylesheet">
+    <link href="/content/admin/css/animate.css" rel="stylesheet">
+    <link href="/content/admin/css/style.css?v=2.2.0" rel="stylesheet">
+    <style type="text/css">
+        body {
+            background: url(/content/images/bg_all.jpg) no-repeat;
+            background-size: 100%;
+        }
+
+        .middle-box {
+            max-width: 400px;
+            z-index: 100;
+            margin: 0 auto;
+            padding-top: 140px;
+        }
+
+            .middle-box h1 {
+                font-size: 50px;
+                color: #6B6161;
+            }
+
+        .yzm {
+            display: inline-block;
+            width: 35%;
+            border: 1px solid #ccc;
+            background-color: #FFFFFF;
+            background-image: none;
+            border: 1px solid #e5e6e7;
+            border-radius: 1px;
+            color: inherit;
+            transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+            font-size: 14px;
+        }
+
+        .wjmm {
+            width: 35%;
+        }
+
+        .font26 {
+            font-size: 25px;
+        }
+
+        .yzm img {
+            width: 65px;
+            height: 32px;
+        }
+
+        #message {
+            color: red;
+        }
+    </style>
+</head>
+<body class="gray-bg">
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+            <div>
+                <h1>找回密码</h1>
+            </div>
+            <form method="post" class="m-t" role="form" action="/Home/ForgetPwd">
+                <div class=" form-group">
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="用户名" name="username" id="username">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="邮箱" name="email" id="email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="button" onclick="pwd()">确认找回</button>                    
+                    <div class="" style="border:none;display:inline-block">
+                        <a class="btn btn-white" onclick="return confirm('返回后您输入的数据将不被储存，确认返回吗？')" href="logout">取消</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Mainly scripts -->
+    <script src="/content/admin/js/jquery-2.1.1.min.js"></script>
+    <script src="/content/admin/js/bootstrap.min.js?v=3.4.0"></script>
+    <script>
+        function pwd() {
+            var id = $("#h1").val();
+            var username = $("#username").val();
+            var email = $("#email").val();
+            $.post("/home/forgetpwd", { username: username, email: email }, function (data) {
+                if (data.State == 1) {
+                    alert(data.Message);
+                    location.href = "/home/logout";
+                }
+                else {
+                    alert(data.Message);
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

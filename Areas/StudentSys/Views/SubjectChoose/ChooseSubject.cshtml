@@ -1,0 +1,86 @@
+﻿@model StudentChooseViewModel
+<style>
+    td {
+        width: 24%;
+    }
+
+    .cdiv {
+        height: 90%;
+    }
+
+    .ptmg_tsdv {
+        height: 90%;
+    }
+</style>
+<div class="tycdv bd_rd10 bg_wite">
+    <div class="dhg4"></div>
+    <div class="cdiv  ptmg">
+        <div class="r_con_over hei_about_sm30 hei_about_sm40" tabindex="5000" style="overflow: hidden; outline: none;">
+            <div class="cdiv ctbord">
+                <div class="ptmg_tsdv_dt ow">
+                    <font>选择课题</font><font class="ftcolor">*每人最多选 @Model.Treatise.SubjectMax 个课题！</font>
+                </div>
+                <div class="dhg2"></div>
+                <dl class="ptmg_tsdv ow" id="page-scrollbar">
+                    @foreach (var item in Model.SubjectList)
+                    {
+                        <dd>
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <th colspan="4"><a href="#">@item.Title</a></th>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <td colspan="3" class="ptmg_tsdv_tit">
+                                        @StringHelper.GetNoHtmlSubString(item.Comment, 200)
+                                    </td>
+                                    <td>
+                                        @if (item.OpenCount < item.MaxCount * Model.SubjectMax)
+                                        {
+                                            <a href="@Url.Action("subject", new {id = item.ID})" data-ajax-update="#studentpage" data-ajax-mode="replace" data-ajax="true">查看详情>> </a>
+                                        }
+                                        else
+                                        {
+                                            <b>人数已满</b>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <td>指导老师：@item.TeacherName</td>
+                                    <td>已通过人数：@item.PassCount </td>
+                                    <td>最大选题人数：@item.MaxCount</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </dd>
+                    }
+                </dl>
+            </div>
+        </div>
+        <div class="dhg4"></div>
+        <div class="cdiv_cen" id="mg-btn-pos">
+            <div class="cdiv_cen" style="height: 10%">
+                @if (Model.ChooseTeacher)
+            {
+                    <a href="@Url.Action("chooseteacher")" data-ajax-update="#studentpage" data-ajax-mode="replace" data-ajax="true" class="but_ptmg ow bd_rd5 fr">返回</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("search","subject")" data-ajax-update="#studentpage" data-ajax-mode="replace" data-ajax="true" class="but_ptmg ow bd_rd5 fr">返回</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#page-scrollbar").mCustomScrollbar({
+            scrollButtons: {
+                enable: true
+            },
+            theme: "dark-thin"
+        });
+    });
+</script>

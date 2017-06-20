@@ -1,0 +1,670 @@
+﻿@model TreatiseConfigViewModel
+@{
+    Layout = "~/Areas/Thesis/Views/Shared/_Layout.cshtml";
+
+    var unstart = Model.TreatiseStage == 0;
+    var isfirst = Model.TreatiseStage == 1;
+    var issecou = Model.TreatiseStage == 2;
+    var isthrid = Model.TreatiseStage == 3;
+}
+<div id="page-wrapper" class="gray-bg">
+    @Html.Partial("Head")
+    <div class="wrapper wrapper-content">
+        <div class="container">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="ibox float-e-margins border-bottom">
+                        <div class="ibox-title">
+                            <h2 class="pull-left">
+                                @Model.Treatise.TreatiseName <small>@(Model.Treatise.School != null ? Model.Treatise.School.InfoName : "")</small>
+                            </h2>
+                            @switch (Model.Treatise.TreatiseStage)
+                            {
+                                case 0:
+                                    <span class="label label-warning">基础信息配置</span>
+                                    break;
+                                case 1:
+                                    <span class="label label-info">选题阶段</span>
+                                    break;
+                                case 2:
+                                    <span class="label label-primary">流程进行中</span>
+                                    break;
+                                case 3:
+                                    <span class="label label-success">论文已结束</span>
+                                    break;
+                                default:
+                                    <span class="label label-danger">未知状态</span>
+                                    break;
+                            }
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="panel blank-panel">
+                                        <div class="panel-heading">
+                                            <div class="panel-options">
+                                                <ul class="nav nav-tabs">
+                                                    <li class="@(unstart?"active":"") alert alert-success">
+                                                        <a data-toggle="tab" href="#tab-1">第一步：基础信息配置</a>
+                                                    </li>
+                                                    <li class="@(isfirst?"active":"") alert alert-success">
+                                                        <a data-toggle="tab" href="#tab-2">第二步:选题阶段</a>
+                                                    </li>
+                                                    <li class="@(issecou?"active":"") alert alert-success">
+                                                        <a data-toggle="tab" href="#tab-3">第三步:流程开始阶段</a>
+                                                    </li>
+                                                    <li class="@(isthrid?"active":"") alert alert-success">
+                                                        <a data-toggle="tab" href="#tab-4">第四步:论文结束</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-content">
+                                            <div id="tab-1" class="tab-pane @(unstart ? "active" : "")">
+                                                @Html.Partial("BasicInfo")
+                                            </div>
+
+                                            <div id="tab-2" class="tab-pane @(isfirst ? "active" : "")">
+                                                @Html.Partial("ChooseSubject")
+                                            </div>
+                                            <div id="tab-3" class="tab-pane @(issecou?"active":"")">
+                                                @Html.Partial("Process")
+                                            </div>
+                                            <div id="tab-4" class="tab-pane @(isthrid?"active":"")">
+                                                <strong>论文结束阶段</strong>
+                                                <p>到此阶段为止整个论文流程到此结束</p>
+                                                <div class="row m-t-sm">
+                                                    <div class="col-lg-12">
+                                                        <div class="panel blank-panel">
+                                                            <div class="panel-heading">
+                                                                <div class="panel-options">
+                                                                    <ul class="nav nav-tabs">
+                                                                        <li class="active">
+                                                                            <a data-toggle="tab" href="#tab-treatisestatistics">10、项目统计</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="panel-body">
+
+                                                                <div class="tab-content">
+                                                                    <div id="tab-treatisestatistics" class="tab-pane active">
+                                                                        
+                                                                        @if (Model.TreatiseStage > 1)
+                                                                        {
+                                                                            <div class="row">
+                                                                                <div class="col-lg-12">
+                                                                                    <div class="ibox float-e-margins">
+                                                                                        <div class="ibox-title">
+                                                                                            <h5>导师人数分配</h5>
+                                                                                            <div class="ibox-tools">
+                                                                                                <a class="collapse-link">
+                                                                                                    <i class="fa fa-chevron-up"></i>
+                                                                                                </a>
+                                                                                                <a class="close-link">
+                                                                                                    <i class="fa fa-times"></i>
+                                                                                                </a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="ibox-content">
+                                                                                            <div class="echarts" id="echarts-teachersubject"></div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+
+                                                                        @if (Model.TreatiseStage > 2)
+                                                                        {
+                                                                            <div class="row">
+                                                                                <div class="col-lg-12">
+                                                                                    <div class="ibox float-e-margins">
+                                                                                        <div class="ibox-title">
+                                                                                            <h5>学生选题情况</h5>
+                                                                                            <div class="ibox-tools">
+                                                                                                <a class="collapse-link">
+                                                                                                    <i class="fa fa-chevron-up"></i>
+                                                                                                </a>
+                                                                                                <a class="close-link">
+                                                                                                    <i class="fa fa-times"></i>
+                                                                                                </a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="ibox-content">
+                                                                                            <div class="echarts" id="echarts-studentsubject"></div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="rows">
+                                                                                <div class="col-lg-12">
+                                                                                    <div class="ibox float-e-margins">
+                                                                                        <div class="ibox-title">
+                                                                                            <h5>导师学生分配情况</h5>
+                                                                                            <div class="ibox-tools">
+                                                                                                <a class="collapse-link">
+                                                                                                    <i class="fa fa-chevron-up"></i>
+                                                                                                </a>
+                                                                                                <a class="close-link">
+                                                                                                    <i class="fa fa-times"></i>
+                                                                                                </a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="ibox-content">
+                                                                                            <div class="echarts" id="echarts-teacherstudent"></div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-lg-12">
+                                                                                    <div class="ibox float-e-margins">
+                                                                                        <div class="ibox-title">
+                                                                                            <h5>流程进行情况</h5>
+                                                                                            <div class="ibox-tools">
+                                                                                                <a class="collapse-link">
+                                                                                                    <i class="fa fa-chevron-up"></i>
+                                                                                                </a>
+                                                                                                <a class="close-link">
+                                                                                                    <i class="fa fa-times"></i>
+                                                                                                </a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="ibox-content">
+                                                                                            <div class="echarts" id="echarts-processstudent"></div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col-lg-12">
+                                                                                    <div class="ibox float-e-margins">
+                                                                                        <div class="ibox-title">
+                                                                                            <h5>学生分数统计</h5>
+                                                                                            <div class="ibox-tools">
+                                                                                                <a class="collapse-link">
+                                                                                                    <i class="fa fa-chevron-up"></i>
+                                                                                                </a>
+                                                                                                <a class="close-link">
+                                                                                                    <i class="fa fa-times"></i>
+                                                                                                </a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="ibox-content">
+                                                                                            <div class="echarts" id="echarts-studentpoint"></div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="pull-right">
+            By：<a href="http://www.lskejisoft.com" target="_blank">览山科技</a>
+        </div>
+        <div>
+            <strong>Copyright</strong> 览山科技 &copy; 2016
+        </div>
+    </div>
+</div>
+@section scripts{
+
+    @if (Model.TreatiseStage > 1)
+    {
+        <script>
+            $(document).ready(function () {
+                var teachersubject = echarts.init(document.getElementById('echarts-teachersubject'));
+                // 显示标题，图例和空的坐标轴
+                teachersubject.setOption({
+                    title: {
+                        text: '导师人数分配',
+                        x: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b}: {c}"
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        x: 'left',
+                        data: []
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: {
+
+                    },
+                    yAxis: {
+
+                    },
+                    series: [
+                        {
+                            name: '导师人数',
+                            type: 'bar',
+                        }
+                    ]
+                });
+                teachersubject.showLoading();
+                // 异步加载数据
+                $.get('/thesis/statistics/teachersubject').done(function (data) {
+                    teachersubject.hideLoading();
+                    // 填入数据
+                    teachersubject.setOption({
+                        legend: {
+                            data: data.Legendata
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        yAxis: {
+                            type: 'value',
+                            boundaryGap: [data.Min, data.Max]
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: data.Legendata
+                        },
+                        series: [
+                            {
+                                name: '课题人数',
+                                type: 'bar',
+                                data: data.List
+                            }
+                        ]
+                    });
+                });
+            });
+        </script>
+    }
+    @if (Model.TreatiseStage > 2)
+    {
+        <script>
+            $(document).ready(function () {
+                var studentsubject = echarts.init(document.getElementById('echarts-studentsubject'));
+                var teacherstudent = echarts.init(document.getElementById('echarts-teacherstudent'));
+                var studentpoint = echarts.init(document.getElementById('echarts-studentpoint'));
+                var processstudent = echarts.init(document.getElementById('echarts-processstudent'));
+                // 显示标题，图例和空的坐标轴
+                studentsubject.setOption({
+                    title: {
+                        text: '课题人数分配',
+                        x: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b}: {c}"
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        x: 'left',
+                        data: []
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: {
+
+                    },
+                    yAxis: {
+
+                    },
+                    series: [
+                        {
+                            name: '导师人数',
+                            type: 'bar',
+                        }
+                    ]
+                });
+                teacherstudent.setOption({
+                    title: {
+                        text: '导师学生分配情况',
+                        x: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b}: {c}"
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        x: 'left',
+                        data: []
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: {
+
+                    },
+                    yAxis: {
+
+                    },
+                    series: [
+                        {
+                            name: '导师人数',
+                            type: 'bar',
+                        }
+                    ]
+                });
+                studentsubject.setOption({
+                    title: {
+                        text: '课题人数分配',
+                        x: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b}: {c}"
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        x: 'left',
+                        data: []
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: {
+
+                    },
+                    yAxis: {
+
+                    },
+                    series: [
+                        {
+                            name: '导师人数',
+                            type: 'bar',
+                        }
+                    ]
+                });
+                processstudent.setOption({
+                    title: {
+                        text: '导师学生分配情况',
+                        x: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b}: {c}"
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        x: 'left',
+                        data: []
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: {
+
+                    },
+                    yAxis: {
+
+                    },
+                    series: [
+                        {
+                            name: '导师人数',
+                            type: 'bar',
+                        }
+                    ]
+                });
+                studentsubject.showLoading();
+                teacherstudent.showLoading();
+                studentpoint.showLoading();
+                processstudent.showLoading();
+                // 异步加载数据
+                $.get('/thesis/statistics/studentsubject').done(function (data) {
+                    studentsubject.hideLoading();
+                    // 填入数据
+                    studentsubject.setOption({
+                        legend: {
+                            data: data.Legendata
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        yAxis: {
+                            type: 'value',
+                            boundaryGap: [data.Min, data.Max]
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: data.Legendata
+                        },
+                        series: [
+                            {
+                                name: '课题人数',
+                                type: 'bar',
+                                data: data.List
+                            }
+                        ]
+                    });
+                });
+                $.get('/thesis/statistics/teacherstudent').done(function (data) {
+                    teacherstudent.hideLoading();
+                    // 填入数据
+                    teacherstudent.setOption({
+                        legend: {
+                            data: data.Legendata
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        yAxis: {
+                            type: 'value',
+                            boundaryGap: [data.Min, data.Max]
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: data.Legendata
+                        },
+                        series: [
+                            {
+                                name: '课题人数',
+                                type: 'bar',
+                                data: data.List
+                            }
+                        ]
+                    });
+                });
+                $.get('/thesis/statistics/studentpoint').done(function (data) {
+                    studentpoint.hideLoading();
+                    // 填入数据
+                    studentpoint.setOption({
+                        legend: {
+                            data: data.Legendata
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        yAxis: {
+                            type: 'value',
+                            boundaryGap: [data.Min, data.Max]
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: data.Legendata
+                        },
+                        series: [
+                            {
+                                name: '课题人数',
+                                type: 'bar',
+                                data: data.List
+                            }
+                        ]
+                    });
+                });
+                $.get('/thesis/statistics/processstudent').done(function (data) {
+                    processstudent.hideLoading();
+                    // 填入数据
+                    processstudent.setOption({
+                        legend: {
+                            data: data.Legendata
+                        },
+                        grid: {
+                            left: '3%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        yAxis: {
+                            type: 'value',
+                            boundaryGap: [data.Min, data.Max]
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: data.Legendata
+                        },
+                        series: [
+                            {
+                                name: '课题人数',
+                                type: 'bar',
+                                data: data.List
+                            }
+                        ]
+                    });
+                });
+           
+            });
+        </script>
+    }
+
+    <script>
+        $('[data-toggle="tabajax"]').on("click", function (e) {
+            var $this = $(this),
+                loadurl = $this.attr('href'),
+                targ = $this.attr('data-target');
+            var index = layer.load(3, { time: 10 * 1000 }); //又换了种风格，并且设定最长等待10秒
+            //关闭
+            $.get(loadurl, function (data) {
+                $(targ).html(data);
+                layer.close(index);
+                $this.tab('show');
+            });
+            return false;
+        });
+
+        function addtreatise() {
+            $.get("@Url.Action("add", "treatise")", function (data) {
+                layer.open({
+                    zIndex: '30',
+                    title: "开启新的论文",
+                    type: 1,
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['80%', '80%'], //宽高
+                    //area: '75%', //宽度
+                    content: data
+                });
+            });
+        };
+
+        function stagetochoose() {
+            var $str = "是否要进入选题阶段？进入选题阶段后无法再进行论文基础数据的添加！";
+            layer.confirm($str, { icon: 3, title: '阶段变更' }, function (index) {
+                $.post("@Url.Action("enterchoosesubejct", "stage")", function (data) {
+                    if (data.State != 1)
+                        layer.alert(data.Message);
+                    else {
+                        layer.msg(data.Message);
+                        window.location.reload();
+                    }
+                });
+                layer.close(index);
+            });
+        };
+        function stagetoprocess() {
+            var $str = "@((Model.UnCount > 0 ? "还剩" + Model.UnCount + "人未进行选题，是否开启流程进行阶段？" : "是否开启流程进行阶段?")+"流程开启后学生将无法继续进行选题操作！")";
+            layer.confirm($str, { icon: 3, title: '阶段变更' }, function (index) {
+                $.post("@Url.Action("enterstartprocess", "stage")", function (data) {
+                    if (data.State != 1)
+                        layer.alert(data.Message);
+                    else {
+                        layer.msg(data.Message);
+                        window.location.reload();
+                    }
+                });
+                layer.close(index);
+                layer.close(index);
+            });
+        };
+        function stagetoend() {
+            var $str = "是否结束当前论文？论文结束后将无法再开启！且学生、导师将无法再进行任何操作！！";
+            layer.confirm($str, { icon: 3, title: '阶段变更' }, function (index) {
+                $.post("@Url.Action("endtreatise", "stage")", function (data) {
+                    if (data.State != 1)
+                        layer.alert(data.Message);
+                    else {
+                        layer.msg(data.Message);
+                        window.location.reload();
+                    }
+                });
+                layer.close(index);
+                layer.close(index);
+            });
+        };
+        function changeprocess(id) {
+            layer.confirm('是否要进入下一流程？流程开启不可逆！', { icon: 3, title: '流程变更' }, function (index) {
+                //do something
+                $.post("@Url.Action("process", "stage")", { id: id }, function (data) {
+                    if (data.State != 1)
+                        layer.alert(data.Message);
+                    else
+                        window.location.reload();
+                });
+                layer.close(index);
+            });
+        }
+    </script>
+}

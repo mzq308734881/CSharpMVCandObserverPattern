@@ -1,0 +1,125 @@
+﻿@model Pager<EmailSet>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>邮件管理</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/prms/">主页</a>
+            </li>
+            <li>
+                <strong>邮件管理</strong>
+            </li>
+            <li>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>邮件管理</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                        </div>
+                        <div class="col-md-1 col-md-offset-5">
+                            <div class="input-group">
+                                <a class="btn btn-sm btn-primary" href="/prms/emailset/add"> 添加</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Host</th>
+                                    <th>端口</th>
+                                    <th>发送邮件地址</th>
+                                    <th>创建人</th>
+                                    <th>创建时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr id="item_@item.ID">
+                                        <td>@item.Host</td>
+                                        <td>@item.Port</td>
+                                        <td>@item.Email</td>
+                                        <td>@StaticHelper.AdminName(item.CreateUserID)</td>
+                                        <td>@string.Format("{0:d}", item.CreateTime)</td>
+                                        <td>
+                                            @if (item.State == 0)
+                                            {
+                                                <a href="#" class="btn btn-info" onclick="enable(@item.ID)">
+                                                    <i class="fa fa-paste"></i>
+                                                    启用
+                                                </a>
+                                            }
+                                            @if (item.State == 1)
+                                            {
+                                                <a href="#" class="btn btn-danger " onclick="disable(@item.ID)">
+                                                    <i class="fa fa-paste"></i>
+                                                    禁用
+                                                </a>
+                                            }
+                                            <a href="/prms/emailset/edit/@item.ID" class="btn btn-info ">
+                                                <i class="fa fa-paste"></i>修改
+                                            </a>
+                                            <a href="/prms/emailset/detail/@item.ID" class="btn btn-info ">
+                                                <i class="fa fa-paste"></i>详情
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    @UIHelper.PageHelper("email", Model.TotalPages, Model.PageIndex, Model.PageSize, Model.TotalCount, Model.HasPreviousPage, Model.HasNextPage, Model.PageList)
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section scripts{
+    <script>
+        function enable(id) {
+        layer.confirm('启用后其他数据会被禁用，确定要启用吗?"', { icon: 3, title: '确认启用' }, function (index) {
+            $.post("@Url.Action("enable")", { id: id }, function (data) {
+                layer.alert("启用成功!");
+                window.location.reload();
+            });
+            layer.close(index);
+        });
+    }
+    </script>
+<script>
+    function disable(id) {
+        layer.confirm('禁用后其他数据会被启用，确定要禁用吗?"', { icon: 3, title: '确认禁用' }, function (index) {
+            $.post("@Url.Action("delete")", { id: id }, function (data) {
+                if (data == "OK") {
+                    layer.msg("禁用成功！");
+                    window.location.reload();
+                } else {
+                    layer.alert(data);
+                }
+            });
+            layer.close(index);
+        });
+    }
+</script>
+
+}

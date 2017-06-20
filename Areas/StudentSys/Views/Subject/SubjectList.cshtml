@@ -1,0 +1,88 @@
+﻿@model StudentChooseViewModel
+@{
+    var issort = Model.CheckOrder != 0;
+}
+
+<div class="tycdv bd_rd10 bg_wite">
+    <div class="cdiv pd20 ptmg ow tyhg5">
+        <div class="ps hei-a85">
+            <h3 class="tydvrg_tit">
+                审核状态
+                <div class="fr">
+                    <dl class="mytc_ad2 ">
+                        <dd>
+                            <a class="tydv_btn_p bd_rd5" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#studentpage" href="@Url.Action("Search")">返回</a>
+                        </dd>
+                    </dl>
+                </div>
+
+            </h3>
+            <div class="cdiv ps" id="content_cp" style="height:65%;">
+                <div class="dhg2"></div>
+                <div class="cdiv ps" id="content_cp" style="height: 100%;">
+                    <div class="dhg3"></div>
+                    <div class="r_con_over chenposi" id="abloeds">
+                        <div class="addv">
+                            <table width="96%" cellpadding="0" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>课程题目</th>
+                                        <th>提交时间</th>
+                                        <th>指导老师</th>
+                                        @if (issort)
+                                        {
+                                            <th>选题审核顺序（@(Model.CheckOrder==1?"顺序":"倒序")）</th>
+                                        }
+                                        <th>审核状态</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.OpeningList)
+                                    {
+                                        <tr>
+                                            <td>@(item.TreatiseSubject != null ? item.TreatiseSubject.SubjectTitle : "未知的选题")</td>
+                                            <td>@string.Format("{0:yyyy-MM-dd}", item.CreateTime)</td>
+                                            <td>@(Model.ShowTeacher ? StaticHelper.TeacherName(item.TeacherID) : "******")</td>
+                                            @if (issort)
+                                            {
+                                                <td>@item.Sort</td>
+                                            }
+                                            <td>
+                                                @switch (item.CollegeState)
+                                                {
+                                                    case 1:
+                                                        <font class="ad_color1">审核中</font>
+                                                        break;
+                                                    case 2:
+                                                        <font class="ad_color2">√通过</font>
+                                                        break;
+                                                    case 3:
+                                                        <font class="ad_color1">×未通过</font>
+                                                        break;
+                                                    default:
+                                                        <font class="ad_color1">暂未审核</font>
+                                                        break;
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="dhg2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#page-scrollbar").mCustomScrollbar({
+            scrollButtons: {
+                enable: true
+            },
+            theme: "dark-thin"
+        });
+    });
+</script>

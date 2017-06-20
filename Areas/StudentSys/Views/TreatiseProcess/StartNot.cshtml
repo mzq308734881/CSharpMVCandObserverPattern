@@ -1,0 +1,30 @@
+﻿@model StudentProcessViewModel
+<link href="~/Content/admin/Css/plugins/webuploader/webuploader.css" rel="stylesheet" />
+<link href="~/Content/scrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
+<div class="myts_tm">流程时间： @string.Format("{0:yyyy年MM月dd日}~~{1:yyyy年MM月dd日}", Model.Process.StartTime,Model.Process.EndTime)</div>
+<h3 class="tydvrg_tit">@Model.Process.ProcessName</h3>
+<div class="dhg2"></div>
+<div class="cdiv ps" tabindex="5000" style="overflow: hidden; outline: none;height: 90%">
+    <form action="@Url.Action("savelog", new { id = Model.Process.ID })" method="post" data-ajax-update="#studentright" data-ajax-mode="replace" data-ajax="true">
+        <div class="r_con_over chenposi" id="abloeds">
+            <div class="myts_xtit">注：流程时间分 @Model.Process.TimeMark 分，流程质量分为 @Model.Process.QualityMark 分，流程及格分为 @Model.Process.PassMark 分。</div>
+            <div class="dhg2"></div>
+            <div class="myts_pn">
+                流程暂未开始
+            </div>
+            <div class="dhg2"></div>
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function () {
+        $.getScript("/Content/scrollbar/js/minified/jquery.mCustomScrollbar.min.js", function () {
+            $("#abloeds").mCustomScrollbar({
+                scrollButtons: {
+                    enable: true
+                },
+                theme: "dark-thin"
+            });
+        });
+    });
+</script>

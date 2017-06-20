@@ -1,0 +1,39 @@
+﻿@model Pager<Subject>
+@{Layout = "~/Areas/TeacherSys/Views/Shared/_Layout.cshtml";}
+<div class="cdiv pd20 ptmg ow tyhg5" id="teacherpage">
+    @Html.Partial("search")
+</div>
+@section menu{
+    <div class="footer_menu_box">
+        <div class="menu">
+            <div class="bt-name">点我吧!</div>
+            <div class="sanjiao"></div>
+            <div class="new-sub">
+                <ul>
+                    <li class="active"><a href="@Url.Action("search", "subject")" class="ty_tcurrt" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage">我的课题</a></li>
+                    <li><a href="@Url.Action("search", "subjectcheck")" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage">待审核课题</a></li>
+                    <li><a href="@Url.Action("search", "treatisesubject")" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage">论文课题管理</a></li>
+                    <li><a href="@Url.Action("search", "studentcheck")" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage">学生选题审核</a></li>
+                </ul>
+                <div class="tiggle"></div>
+                <div class="innertiggle"></div>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts{
+    <script>
+        function btndel(id) {
+            if (confirm("删除后数据无法恢复，确定要删除吗?")) {
+                $.post("/teachersys/subject/delete", { id: id }, function (data) {
+                    if (data == "OK") {
+                        alert("删除成功！");
+                        window.location.reload();
+                    } else {
+                        alert(data);
+                    }
+                });
+            };
+        }
+    </script>
+}

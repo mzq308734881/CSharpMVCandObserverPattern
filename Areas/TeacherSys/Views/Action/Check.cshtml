@@ -1,0 +1,107 @@
+﻿@model StudentProcessViewModel
+<link href="~/Content/admin/Css/plugins/webuploader/webuploader.css" rel="stylesheet" />
+<form action="@Url.Action("check",new {id=Model.ProcessLog.ID})" method="post" data-ajax-update="#teacherpage" data-ajax-mode="replace" data-ajax="true">
+    <div class="ablogs_pwd_item">
+        <p class="">
+            <span class="fl tydvrg_hf_title mg_top10">姓名：</span>
+            <span class="fl tydvrg_hf_content mg_top10">@Model.UserInfo.TrueName</span>
+        </p>
+    </div>
+
+    <div class="ablogs_pwd_item">
+        <p class="">
+            <span class="fl tydvrg_hf_title mg_top10">选择课题：</span>
+            <span class="fl tydvrg_hf_content mg_top10">@Model.TreatiseSubject.SubjectTitle</span>
+        </p>
+    </div>
+    <div class="ablogs_pwd_item">
+        <p class="">
+            <span class="fl tydvrg_hf_title mg_top10">相关说明：</span>
+            <span class="fl tydvrg_hf_content mg_top10">@Model.ProcessLog.Comment</span>
+        </p>
+    </div>
+
+    <div class="ablogs_pwd_item">
+        <p class="">
+            <span class="fl tydvrg_hf_title mg_top10">下载文档：</span>
+
+            @if (Model.Annex != null)
+            {
+                <span class="fl tydvrg_hf_content mg_top10">
+                    <a href="@Model.Annex.AnnexPath" target="_block">@Model.Annex.AnnexName</a>
+</span>
+            }
+            else
+            {
+            <span class="fl  tydvrg_hf_content mg_top10">暂未上传</span>
+            }
+        </p>
+    </div>
+
+    <div class="ablogs_pwd_item">
+        <p class="">
+            <span class="fl tydvrg_hf_title mg_top10"></span>
+            <span class="fl tydvrg_hf_content mg_top10">
+                @if (Model.Process.TreatiseProcessEvents.Any(d => d.EventID == 12))
+                {
+                    <a class="tydv_btn_pka bd_rd5 fl" href="@Url.Action("review", new {id = Model.ProcessLog.ID})" data-ajax-update="#reviewdiv" data-ajax-mode="replace" data-ajax="true">
+                        评阅
+                    </a>
+                }
+                @if (Model.Process.TreatiseProcessEvents.Any(d => d.EventID == 22))
+                {
+                    <a class="tydv_btn_pka bd_rd5 fl" href="@Url.Action("question", new {id = Model.ProcessLog.ID})" data-ajax-update="#questiondiv" data-ajax-mode="replace" data-ajax="true">
+                        问卷
+                    </a>
+                }
+            </span>
+        </p>
+    </div>
+
+    <div id="reviewdiv">
+
+    </div>
+    <div id="questiondiv">
+
+    </div>
+    <div class="cdiv_cen" id="mg-btn-pos" style="height: 10%; width: 10%">
+        <dl class="tydl mytc_ad2">
+            <dd>
+                <a class="tydv_btn_pka bd_rd5 fl" href="@Url.Action("detail",new {id=Model.ProcessLog.StudentProcessID})" data-ajax-update="#teacherpage" data-ajax-mode="replace" data-ajax="true">返回</a>
+            </dd>
+        </dl>
+    </div>
+</form>
+<script>
+    $(document).ready(function () {
+        $.getScript("/Content/kindeditor/kindeditor-all-min.js", function () {
+            KindEditor.basePath = '/Content/kindeditor/';
+            var editor = KindEditor.create('#CheckComment', {
+                resizeType: 1,
+                allowPreviewEmoticons: false,
+                allowImageUpload: false,
+                items: [
+                    'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                    'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                    'insertunorderedlist', '|', 'emoticons', 'image', 'link'],
+                afterBlur: function(){this.sync();}
+            });
+        });
+    });
+    function SaveWord() {
+        var div = document.getElementById("PageOfficeDiv");
+        div.WebSave();
+        if (div.CustomSaveResult != "OK") {
+            location.href = "#CheckComment"
+            layer.open({
+                title: '保存失败!'
+  ,content: div.CustomSaveResult,
+                offset: 't',
+                zIndex :9999999999999999999999999999999999
+            });
+        } else {
+            $.get("@Url.Action("search")", { id: @Model.ProcessID }, function (data) {
+                $("#studentright").html(data);
+            });
+        }};
+</script>

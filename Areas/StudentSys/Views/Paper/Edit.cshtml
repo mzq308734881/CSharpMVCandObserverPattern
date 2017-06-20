@@ -1,0 +1,28 @@
+﻿@model StudentProcessLog
+@{
+    Layout = null;
+}
+
+<form method="post" action="/studentsys/paper/edit/@Model.ID" class="form-horizontal" data-ajax-update="#rightpart" data-ajax-mode="replace" data-ajax="true">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">内容</label>
+        <div class="col-sm-8">
+            @Html.TextBoxFor(d => d.PaperComment, new { @class = "form-control" })
+            @Html.HiddenFor(d => d.StudentProcessID)
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">相关附件</label>
+        <div class="col-sm-8">
+            <a href="@Model.PaperFileUrl">@Model.PaperFileName</a>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <div class="col-sm-4 col-sm-offset-2">
+            <button class="btn btn-primary" type="submit">保存内容</button>
+            <button class="btn btn-white" type="button">取消</button>
+        </div>
+    </div>
+</form>

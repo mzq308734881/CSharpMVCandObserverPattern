@@ -1,0 +1,24 @@
+﻿@model Tool
+<h3 class="tydvrg_tit">上传资源</h3>
+<div class="dhg2"></div>
+<div class="cdiv ps" id="content_cp" style="height: 65%;">
+    <div class="r_con_over chenposi" id="abloeds">
+        <form class="ablogs_pwd" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" action="@Url.Action("detail")">
+            <div class="ablogs_pwd_item">
+                <label>名称：</label>
+                @Model.FileName
+            </div>
+            <div class="ablogs_pwd_item">
+                <label>上传人：</label>
+                @StaticHelper.InfoName(Model.CreateInfoID)
+            </div>
+        </form>
+    </div>
+</div>
+<div class="cdiv_cen" id="mg-btn-pos" style="height: 10%;width: 10%">
+    <dl class="tydl mytc_ad2">
+        <dd>
+            <a class="tydv_btn_pka bd_rd5 fl" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" href="@Url.Action("search")">取消</a>
+        </dd>
+    </dl>
+</div>

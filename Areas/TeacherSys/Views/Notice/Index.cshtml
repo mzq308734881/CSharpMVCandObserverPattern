@@ -1,0 +1,79 @@
+﻿@{Layout = "~/Areas/TeacherSys/Views/Shared/_Layout.cshtml";}
+@model NoticeViewModel
+<style>
+    .searchdiv {
+        bottom: -60px;
+        left: 30px;
+        height: 100px !important;
+        position: absolute;
+        width: 100% !important;
+    }
+
+    .nt_list ul {
+        border: none;
+        max-height: 90%;
+        overflow-y: scroll;
+    }
+</style>
+
+<div class="cdiv ow pd20 notice">
+    <div class="nt_lf ow">
+
+        <div class="dhg2"></div>
+        <div class="nt_list">
+
+            <div class="main-page">
+                <div class="left">
+                    <div class="nav-back"></div>
+                    <div class="nav">
+                        <div class="on">
+                            <h3 class="nt_tit ow">
+                                <a href="@Url.Action("search",new {type=3})" data-ajax-update="#noticepage" data-ajax-mode="replace" data-ajax="true">
+                                    <font>特别公告</font>
+                                </a>
+                            </h3>
+                        </div>
+                        <div class="on">
+                            <h3 class="nt_tit ow">
+                                <a href="@Url.Action("search", new {type = 1})" data-ajax-update="#noticepage" data-ajax-mode="replace" data-ajax="true">
+                                    <font>通知公告</font>
+                                </a>
+                            </h3>
+                        </div>
+                        <div class="on">
+                            <h3 class="nt_tit ow">
+                                <a href="@Url.Action("search", new {type = 2})" data-ajax-update="#noticepage" data-ajax-mode="replace" data-ajax="true">
+                                    <font>规章制度</font>
+                                </a>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="content-back"></div>
+                    <div class="content11" id="noticepage">
+                        @Html.Partial("Search", Model.Rules)
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <div class="nt_rg ow" id="nt_rg_pos">
+        <div class="dhg2"></div>
+        <div class="content" id="noticeinfo" style="height:95%;">
+            @Html.Partial("Detail", Model.Notice)
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function removered(e) {
+        $(e).css("color", "black");
+    }
+</script>

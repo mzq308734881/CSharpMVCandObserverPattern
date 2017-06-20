@@ -1,0 +1,52 @@
+﻿@model IEnumerable<LanShanPRMS.Areas.Thesis.Controllers.StatisticsController.SchoolProcessViewModel>
+    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<table id="datatable">
+    <thead>
+    <tr>
+        <th></th>
+        <th>学校ID</th>
+        <th>流程ID</th>
+        <th>学生人数</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>@item.SchoolName</th>
+            <td>@item.StudentCount</td>
+        </tr>
+    }
+    </tbody>
+</table>
+    <script src="/Content/js/jquery-2.1.1.min.js"></script>
+    <script src="/Content/plugins/Highcharts/highcharts.js"></script>
+    <script src="/Content/plugins/Highcharts/modules/data.js"></script>
+    <script src="/Content/plugins/Highcharts/modules/exporting.js"></script>
+    <script type="text/javascript">
+$(function () {
+    Highcharts.chart('container', {
+        data: {
+            table: 'datatable'
+        },
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Data extracted from a HTML table in the page'
+        },
+        yAxis: {
+            allowDecimals: false,
+            title: {
+                text: 'Units'
+            }
+        },
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.series.name + '</b><br/>' +
+                    this.point.y + ' ' + this.point.name.toLowerCase();
+            }
+        }
+    });
+});
+    </script>

@@ -1,0 +1,112 @@
+﻿@model Subject
+
+<div class="cdiv ps" id="content_cp" style="height: 85%;">
+    <form method="post" id="subjectcheck-From" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" action="@Url.Action("edit", new {id = Model.ID})">
+        <div class="dhg2"></div>
+        <div class="r_con_over chenposi" id="abloeds" tabindex="5000" style="overflow: hidden; outline: none;">
+            <div class="ablogs_pwd">
+                <div class="ablogs_pwd_item">
+                    <label>标题：</label>
+                    @Html.TextBoxFor(d => d.Title, new { @class = "wid300 ctbord",datatype="*" })
+                </div>
+                <div class="ablogs_pwd_item">
+                    <label>选择专业：</label>
+                    @Html.DropDownListFor(d => d.SchoolID, ViewBag.SchoolID as SelectList, new { @class = "wid300 ctbord" })
+                </div>
+                <div class="ablogs_pwd_item">
+                    <label>课题性质：</label>
+                    @Html.TextBoxFor(d => d.Nature, new { @class = "ctbord wid300 text_indent1 minhei150" })
+                </div>
+                <div class="ablogs_pwd_item">
+                    <label>研究方向：</label>
+                    @Html.TextBoxFor(d => d.ResearchAreas, new { @class = "ctbord wid300 text_indent1 minhei150" })
+                </div>
+                <div class="ablogs_pwd_item">
+                    <label>研究价值：</label>
+                    @Html.TextBoxFor(d => d.ResearchValue, new { @class = "ctbord wid300 text_indent1 minhei150" })
+                </div>
+                <div class="ablogs_pwd_item">
+                    <label>考核标准：</label>
+                    @Html.TextBoxFor(d => d.PassStandard, new { @class = "ctbord wid300 text_indent1 minhei150" })
+                </div>
+                <div class="ablogs_pwd_item">
+                    <label>描述：</label>
+                    @Html.TextBoxFor(d => d.Comment, new { @class = "ctbord wid300 text_indent1 minhei150" })
+                </div>
+                <div class="ablogs_pwd_item">
+                    <label>附件：</label>
+                    <span class="fl tydvrg_hf_content mg_top10">
+                        <span id="uploader" class="fl">
+                            <!--用来存放文件信息-->
+                            <span class="btns">
+                                <span id="picker">选择文件</span>
+                            </span>
+                        </span>
+                        <div class="fl" id="filecontent" class="upcont" style="display: none">
+                            <span id="filemsg">
+
+
+</span><br />
+                            <div class="progress fl">
+                                <span class="progress">
+                                    <span id="filepro" class="blue" style="width: 0%;">
+                                    </span>
+                                </span>
+                            </div>
+                            <input type="hidden" id="filename" name="filename" />
+                            <input id="filepath" name="fileurl" type="hidden" datatype="*" nullmsg="请先上传模板！" />
+                        </div>
+                    </span>
+                    <span class="fl tydvrg_hf_title mg_top10"></span>
+                    <span class="fl tydvrg_hf_content mg_top10">
+                    </span>
+                    <span class="fl tydvrg_hf_title mg_top10"></span>
+                </div>
+                <div class="ablogs_pwd_item">
+                    <label></label>
+                    <button class="tydv_btn_pka bd_rd5 fl" type="submit">保存内容</button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="cdiv_cen" id="mg-btn-pos" style="height: 10%;width: 10%">
+    <dl class="tydl mytc_ad2">
+        <dd>
+            <a class="tydv_btn_pka bd_rd5 fl" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" href="@Url.Action("search")">取消</a>
+        </dd>
+    </dl>
+</div>
+
+<script>
+    $.getScript("/Content/scrollbar/js/minified/jquery.mCustomScrollbar.min.js", function () {
+        $.getScript("/Content/kindeditor/kindeditor-all-min.js", function () {
+            $.getScript("/Content/Scripts/Validform_v5.3.2.js", function () {
+            $("#abloeds").mCustomScrollbar({
+                scrollButtons: {
+                    enable: true
+                },
+                theme: "dark-thin"
+            });
+            KindEditor.basePath = '/Content/kindeditor/';
+
+            var editor = KindEditor.create('input[class="text_indent1"]', {
+                resizeType: 1,
+                allowPreviewEmoticons: false,
+                allowImageUpload: false,
+                items: [
+                    'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                    'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                    'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+            });
+            $("#subjectcheck-From").Validform(
+{
+    tiptype: 3,
+    ignoreHidden: true
+});
+            });
+        });
+    });
+</script>

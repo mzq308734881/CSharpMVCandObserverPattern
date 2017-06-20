@@ -1,0 +1,102 @@
+﻿@model TreatiseStudent
+@{
+    var start = ViewBag.IsStart;
+}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>学生课题查看</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/teachersys">主页</a>
+            </li>
+            <li>
+                <a href="/teachersys/treatise/index/@Model.TreatiseStudent.TreatiseID">项目管理</a>
+            </li>
+            <li>
+                <a href="#">学生课题查看</a>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <form method="post" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">课题名称</label>
+                            <div class="col-sm-8">
+                                @Model.Subject.Title
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">学号</label>
+                            <div class="col-sm-4">
+                                @LanShanPRMS.Controllers.AjaxHelpsController.GetUserInfo(Model.StudentID, 2).LoginName
+                            </div>
+                            <label class="col-sm-2 control-label">学生姓名</label>
+                            <div class="col-sm-4">
+                                @LanShanPRMS.Controllers.AjaxHelpsController.GetUserInfo(Model.StudentID, 2).TrueName
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        @if (!string.IsNullOrWhiteSpace(start))
+                        {
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">本选题的研究目的及意义</label>
+                                <div class="col-sm-8">
+                                    @Model.Meaning
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">国内外研究状况评述</label>
+                                <div class="col-sm-8">
+                                    @Model.Review
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">本课题的研究内容及写作大纲</label>
+                                <div class="col-sm-8">
+                                    @Model.Outline
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">本课题完成措施及进度计划</label>
+                                <div class="col-sm-8">
+                                    @Model.Plan
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">主要参考文献</label>
+                                <div class="col-sm-8">
+                                    @Model.Reference
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                        }
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">指导教师意见</label>
+                            <div class="col-sm-8">
+                                @Model.TeacherComment
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">保存内容</button>
+                                <button class="btn btn-white" type="button">取消</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

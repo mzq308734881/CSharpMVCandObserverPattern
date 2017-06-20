@@ -1,0 +1,34 @@
+﻿@model Pager<StudentLog>
+<div class="cdiv">
+    @foreach (var item in Model)
+    {
+        <dl class="tydl lgmg_dl" id="item_@item.ID">
+            <dt>@String.Format("{0:yyyy-MM-dd}", item.CreateTime)</dt>
+            <dd><a href="/StudentSys/studentlog/detail/@item.ID" data-ajax-update="#teacheronly" data-ajax-mode="replace" data-ajax="true">@item.Title</a></dd>
+            @if (!item.StudentLogComments.Any())
+            {
+                <span><a class="btn btn3" href="/TeacherSys/TeacherLog/detail/@item.ID" data-ajax-update="#teacheronly" data-ajax-mode="replace" data-ajax="true">未回复</a></span>
+            }
+            else
+            {
+                <span><a class="btn btn3" href="/TeacherSys/TeacherLog/detail/@item.ID" data-ajax-update="#teacheronly" data-ajax-mode="replace" data-ajax="true">查看</a></span>
+            }
+
+        </dl>
+        <div class="dhg1"></div>
+    }
+</div>
+<script>
+    function btndel(id) {
+        if (confirm("删除后数据无法恢复，确定要删除吗?")) {
+            $.post("/teachersys/teacherlog/delete", { id: id }, function (data) {
+                if (data == "OK") {
+                    alert("删除成功！");
+                    window.location.reload();
+                } else {
+                    alert(data);
+                }
+            });
+        };
+    }
+</script>

@@ -1,0 +1,21 @@
+执行语句：Opened connection at 2016/11/10 星期四 10:30:39 +08:00
+Started transaction at 2016/11/10 星期四 10:30:39 +08:00
+INSERT [dbo].[Tool]([SchoolID], [ToolType], [Comment], [FileName], [FileUrl], [CreateInfoID], [CreateTime], [State], [IsSharing], [CreateInfoType], [Hits])
+VALUES (NULL, @0, NULL, @1, NULL, @2, @3, @4, @5, @6, @7)
+SELECT [ID]
+FROM [dbo].[Tool]
+WHERE @@ROWCOUNT > 0 AND [ID] = scope_identity()
+-- @0: '1' (Type = Int32)
+-- @1: '456456' (Type = String, Size = 128)
+-- @2: '1' (Type = Int32)
+-- @3: '2016/11/10 星期四 10:30:39' (Type = DateTime2)
+-- @4: '1' (Type = Int32)
+-- @5: '1' (Type = Int32)
+-- @6: '0' (Type = Int32)
+-- @7: '0' (Type = Int32)
+-- Executing at 2016/11/10 星期四 10:30:39 +08:00
+-- Completed in 10 ms with result: SqlDataReader
+
+Committed transaction at 2016/11/10 星期四 10:30:39 +08:00
+Closed connection at 2016/11/10 星期四 10:30:39 +08:00
+返回结果：1

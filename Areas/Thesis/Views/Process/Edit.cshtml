@@ -1,0 +1,162 @@
+﻿@model TreatiseProcess
+@{
+    Layout = null;
+    var actionlist = ViewBag.ActionList as List<ProcessEventViewModel>;
+}
+@using (Ajax.BeginForm("edit", new { id = Model.ID }, new AjaxOptions()
+{
+    Confirm = "确认要保存此流程吗？",
+    HttpMethod = "post",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "tab-process"
+}, new { @class = "form-horizontal", id = "processfrom" }))
+{
+    <div class="form-group">
+        <label class="col-sm-2 control-label">流程名称</label>
+        <div class="col-sm-6">
+            @Html.TextBoxFor(d => d.ProcessName, new { @class = "form-control", datatype = "*", nullmsg = "请输入流程名称！", errormsg = "请输入流程名称！", sucmsg = "完成！" })
+        </div>
+        <div class="col-sm-2 form-control-static Validform_checktip"></div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">顺序</label>
+        <div class="col-sm-2">
+            @Html.DropDownListFor(d => d.Sort, ViewBag.Sort as SelectList, new { @class = "form-control", datatype = "n", nullmsg = "请选择顺序！", errormsg = "请选择顺序！", sucmsg = "完成！" })
+        </div>
+        <div class="col-sm-2 form-control-static Validform_checktip"></div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">开始时间</label>
+        <div class="col-sm-2">
+            @Html.TextBoxFor(d => d.StartTime, "{0:yyyy-MM-dd}", new { @class = "form-control required", datatype = "*", nullmsg = "请输入开始时间！", errormsg = "请输入开始时间！", sucmsg = "完成！" })
+        </div>
+        <div class="col-sm-2 form-control-static Validform_checktip"></div>
+
+        <label class="col-sm-2 control-label">结束时间</label>
+        <div class="col-sm-2">
+            @Html.TextBoxFor(d => d.EndTime, "{0:yyyy-MM-dd}", new { @class = "form-control", datatype = "*", nullmsg = "请输入结束时间！", errormsg = "请输入结束时间！", sucmsg = "完成！" })
+        </div>
+        <div class="col-sm-2 form-control-static Validform_checktip"></div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">流程描述</label>
+        <div class="col-sm-6">
+            @Html.TextBoxFor(d => d.Comment, new { @class = "form-control", datatype = "*", nullmsg = "请输入流程描述！", errormsg = "请输入流程描述！", sucmsg = "完成！" })
+        </div>
+        <div class="col-sm-2 form-control-static Validform_checktip"></div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">时间分</label>
+        <div class="col-sm-6">
+            @Html.TextBoxFor(d => d.TimeMark, new { @class = "form-control", datatype = "float", nullmsg = "请输入时间分！", ajaxurl = Url.Action("TimeCount", "ajax", new { id = @Model.ID }), errormsg = "时间分只能输入数字！", sucmsg = "完成！" })
+        </div>
+        <div class="col-sm-2 form-control-static Validform_checktip"></div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">质量分</label>
+        <div class="col-sm-6">
+            @Html.TextBoxFor(d => d.QualityMark, new { @class = "form-control", datatype = "float", nullmsg = "请输入质量分！", ajaxurl = Url.Action("QualityCount", "ajax", new { id = @Model.ID }), errormsg = "质量分只能输入数字！", sucmsg = "完成！" })
+        </div>
+        <div class="col-sm-2 form-control-static Validform_checktip"></div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">及格分（非必填）</label>
+        <div class="col-sm-4">
+            @Html.TextBoxFor(d => d.PassMark, new { @class = "form-control", datatype = "processpassmark" })
+        </div>
+        <div class="col-sm-2 form-control-static Validform_checktip"></div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">评阅</label>
+        <div class="col-sm-4">
+            @foreach (var item in actionlist.Where(d => d.ActionID == 1))
+            {
+                <input type="checkbox" style="margin-top:10px" name="eventid" value="@item.ID" @(item.Checked ? "checked='checked'" : "") />@item.Identity
+            }
+        </div>
+        <div class="col-sm-2 form-control-static Validform_checktip"></div>
+    </div>
+
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">评分</label>
+        <div class="col-sm-4">
+            @foreach (var item in actionlist.Where(d => d.ActionID == 2))
+            {
+                <input type="checkbox" style="margin-top:10px" name="eventid" value="@item.ID" @(item.Checked ? "checked='checked'" : "") />@item.Identity
+            }
+        </div>
+        <div class="col-sm-2 form-control-static Validform_checktip"></div>
+    </div>
+
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <div class="col-sm-4 col-sm-offset-2">
+            <button class="btn btn-primary" type="submit">保存内容</button>
+            <a class="btn btn-white" href="@Url.Action("search")" data-ajax-update="#tab-process" data-ajax-mode="replace" data-ajax="true">取消</a>
+        </div>
+    </div>
+
+}
+<script>
+    $(document).ready(function () {
+        $.getScript("/Content/kindeditor/kindeditor-all-min.js", function () {
+            $.getScript("/Content/Scripts/Validform_v5.3.2.js", function () {
+                $.getScript("/Content/My97DatePicker/WdatePicker.js", function () {
+                    KindEditor.create('input[name="Comment"]');
+                    ///格式化My97
+                    $("#StartTime").click(function () {
+                        WdatePicker({ minDate: "%y-%M-%d", dateFmt: "yyyy-MM-dd", errDealMode: true });
+                    });
+                    $("#EndTime").click(function () {
+                        WdatePicker({ minDate: "#F{$dp.$D('StartTime')||'%y-%M-%d'}", dateFmt: "yyyy-MM-dd", errDealMode: true });
+                    });
+                    $("#processfrom").Validform({
+                        tiptype: 2,
+                        ignoreHidden: true
+                        //ajaxPost: true,
+                        //callback: function (data) {
+                        //    console.log(data);
+                        //    if (data.State == 1) {
+                        //        alert("成功！");
+                        //    } else {
+                        //        alert(data);
+                        //    }
+                        //这里执行回调操作;
+                        //注意：如果不是ajax方式提交表单，传入callback，这时data参数是当前表单对象，回调函数会在表单验证全部通过后执行，然后判断是否提交表单，如果callback里明确return false，则表单不会提交，如果return true或没有return，则会提交表单。
+                        //}
+                    });
+                    @*jQuery.validator.addMethod("qualitygrades", function (value, params) {
+                        var flag = false;
+                        $.post("@Url.Action("getqualitygrades","ajax")", { tid: @Model.TreatiseID, id: 0, no: value }, function(data) {
+                            $("#qualitymsg").html(data.Message);
+                            if (data.State == "1")
+                                return true;
+                        });
+                        return true;
+                    }, jQuery.validator.format("输入的质量分不能大于剩余质量分！"));
+                    jQuery.validator.addMethod("timegrades", function (value, params) {
+                        var $flag = false;
+                        $.post("@Url.Action("gettimegrades", "ajax")", { tid: @Model.TreatiseID, id: 0, no: value }, function(data) {
+                            if (data.State == "1")
+                                $flag = true;
+                            console.log("内"+$flag)
+                            $("#timemsg").html(data.Message);
+                            if (data.State == "1")
+                                return true;
+                        });
+                        console.log("外"+$flag)
+                        return true;
+                    }, "输入的时间分不能大于剩余时间分！");*@
+                });
+            });
+        });
+    });
+</script>

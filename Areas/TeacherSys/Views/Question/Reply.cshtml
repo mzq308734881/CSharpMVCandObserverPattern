@@ -1,0 +1,110 @@
+﻿@model Question
+<h3 class="tydvrg_tit">添加课题</h3>
+
+<div class="cdiv ps" id="content_cp" style="height: 85%;">
+    <form method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" action="@Url.Action("reply")">
+        <div class="dhg2"></div>
+        <div class="r_con_over chenposi" id="abloeds" tabindex="5000" style="overflow: hidden; outline: none;">
+
+            <div class="ablogs_pwd">
+                <dl class="tydl ptmg_stp_dl">
+                    <dt>日志所属课题：</dt>
+                    <dd>
+                        @((Model.TreatiseStudent != null && Model.TreatiseStudent.TreatiseSubject != null) ? Model.TreatiseStudent.TreatiseSubject.SubjectTitle : "未选题")
+                    </dd>
+                </dl>
+                <div class="dhg2"></div>
+                <dl class="tydl ptmg_stp_dl">
+                    <dt>标题：</dt>
+                    <dd class="stp_txtarea">
+                        @Model.Title
+                    </dd>
+                </dl>
+                <dl class="tydl ptmg_stp_dl">
+                    <dt>是否公开：</dt>
+                    <dd class="stp_txtarea">
+                        @SelectListHelper.GetIsOrNoName(Model.IsOpen)
+                    </dd>
+                </dl>
+                <dl class="tydl ptmg_stp_dl">
+                    <dt>是否关闭：</dt>
+                    <dd class="stp_txtarea">
+                        @SelectListHelper.GetIsOrNoName(Model.IsClose)
+                    </dd>
+                </dl>
+                <div class="dhg2"></div>
+                <dl class="tydl ptmg_stp_dl">
+                    <dt>内容：</dt>
+                    <dd class="stp_txtarea">
+                        @Html.Raw(Model.Content)
+                    </dd>
+                </dl>
+                <div class="dhg3"></div>
+                <h3>历史回复</h3>
+                @foreach (var item in Model.QuestionReplies.Where(d => d.State == 1).OrderByDescending(d => d.CreateTime))
+                {
+                    <dl class="tydl ptmg_stp_dl">
+                        @switch ((UserInfoType)(item.UserType ?? 0))
+                        {
+                            case UserInfoType.Teacher:
+                                <dt>@(item.Teacher!=null?item.Teacher.UserInfo.TrueName: "未知用户") ：</dt>
+                                break;
+                            case UserInfoType.Student:
+                                <dt>@(item.Student != null ? item.Student.UserInfo.TrueName : "未知用户") ：</dt>
+                                break;
+                            default:
+                                <dt>未知用户 ：</dt>
+                                break;
+                        }
+                        <dd class="stp_txtarea">
+                            @Html.Raw(item.Content)
+                        </dd>
+                    </dl>
+                }
+
+                <div class="ablogs_pwd_item">
+                    <label>回复：</label>
+                    @Html.TextBoxFor(d=>d.Content, new { @Value = "" })
+                </div>
+                <div class="ablogs_pwd_item">
+                    <label></label>
+                    <button class="tydv_btn_pka bd_rd5 fl" type="submit">保存内容</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="cdiv_cen" id="mg-btn-pos" style="height: 10%;width: 10%">
+    <dl class="tydl mytc_ad2">
+        <dd>
+            <a class="tydv_btn_pka bd_rd5 fl" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" href="@Url.Action("search")">取消</a>
+        </dd>
+    </dl>
+</div>
+
+<script>
+    $.getScript("/Content/scrollbar/js/minified/jquery.mCustomScrollbar.min.js", function () {
+        $.getScript("/Content/kindeditor/kindeditor-all-min.js", function () {
+
+            $("#abloeds").mCustomScrollbar({
+                                    scrollButtons: {
+                                        enable: true
+                                    },
+                theme: "dark-thin"
+            });
+            KindEditor.basePath = '/Content/kindeditor/';
+
+            var editor = KindEditor.create('#Content', {
+                resizeType: 1,
+                allowPreviewEmoticons: false,
+                allowImageUpload: false,
+                items: [
+                    'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                    'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                    'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+            });
+
+        });
+    });
+</script>

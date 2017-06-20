@@ -1,0 +1,27 @@
+﻿@model TreatiseProcessViewModel
+<div class="row m-t-sm">
+    <div class="col-lg-12">
+        <div class="panel blank-panel">
+            <div class="panel-heading">
+                <div class="panel-options">
+                    <ul class="nav nav-tabs">
+                        @foreach (var item in Model.ProcessList)
+                        {
+                            <li class="@(item.IsOpen == 1 ? "active" : "")">
+                                <a  data-ajax="true" data-ajax-mode="replace" data-ajax-update="#processstudentlist" href="@Url.Action("studentlist", "progressprocess", new {id = item.ID})">@item.ProcessName</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div id="processstudentlist" class="tab-pane active">
+                        @Html.Partial("StudentList")
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

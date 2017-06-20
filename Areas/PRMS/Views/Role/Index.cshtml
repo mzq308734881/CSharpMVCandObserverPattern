@@ -1,0 +1,87 @@
+﻿@model Pager<Role>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>模块添加</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/prms/">主页</a>
+            </li>
+            <li>
+                <strong>模块管理</strong>
+            </li>
+            <li>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>模块管理</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <form action="/prms/role/search" method="post">
+                                    <div class="input-group">
+                                        <input type="text" name="keyword" placeholder="角色名称" class="form-control"> <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-primary">
+                                                搜索
+                                            </button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-md-offset-7">
+                            <div class="input-group">
+                                <a class="btn btn-sm btn-primary" href="/prms/role/add"> 添加</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                   
+                                    <th>角色名称</th>
+                                    <th>创建时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        
+                                        <td>@item.RoleName</td>
+                                        <td>@item.CreateTime</td>
+                                        <td>
+                                            <a href="/prms/role/edit/@item.ID" class="btn btn-info ">
+                                                <i class="fa fa-paste"></i>
+                                                编辑
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    @UIHelper.PageHelper("role", Model.TotalPages, Model.PageIndex, Model.PageSize, Model.TotalCount, Model.HasPreviousPage, Model.HasNextPage, Model.PageList)
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

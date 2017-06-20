@@ -1,0 +1,99 @@
+﻿@model Teacher
+@{
+    var school = ViewBag.SchoolName;
+}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>老师查看</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/prms/">主页</a>
+            </li>
+            <li>
+                <a href="/prms/teacher">老师管理</a>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <small>老师查看</small>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form method="post" class="form-horizontal" id="student-From">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">所属</label>
+                            <div class="col-sm-8 form-control-static">
+                                @StaticHelper.GetSchoolFullName(Model.SchoolID ?? 0)
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">学号</label>
+                            <div class="col-sm-8 form-control-static">
+                                @Html.Raw(Model.UserInfo.LoginName)
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">姓名</label>
+                            <div class="col-sm-8 form-control-static">
+                                @Html.Raw(Model.UserInfo.TrueName)
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">联系电话</label>
+                            <div class="col-sm-8 form-control-static">
+                                @Html.Raw(Model.UserInfo.Tel)
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">邮箱</label>
+                            <div class="col-sm-8 form-control-static">
+                                @Html.Raw(Model.UserInfo.Email)
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">QQ</label>
+                            <div class="col-sm-8 form-control-static">
+                                @Html.Raw(Model.UserInfo.QQ)
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">微信</label>
+                            <div class="col-sm-8 form-control-static">
+                                @Html.Raw(Model.UserInfo.WeChat)
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">性别</label>
+                            <div class="col-sm-8 form-control-static">
+                                @SelectListHelper.GetSexName(Model.UserInfo.Sex)
+                            </div>
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <a class="btn btn-white" href="/prms/teacher">取消</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

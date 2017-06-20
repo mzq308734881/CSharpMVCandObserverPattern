@@ -1,0 +1,243 @@
+﻿@model Question
+@{
+    int i = ViewBag.id;
+    int s = ViewBag.iid;
+}
+<div class="dhg2"></div>
+<div class="cdiv ow tydl" style="height:100%">
+    <div class="content" id="sucai" style="height:100%">
+        <form class="ablogs_pwd" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" action="@Url.Action("detail")">
+            <div class="r_title">
+                <span class="lgmg_wtlg_t dp1 fl w100">
+                    <i><img src="~/Content/Images/icon_wt.png" /></i>
+                    <font>查看日志</font>
+                </span>
+                <a href="/StudentSys/sharelog/detail"><img src="~/Content/Images/gb_x.png" class="closeimg" /></a>
+            </div>
+            <h1 class="r_title">@Model.Title</h1>
+            <div class="r_p">
+                <span class="dp1 pd_lf_rg">发布于:@String.Format("{0:yyyy-MM-dd}", Model.CreateTime)</span>
+                <span class="dp1 pd_lf_rg">所属课题:@ViewData["Subject"]</span>
+                <span class="dp1 pd_lf_rg">@(Model.IsSharing == 1 ? "已共享" : "未共享")</span>
+                <span class="dp1 pd_lf_rg">@(Model.IsTeacherHelp == 1 ? "已提交老师" : "未提交老师")</span>
+            </div>
+            <div class="r_con">
+                <dl class="tydl gbdv">
+                    <dd style="font-size:16px; line-height:30px;">
+                        @Html.Raw(Model.Content)
+                    </dd>
+                    <div class="dhg3"></div>
+                    @foreach (var item in Model.StudentLogComments)
+                    {
+
+                        if (item.State == 1)
+                        {
+                            <div id="item_@item.ID">
+                                @if (item.Student == null)
+                                {
+
+                                    <dt>
+                                        <span class="fl dp2">@(item.Student.UserInfo.TrueName)回复:</span>
+                                        <span class="fr dp1">
+                                            @String.Format("{0:yyyy-MM-dd}", item.CreateTime)
+                                        </span>
+                                    </dt>
+                                    <dd>
+                                        @Html.Raw(item.Content)
+                                    </dd>
+                                    <div class="dhg1"></div>
+                                }
+                                else
+                                {
+
+                                    <dt>
+                                        <span class="fl dp2">@(item.Student.UserInfo.TrueName)回复:</span>
+                                        <span class="fr dp1">
+                                            @if (ViewData["IsMyLogManage"] as string == "yes")
+                                            {
+                                                if (i == s)
+                                                {
+                                                    <a class="btn btn3" onclick="btndel(@item.ID) ">删除</a>
+                                                }
+                                            }
+                                            @String.Format("{0:yyyy-MM-dd}", item.CreateTime)
+                                        </span>
+                                    </dt>
+                                    <dd>
+                                        @Html.Raw(item.Content)
+                                    </dd>
+                                    <div class="dhg1"></div>
+                                }
+                            </div>
+                        }
+
+                    }
+                </dl>
+                <div class="control-group">
+                    <label class="control-label">评论日志:</label>
+                    <textarea id="Content" name="Content" class="SubjectComment"></textarea>
+                    <div class="form-actions" style="margin-top:6px">
+                        <button type="submit" class="btn btn3" onclick="if (confirm('确定要回复此日志吗？')) { return true; } else { return false; }">确认添加</button>
+                        <a class="tydv_btn_pka bd_rd5 fl" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" href="@Url.Action("search")">取消</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+<!--公开提问-->
+<div class="tydvrg" id="sucai">
+
+    <h3 class="tydvrg_tit ps">提问查看</h3>
+    <a href="/studentsys/default"><img src="~/Content/Admin/img/gb.jpg" class="closeimg" /></a>
+    <div class="dhg2"></div>
+    <div class="cdiv" id="sucais" style="height: 450px">
+        <div class="dhg3"></div>
+        <div class="addv">
+            <dl class="tydl mytc_ad2">
+                <dt>研究方向:</dt>
+                <dd>
+                    @Model.StudentSubjectMapping.Subject.SubjectName
+                </dd>
+            </dl>
+            <dl class="tydl mytc_ad2">
+                <dt>提问标题:</dt>
+                <dd>@Model.QuestionsTitle</dd>
+            </dl>
+            <dl class="tydl mytc_ad2">
+                <dt>提问内容:</dt>
+                <dd class="showcontent">@Html.Raw(Model.QuestionsContent)</dd>
+            </dl>
+            <dl class="tydl mytc_ad2">
+                <dt>提问时间:</dt>
+                <dd>@string.Format("{0:yyyy-MM-dd}", Model.CreateTime)</dd>
+            </dl>
+            @if (Model.QuestionsReplies.Any())
+            {
+                <dl class="tydl mytc_ad2">
+                    <dt>回复:</dt>
+                    <dd>
+                        @foreach (var item in Model.QuestionsReplies)
+                        {
+                            <dl>
+                                @(item.SystemUserID != null ? item.SystemUser.TrueName : item.Student.TrueName):
+                                @Html.Raw(item.ReplyContent)——@string.Format("{0:yyyy-MM-dd}", item.ReplyTime)
+                            </dl>
+                        }
+                    </dd>
+                </dl>
+            }
+            <div class="dhg3"></div>
+
+        </div>
+
+    </div>
+    <dl class="tydl mytc_ad2">
+        <dd>
+            <a href="/studentsys/studentquestions/openquestions" data-ajax-update="#replace" data-ajax-mode="replace" data-ajax="true" style="float:right;display:block;">
+                <span class="btn btn3">返回</span>
+            </a>
+        </dd>
+    </dl>
+</div>
+<!--公开提问-->>
+<script>
+    function btndel(id) {
+        if (confirm("删除后数据无法恢复，确定要删除吗?")) {
+            $.post("/studentsys/studentlog/deletehuifu", { id: id }, function (data) {
+                if (data == "OK") {
+                    alert("删除成功！");
+                    window.location.reload();
+                } else {
+                    alert(data);
+                }
+            });
+        };
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $.getScript('/Content/Admin/js/plugins/webuploader/webuploader.min.js', function () {
+            $.getScript("/Content/scrollbar/js/minified/jquery.mCustomScrollbar.min.js", function () {
+                $.getScript("/Content/kindeditor/kindeditor-all-min.js", function () {
+                    $("#sucai").mCustomScrollbar({
+                        scrollButtons: {
+                            enable: true
+                        },
+                        theme: "dark-thin"
+                    });
+                    KindEditor.basePath = '/Content/kindeditor/';
+                    var editor = KindEditor.create('#Content', {
+                        resizeType: 1,
+                        allowPreviewEmoticons: false,
+                        allowImageUpload: false,
+                        items: [
+                            'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                            'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                            'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+                    });
+                    var uploader = WebUploader.create({
+                        auto: true,
+                        // swf文件路径
+                        swf: + '/Content/js/Uploader.swf',
+                        // 文件接收服务端。
+                        server: '@Url.Action("tool", "upload")',
+                        // 选择文件的按钮。可选。
+                        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                        pick: {
+                            id: '#picker',
+                            multiple: false
+                        },
+
+                        // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+                        resize: false,
+                        //fileNumLimit: 1,
+                        fileSingleSizeLimit: 20 * 1024 * 1024,
+                        // 选址文件选择格式。
+                        accept: {
+                            title: '指定格式',
+                            extensions: 'xls,xlsx,doc,docx,rar,zip,png,jpeg,jpg,bmp,wps',
+                        }
+                    });
+
+                    //验证文件格式以及文件大小
+                    uploader.on("error", function (type) {
+                        if (type == "Q_TYPE_DENIED") {
+                            alert("请上传xls,xlsx,doc,docx,rar,zip,png,jpeg,jpg,bmp,wps格式文件");
+                        } else if (type == "F_EXCEED_SIZE") {
+                            alert("文件大小不能超过100M");
+                        }
+                    });
+                    // 当有文件被添加进队列的时候
+                    uploader.on('fileQueued', function (file) {
+                        $("#filemsg").html("文件 " + file.name + "准备上传…… ");
+                    });
+                    // 文件上传过程中创建进度条实时显示。
+                    uploader.on('uploadProgress', function (file, percentage) {
+                        $("#filemsg").html("文件 " + file.name + "正在上传");
+                        $("#filecontent").show();
+                        $("#filepro").css('width', percentage * 100 + '%');
+                    });
+                    // 文件上传成功
+                    uploader.on('uploadSuccess', function (file, response) {
+                        if (response.State == 0) {
+                            $("#uploader").html(response.Message);
+                            layer.alert(response.Message);
+                        } else {
+                            $("#filemsg").html("文件 " + file.name + "已上传");
+                            $("#filepath").val(response.FilePath);
+                            if ($("#FIleName").val() == "")
+                                $("#FileName").val(response.FileName);
+                        }
+                    });
+                    // 文件上传失败
+                    uploader.on('uploadError', function (file) {
+                        $("#filemsg").html("文件 " + file.name + "上传失败！");
+                    });
+
+                });
+            });
+        });
+    });
+</script>

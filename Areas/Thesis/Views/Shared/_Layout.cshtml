@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <title>@(ConfigHelper.SchoolName + "论文管理系统")</title>
+<!-- <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+<meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+    -->
+    @RenderSection("Head", false)
+    <link href="/content/admin/css/bootstrap.min.css?v=3.4.0" rel="stylesheet">
+    <link href="/content/admin/font-awesome/css/font-awesome.css?v=4.3.0" rel="stylesheet">
+    <link href="/content/admin/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/content/admin/css/animate.css" rel="stylesheet">
+    <link href="/content/admin/css/style.css?v=2.2.0" rel="stylesheet">
+    <link href="/content/layer/skin/layer.css" rel="stylesheet">
+    <link href="~/Content/Scripts/select2/select2.css" rel="stylesheet" />
+    @*@StackExchange.Profiling.MiniProfiler.RenderIncludes()*@
+    <style>
+        .container {
+            width: 100%;
+        }
+
+        .chosen-select {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="top-navigation">
+    <div id="wrapper">
+        @RenderBody()
+    </div>
+    <!-- Mainly scripts -->
+    <script src="/content/admin/js/jquery-2.1.1.min.js"></script>
+    <script src="/content/admin/js/bootstrap.min.js?v=3.4.0"></script>
+    <script src="/content/admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/content/admin/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- Custom and plugin javascript -->
+    <script src="/content/admin/js/hplus.js?v=2.2.0"></script>
+    <script src="/content/admin/js/plugins/pace/pace.min.js"></script>
+    <!-- jQuery UI -->
+    <script src="~/Content/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- layer javascript -->
+    <script src="/content/layer/layer.js"></script>
+    <!-- Ajax  -->
+    <script src="~/Content/admin/js/jquery.unobtrusive-ajax.min.js"></script>
+    <!-- Editor  -->
+    <script src="~/Content/kindeditor/kindeditor-all-min.js"></script>
+    <!-- ECharts -->
+    <script src="/Content/js/echarts.min.js"></script>
+    <script src="~/Content/Scripts/Validform_v5.3.2.js"></script>
+    <!-- My97  -->
+    @*<script src="~/Content/My97DatePicker/WdatePicker.js"></script>*@
+    <script src="~/Content/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Content/admin/js/jquery-validate-methods.js"></script>
+    @RenderSection("Scripts", false)
+    <script>
+        $(function () {
+            var index;
+            // 设置jQuery Ajax全局的参数
+            $(document).ajaxStart(onStart).ajaxComplete(onComplete);
+            function onStart(event) {
+                index = layer.load(3, { time: 10 * 1000 });
+            }
+            function onComplete(event, xhr, settings) {
+                layer.close(index);
+                if (xhr.statusText == "OK") return;
+                if (xhr.status == 500) {
+                    var json = jQuery.parseJSON(xhr.responseText);
+                    if (json.ErrorState == 0 && json.ErrorType == "json") {
+                        layer.alert(json.Message);
+                    } else {
+                        layer.alert("未知错误");
+                    }
+                } else {
+                    layer.alert("未知错误");
+                }
+            }
+        });
+        function reloadtreatise(id) {
+            $.get("@Url.Action("change","home")/" + id, function (data) {
+                if (data.State == 1)
+                    window.location.reload();
+                else
+                    layer.msg(data.Message);
+            });
+        }
+    </script>
+</body>
+</html>

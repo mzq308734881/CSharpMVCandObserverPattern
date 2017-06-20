@@ -1,0 +1,106 @@
+﻿@model Pager<Tool>
+@{ DateTime dt = DateTime.Now;}
+<div class="ps hei-a85">
+    <h3 class="tydvrg_tit">共享工具</h3>
+    <div class="tysearch bd_rd5" style="border:none;width:450px;">
+        @using (Ajax.BeginForm("search", new AjaxOptions()
+        {
+            HttpMethod = "post",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "teacherpage"
+        }))
+        {
+            @Html.DropDownList("Sort", ViewBag.Sort as SelectList, new { @class = "wid100 yu_css fl" })
+            <input type="text" class="tyshtxt" placeholder="工具名称" name="keyword" style="border:1px solid #ccc;margin:0 20px" />
+            <button type="submit" class="btn btn-primary" style="padding: 1px 6px;">
+                搜索
+            </button>
+        }
+    </div>
+    <div class="dhg2"></div>
+    <div class="cdiv ps" id="content_cp" style="height: 100%;">
+        <div class="dhg3"></div>
+        <div class="r_con_over chenposi" id="abloeds">
+            <div class="addv">
+                <table width="100%" cellpadding="0" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>下载次数</th>
+                            <th>名称</th>
+                            <th>上传人</th>
+                            <th>上传时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr id="item_@(item.ID)">
+                                <td class="center">@item.Hits</td>
+                                @if (item.CreateTime >= dt.AddDays(-7))
+                                {
+                                    if (item.IsTop == 0)
+                                    {
+                                        <td class="center">
+                                            @(item.FileName ?? "未命名")
+                                            <img src="~/Content/Images/new-11.10.gif" />
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="center">
+                                            @(item.FileName ?? "未命名")
+                                            <img src="~/Content/Images/new-11.10.gif" />
+                                            <img src="~/Content/Images/001zhidin.png" />
+                                        </td>
+
+                                    }
+                                }
+                                else
+                                {
+                                    if (item.IsTop == 0)
+                                    {
+                                        <td class="center">
+                                            @(item.FileName ?? "未命名")
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="center">
+                                            @(item.FileName ?? "未命名")
+                                            <img src="~/Content/Images/001zhidin.png" />
+                                        </td>
+                                    }
+                                }
+                                <td class="center">@StaticHelper.InfoName(item.CreateInfoID)</td>
+                                <td class="center">@string.Format("{0:d}", item.CreateTime)</td>
+                                <td>
+                                    @if (!string.IsNullOrWhiteSpace(item.FileName) && !string.IsNullOrWhiteSpace(item.FileUrl))
+                                    {
+                                        <a href="/download/tool/@item.ID" class="btn btn-info">
+                                            <i class="fa fa-paste"></i>
+                                            下载
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <i class="btn btn-info">暂无附件</i>
+
+                                    }
+                                    <a href="/teachersys/sharetool/detail/@item.ID" class="btn btn-info" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage">
+                                        <i class="fa fa-paste"></i>
+                                        详情
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="dhg2"></div>
+    </div>
+    <div class="cdiv_cen" id="mg-btn-pos">
+        @UIHelper.TeacherPageHelper("#teacherpage", "sharetool", "search", null, null, null, Model.TotalPages, Model.PageIndex, Model.PageSize, Model.TotalCount, Model.HasPreviousPage, Model.HasNextPage, Model.PageList)
+    </div>
+</div>

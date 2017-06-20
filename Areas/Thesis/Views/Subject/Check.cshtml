@@ -1,0 +1,100 @@
+﻿@model TreatiseSubject
+@{
+    Layout = null;
+}
+@using (Ajax.BeginForm("Check", new { id = Model.ID }, new AjaxOptions()
+{
+    Confirm = "确认要保存此流程吗？",
+    HttpMethod = "post",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "tab-subject"
+}, new { @class = "form-horizontal", id = "treasubje" }))
+{
+    <input type="hidden" namt="ID" value="@Model.ID" />
+    <input type="hidden" name="TreatiseID" value="@Model.TreatiseID" />
+    <div class="form-group">
+        <label class="col-sm-3 control-label">标题：</label>
+        <div class="col-sm-8 form-control-static">
+            @Model.Subject.Title
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">导师姓名：</label>
+        <div class="col-sm-8 form-control-static">
+            @Model.Teacher.UserInfo.TrueName
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">课题描述：</label>
+        <div class="col-sm-8 form-control-statics">
+            @Html.Raw(Model.Subject.Comment)
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">课题性质：</label>
+        <div class="col-sm-8 form-control-static">
+            @Html.Raw(Model.Subject.Nature)
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">研究方向：</label>
+        <div class="col-sm-8  form-control-static">
+            @Html.Raw(Model.Subject.ResearchAreas)
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">研究价值：</label>
+        <div class="col-sm-8 form-control-static">
+            @Html.Raw(Model.Subject.ResearchValue)
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">考核标准：</label>
+        <div class="col-sm-8 form-control-static">
+            @Html.Raw(Model.Subject.PassStandard)
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">学生数量：</label>
+        <div class="col-sm-8">
+            @Html.TextBoxFor(d => d.Total, new { @class = "form-control required" })
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">审核结果：</label>
+        <div class="col-sm-8">
+            @Html.DropDownListFor(d => d.CheckState, ViewData["CheckState"] as SelectList, new { @class = "form-control required" })
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">审核说明：</label>
+        <div class="col-sm-8">
+            @Html.TextBoxFor(d => d.CheckComment, new { @class = "form-control required" })
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <div class="col-sm-4 col-sm-offset-2">
+            <button class="btn btn-primary" type="submit">提交</button>
+            <a class="btn btn-white" href="@Url.Action("search")" data-ajax-update="#tab-subject" data-ajax-mode="replace" data-ajax="true">取消</a>
+        </div>
+    </div>
+}
+<!--文本编辑器-->
+<script>
+    $(document).ready(function () {
+        $.getScript('/Content/kindeditor/kindeditor-all-min.js', function () {
+            KindEditor.create('input[name="CheckComment"]');
+            $("#treasubje").validate();
+        });
+    });
+</script>

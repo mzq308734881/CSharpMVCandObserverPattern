@@ -1,0 +1,269 @@
+﻿@model Subject
+    @{ 
+        var annex = ViewBag.Annex as Annex;
+    }
+<link href="~/Content/admin/Css/plugins/webuploader/webuploader.css" rel="stylesheet" />
+<link href="~/Content/admin/css/plugins/chosen/chosen.css" rel="stylesheet" />
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>课题修改</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/prms/">主页</a>
+            </li>
+            <li>
+                <a href="/prms/subject">课题管理</a>
+            </li>
+            <li>
+                <strong>课题修改</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form method="post" class="form-horizontal" id="subject-From">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">课题名称</label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(d => d.Title, new { @class = "form-control required" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">选择专业</label>
+                            <div class="col-sm-8">
+                                @Html.DropDownListFor(d => d.SchoolID, ViewData["SchoolID"] as SelectList, new { @class = "form-control required", onchange = "getschoolteacher(this.value)" })
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">导师</label>
+                            <div class="col-sm-8">
+                                @Html.DropDownListFor(d => d.TeacherID, ViewData["TeacherID"] as SelectList, new { @class = "form-control required", onchange = "changeteacher(this.value)" })
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">描述</label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(d => d.Comment, new { @class = "form-control textkind" })
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">课题性质</label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(d => d.Nature, new { @class = "form-control textkind" })
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">研究方向</label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(d => d.ResearchAreas, new { @class = "form-control textkind" })
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">研究价值</label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(d => d.ResearchValue, new { @class = "form-control textkind" })
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">考核标准</label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(d => d.PassStandard, new { @class = "form-control textkind" })
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">审核结果</label>
+                            <div class="col-sm-8">
+                                @Html.DropDownListFor(d => d.SubjectState, ViewData["SubjectState"] as SelectList, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">审核结果说明</label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(d => d.CheckContent, new { @class = "form-control textkind" })
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">选择文件</label>
+                            <div class="col-sm-8">
+                                <div class="col-sm-8">
+                                    <div id="uploader">
+                                        <!--用来存放文件信息-->
+                                        <div id="thelist" class="uploader-list">
+                                            @if (annex != null)
+                                            {
+                                                <div class="item">
+                                                    <h4 class="info"><a href="@annex.AnnexPath">@annex.AnnexName</a></h4>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="btns">
+                                            <div id="picker">选择文件</div>
+                                            <input type="hidden" id="filename" name="filename" />
+                                            <input id="filepath" name="filepath" type="hidden" datatype="*" nullmsg="请先上传模板！" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">保存内容</button>
+                                <a class="btn btn-white" onclick="return confirm('返回后您输入的数据将不被储存，确认返回吗？')" href="/prms/subject">取消</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="/Content/Scripts/select2/select2.js"></script>
+    <script src="~/Content/Admin/js/plugins/webuploader/webuploader.min.js"></script>
+    <script>
+        var uploader;
+        $(document).ready(function () {
+            $("#TeacherID").select2();
+            KindEditor.ready(function (K) {
+                K.create('.textkind', {
+                    uploadJson: '/upfile/uploadfile',
+                    allowFileManager: true,
+                    afterCreate: function () {
+                        var self = this;
+                        K.ctrl(document, 13, function () {
+                            self.sync();
+                        });
+                        K.ctrl(self.edit.doc, 13, function () {
+                            self.sync();
+                        });
+                    }
+                });
+            });
+
+            var validate = $("#subject-From").validate();
+            uploader = WebUploader.create({
+                auto: true,
+                // swf文件路径
+                swf: + '/Content/js/Uploader.swf',
+                // 文件接收服务端。
+                server: '@Url.Action("subject", "upload")',
+                // 选择文件的按钮。可选。
+                // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                pick: {
+                    id: '#picker',
+                    multiple: false,
+                },
+
+                // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+                resize: false,
+                fileSingleSizeLimit: 100 * 1024 * 1024,
+                // 只允许选择Excle文件。
+                accept: {
+                    title: '指定格式',
+                    extensions: 'xls,xlsx,doc,docx,rar,zip,png,jpeg,jpg,bmp,wps',
+                },
+                formData: {
+                    teacherid: @(Model.TeacherID),
+                }
+            });
+            //验证文件格式以及文件大小
+            uploader.on("error", function (type) {
+                if (type == "Q_TYPE_DENIED") {
+                    alert("请上传xls,xlsx,doc,docx,rar,zip,png,jpeg,jpg,bmp,wps格式文件");
+                } else if (type == "F_EXCEED_SIZE") {
+                    alert("文件大小不能超过100M");
+                }
+            });
+            // 当有文件被添加进队列的时候
+            uploader.on('fileQueued', function (file) {
+                var teacherid = $("#TeacherID").val() - 0;
+                if (teacherid <= 0) {
+                    layer.alert("请先选择导师后再上传文件!");
+                    uploader.removeFile(file, true);
+                } else {
+                    $("#thelist").html('<div id="' + file.id + '" class="item">' +
+                 '<h4 class="info">' + file.name + '</h4>' +
+                 '<p class="state">等待上传...</p>' +
+                 '</div>');
+                }
+            });
+            // 文件上传过程中创建进度条实时显示。
+            uploader.on('uploadProgress', function (file, percentage) {
+                var $li = $('#' + file.id),
+                    $percent = $li.find('.progress .progress-bar');
+
+                // 避免重复创建
+                if (!$percent.length) {
+                    $percent = $('<div class="progress progress-striped active">' +
+                        '<div class="progress-bar" role="progressbar" style="width: 0%">' +
+                        '</div>' +
+                        '</div>').appendTo($li).find('.progress-bar');
+                }
+
+                $li.find('p.state').text('上传中');
+
+                $percent.css('width', percentage * 100 + '%');
+            });
+            uploader.on('uploadSuccess', function (file, response) {
+                if (response.State == 0) {
+                    $('#' + file.id).find('p.state').text("上传失败！");
+                    layer.alert(response.Message);
+                } else {
+                    $('#' + file.id).find('p.state').text('已上传');
+                    $("#filename").val(response.FileName);
+                    $("#filepath").val(response.FilePath);
+                }
+            });
+
+            uploader.on('uploadError', function (file) {
+                $('#' + file.id).find('p.state').text('上传出错');
+            });
+
+            uploader.on('uploadComplete', function (file) {
+                $('#' + file.id).find('.progress').fadeOut();
+            });
+        });
+
+        function changeteacher(id) {
+            uploader.options.formData = { 'teacherid': id };
+        }
+        function getschoolteacher(id) {
+            if (id - 0 == 0) return;
+            $.getJSON("@Url.Action("GetSchoolTeacher","ajax")", { id: id }, function (data) {
+                var html = "";
+                if (data == null || data.length == 0) {
+                    $(".select2-chosen").html("未找到对应导师！");
+                } else {
+                    for (var i = 0; i < data.length; i++) {
+                        html += '<option value="' + data[i].ItemID + '">' + data[i].ItemName + '</option>';
+                    }
+                    $(".select2-chosen").html("请选择导师");
+                }
+                $("#TeacherID").html(html);
+            });
+        }
+    </script>
+}

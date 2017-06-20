@@ -1,0 +1,59 @@
+﻿@model Pager<Question>
+
+<div class="ps hei-a85">
+    <h3 class="tydvrg_tit">学生提问</h3>
+    <div class="tysearch_c bd_rd5">
+        @using (Ajax.BeginForm("search", new AjaxOptions()
+        {
+            HttpMethod = "post",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "teacherpage"
+        }))
+        {
+            <input type="text" class="tyshtxt" placeholder="课题名称" name="keywords"><button type="submit" class="tyshbut"></button>
+        }
+    </div>
+    <div class="dhg2"></div>
+    <div class="cdiv ps" id="content_cp" style="height:65%;">
+        <div class="dhg3"></div>
+        <div class="r_con_over chenposi" id="abloeds">
+            <div class="addv">
+
+                <table width="100%" cellpadding="0" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>相关课题</th>
+                            <th>上传学生</th>
+                            <th>上传时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr id="item_@(item.ID)">
+                            <td>@item.Title</td>
+                            <td>
+                                @((item.TreatiseStudent != null && item.TreatiseStudent.TreatiseSubject != null) ? item.TreatiseStudent.TreatiseSubject.SubjectTitle : "未选题")
+                            </td>
+                            <td>
+                                @((item.TreatiseStudent != null && item.TreatiseStudent.Student != null) ? item.TreatiseStudent.Student.UserInfo.TrueName : "未找到对应学生")
+                            </td>
+                            <td>@string.Format("{0:F}", item.CreateTime)</td>
+                            <td>
+                                <a href="@Url.Action("reply", new {id = item.ID})" class="tydv_btn_p bd_rd5" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage">回复</a>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="dhg2"></div>
+    </div>
+    <div class="cdiv_cen" id="mg-btn-pos">
+        @UIHelper.TeacherPageHelper("#teacherpage", "question", "search", null, null, null, Model.TotalPages, Model.PageIndex, Model.PageSize, Model.TotalCount, Model.HasPreviousPage, Model.HasNextPage, Model.PageList)
+    </div>
+</div>

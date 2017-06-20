@@ -1,0 +1,57 @@
+﻿@model TreatiseStudentViewModel
+
+    <div class="footer_menu_box">
+        <div class="menu">
+            <div class="bt-name">毕业论文成绩</div>
+        </div>
+    </div>
+
+<div class="tycdv bd_rd10 bg_wite">
+    <div class="cdiv pd20 ptmg ow tyhg5">
+        <div class="ps">
+            <!-- <div class="myts_tm">提交截止时间： 2015年2月1日</div> -->
+            <h3 class="tydvrg_tit">详情</h3>
+            <div class="dhg2"></div>
+            <div class="r_con_over" id="abloeds">
+                <div class="tydvrg_bylw_table">
+
+                    <div class="tydvrg_bylw_mcoon">
+                        <ul>
+                            <li>
+                                <span class="tydvrg_bylw_mtitle">流程名称：</span>
+                                <span class="tydvrg_bylw_mcontent">@Model.Process.ProcessName</span>
+                            </li>
+                            <li>
+                                <span class="tydvrg_bylw_mtitle">时间分：</span>
+                                <span class="tydvrg_bylw_mcontent">@Model.StudentProcess.TimeMark  / @Model.Process.TimeMark</span>
+                            </li>
+                            <li>
+                                <span class="tydvrg_bylw_mtitle">质量分：</span>
+                                <span class="tydvrg_bylw_mcontent">@Model.StudentProcess.QualityMark / @Model.Process.QualityMark</span>
+                            </li>
+                            <li>
+                                <span class="tydvrg_bylw_mtitle">总分：</span>
+                                <span class="tydvrg_bylw_mcontent">@Model.StudentProcess.TotalMark</span>
+                            </li>
+                            <li>
+                                <span class="tydvrg_bylw_mtitle">老师评语：</span>
+                                <span class="tydvrg_bylw_mcontent">
+                                   @Html.Raw(Model.StudentProcess.ScoreComment)
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="btn_cp_420">
+                <dl class="tydl mytc_ad2 ">
+                    <dd>
+                        <a class="tydv_but bd_rd5" href="@Url.Action("index")" data-ajax-update="#studentpage" data-ajax-mode="replace" data-ajax="true">返回</a>
+                    </dd>
+                </dl>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,148 @@
+﻿@model TreatiseConfigViewModel
+@{
+    Layout = null;
+    var instage = Model.Treatise.TreatiseStage == 0;
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="col-sm-3">
+            <label class="col-sm-8 control-label">总学生人数：</label>
+            <div class="col-sm-4">
+                @Model.ListCount
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <label class="col-sm-8 control-label">总课题数：</label>
+            <div class="col-sm-4">
+                @Model.SubjectPage.TotalCount
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <label class="col-sm-8 control-label">已分配课题人数：</label>
+            <div class="col-sm-4">
+                @Model.SumCount
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <label class="col-sm-8 control-label">未分配课题人数</label>
+            <div class="col-sm-4">
+                @Model.UnCount
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="input-group">
+            @using (Ajax.BeginForm("search", new AjaxOptions()
+            {
+                HttpMethod = "post",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "tab-subject"
+            }))
+            {
+
+                <div class="col-sm-10">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="keyword" placeholder="课题标题">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary">
+                                搜索
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    @if (instage)
+    {
+        <div class="col-md-2 col-md-offset-6">
+            <div class="input-group">
+                <a class="btn btn-sm btn-primary" href="@Url.Action("add")" data-ajax-update="#tab-subject" data-ajax-mode="replace" data-ajax="true"> 添加</a>
+            </div>
+        </div>
+
+    }
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>课题标题</th>
+                        <th>导师姓名</th>
+                        <th>分配人数</th>
+                        <th>审核状态</th>
+                        <th>使用年份</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.SubjectPage != null)
+                    {
+                        foreach (var item in Model.SubjectPage)
+                        {
+                            <tr id="item_@item.ID">
+                                <td>@item.Subject.Title</td>
+                                <td>@AjaxHelpsController.GetTeacherName(item.TeacherID)</td>
+                                <td>@item.Total</td>
+                                <td>@SelectListHelper.TreatiseSubjectCheckStateName(item.CheckState)</td>
+                                <td>@string.Format("{0:yyyy}", item.UserYear)</td>
+                                <td>
+                                    <a class="btn btn-info" onclick="showsubject(@item.ID)">
+                                        <i class="fa fa-paste"></i>
+                                        查看
+                                    </a>
+                                    @if (instage)
+                                    {
+                                        if (item.CheckState == 0)
+                                        {
+                                            <a class="btn btn-info" href="@Url.Action("check",new {id=item.ID})" data-ajax-update="#tab-subject" data-ajax-mode="replace" data-ajax="true">
+                                                <i class="fa fa-paste"></i>审核
+                                            </a>
+                                        }
+                                        <a href="javascript:void(0)" class="btn btn-info" onclick="btndel(@item.ID)">
+                                            <i class="fa fa-paste"></i>删除
+                                        </a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        @UIHelper.ThesisPageHelper("#tab-subject", "subject", null, null, Model.SubjectPage.TotalPages, Model.SubjectPage.PageIndex, Model.SubjectPage.PageSize, Model.SubjectPage.TotalCount, Model.SubjectPage.HasPreviousPage, Model.SubjectPage.HasNextPage, Model.SubjectPage.PageList)
+
+    </div>
+</div>
+
+<script>
+    function btndel(id) {
+        layer.confirm('"删除后数据无法恢复，确定要删除吗?"', { icon: 3, title: '确认删除' }, function (index) {
+            $.post("@Url.Action("delete")", { id: id }, function (data) {
+                if (data == "OK") {
+                    layer.msg("删除成功！");
+                    $("#item_" + id).hide();
+                } else {
+                    layer.alert(data);
+                }
+            });
+            layer.close(index);
+        });
+    }
+    function showsubject(id) {
+        $.get("@Url.Action("detail")", { id: id }, function (data) {
+            layer.open({
+                title: "导师课题信息",
+                type: 1,
+                skin: 'layui-layer-rim', //加上边框
+                //  area: ['50%', '50%'], //宽高
+                area: '75%', //宽度
+                content: data
+            });
+        });
+    }
+</script>

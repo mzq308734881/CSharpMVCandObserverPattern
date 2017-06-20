@@ -1,0 +1,75 @@
+﻿@model TreatiseStudent
+<div class="cdiv pd20 ptmg ow tyhg5">
+    <div class="ps">
+        <!-- <div class="myts_tm">提交截止时间： 2015年2月1日</div> -->
+        <h3 class="tydvrg_tit">我的提问</h3>
+        <div class="dhg2"></div>
+        <form class="ablogs_pwd"id="question-From" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" action="@Url.Action("add")">
+            <div class="addv" id="abloeds">
+                <dl class="tydl ptmg_stp_dl">
+                    <dt>日志所属课题</dt>
+                    <dd>
+                        @(Model.TreatiseSubject != null ? Model.TreatiseSubject.SubjectTitle : "未选题")
+                    </dd>
+                </dl>
+                <div class="dhg2"></div>
+                <dl class="tydl ptmg_stp_dl">
+                    <dt>标题</dt>
+                    <dd class="stp_txtarea"><input class="ptmg_stp_dl_cp " name="title" datatype="*" /></dd>
+                </dl>
+                <dl class="tydl ptmg_stp_dl">
+                    <dt>是否公开</dt>
+                    <dd class="stp_txtarea">
+                        @Html.RadioList("isopen", ViewBag.IsOpen as List<SelectListItem>)
+                    </dd>
+                </dl>
+                <div class="dhg2"></div>
+                <dl class="tydl ptmg_stp_dl">
+                    <dt>内容</dt>
+                    <dd class="stp_txtarea"><textarea class="ctbord stp_area stp_twh3" name="comment" id="comment"></textarea></dd>
+                </dl>
+                <div class="dhg3"></div>
+                <dl class="tydl ptmg_stp_dl">
+                    <dt></dt>
+                    <dd class="stp_txtarea">
+                        <input type="submit" class="tydv_but bd_rd5" style="float: left" value="提交" />
+                    </dd>
+                </dl>
+            </div>
+        </form>
+        <div class="dhg2"></div>
+        <div class="dhg2"></div>
+        <div class="cdiv_cen" id="mg-btn-pos" style="height: 5%;">
+            <dl class="tydl mytc_ad2">
+                <dt></dt>
+                <dd>
+                    <a href="@Url.Action("search")" class="tydv_but bd_rd5" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage">返回</a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $.getScript("/Content/kindeditor/kindeditor-all-min.js", function () {
+            $.getScript("/Content/Scripts/Validform_v5.3.2.js", function () {
+            KindEditor.basePath = '/Content/kindeditor/';
+            KindEditor.create('#comment', {
+                resizeType: 1,
+                allowPreviewEmoticons: false,
+                allowImageUpload: false,
+                items: [
+                    'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                    'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                    'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+            });
+            $("#question-From").Validform(
+                     {
+                         tiptype: 3,
+                         ignoreHidden: true
+                     });
+        });
+        });
+    });
+</script>

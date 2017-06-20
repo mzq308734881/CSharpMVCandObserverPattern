@@ -1,0 +1,120 @@
+﻿@{var userModel = new StudentViewModel();}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE10" />
+    <meta content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <title>@(ConfigHelper.SchoolName + "论文管理系统")</title>
+    @*@StackExchange.Profiling.MiniProfiler.RenderIncludes()*@
+    @RenderSection("Head", false)
+    <link rel="stylesheet" href="~/Content/css/common.css" type="text/css" media="screen" />
+    <link href="~/Content/scrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
+    <link href="~/Content/layer/skin/layer.css" rel="stylesheet" />
+    <link href="~/Content/css/menu.css" rel="stylesheet" />
+    <link href="~/Content/admin/Css/plugins/webuploader/webuploader.css" rel="stylesheet" />
+    <script src="~/Content/admin/js/jquery-2.1.1.min.js"></script>
+    <style>
+        .navdv li a font {
+            display: block;
+            line-height: 30px;
+            margin-left: -10px;
+            text-align: center;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 代码 开始 -->
+    <div class="hdtit2"><a href="javascript:void(0);" data-reveal-id="myModal">菜单</a></div>
+    <div id="myModal" class="reveal-modal">
+        <i class="tkbg"></i>
+        <a class="close-reveal-modal">&#215;</a>
+        <ul class="navdv">
+            <li><a href="@Url.Action("","notice")"><img /><img src="/Content/images/icon_nt.png" alt="通告公告" /><font>通告公告</font></a><i class="icon_nt bd_rd50">1</i></li>
+            <li><a href="@Url.Action("","subject")"><img /><img src="/Content/images/icon_kc.png" alt="课题管理" /><font>课题管理</font></a></li>
+            <li><a href="@Url.Action("","treatise")"><img /><img src="/Content/images/icon_mylw.png" alt="" /><font>我的论文</font></a></li>
+            <li><a href="@Url.Action("","studentlog")" ;"=;"><img src="/Content/images/icon_lgmg.png" alt="" /><font>日志管理</font></a></li>
+            <li><a  href="@Url.Action("","plan")"><img src="/Content/images/icon_wkjh.png" alt="" /><font>工作计划</font></a></li>
+            @*<li><a href="#" onclick="layer.msg('暂未开放');"><img src="/Content/images/icon_tps.png" alt="" /><font>提醒事项</font></a></li>*@
+            @*<li><a href="@Url.Action("","resource")"><img src="/Content/images/icon_zyk.png" alt="" /><font>资源库</font></a></li>*@
+            <li><a href="@Url.Action("","tool")"><img src="/Content/images/icon_tool.png" alt="" /><font>资源与工具管理</font></a></li>
+            <li><a href="@Url.Action("","question")"><img src="/Content/images/icon_mygbk.png" alt="" /><font>我的提问</font></a></li>
+            <li><a  href="@Url.Action("","score")"><img src="/Content/images/icon_grade.png" alt="" /><font>成绩管理</font></a></li>
+            <li><a href="@Url.Action("","user")"><img src="/Content/images/icon_uscenter.png" alt="" /><font>个人中心</font></a></li>
+            <li><a href="/studentsys"><img src="~/Content/Images/icon_userhome.png" alt="" /><font>返回主页</font></a></li>
+            @*<li><a href="#" onclick="layer.msg('暂未开放');"><img src="/Content/images/icon_aply.png" alt="" /><font>申请管理</font></a></li>*@
+        </ul>
+    </div>
+    <div class="tools">
+        <a href="@Url.Action("", "")"><i><img src="/Content/images/icon_home.png" /></i></a>
+        <span class="imgnd_kio">
+            <font>
+                <select onchange="reloadtreatise(this.value)">
+                    @foreach (var item in userModel.TreatiseList)
+                    {
+                        <option value="@item.ID" @(item.ID == ConfigHelper.TreatiseID ? "selected='selected'" : "")=)>@item.TreatiseName</option>
+                    }
+                </select>
+                <!-- <b class="cheok_bosg"></b> -->
+            </font>
+        </span>
+        <a href="@Url.Action("", "user")"><i><img src="/Content/images/icon_name.png" /></i><font>@userModel.UserInfo.TrueName</font></a>
+        <a href="/studentsys/user/detail"><i><img src="/Content/images/icon_help.png" /></i><font>帮助</font></a>
+        <a href="/home/logout"><i><img src="/Content/images/icon_exit.png" /></i><font>退出</font></a>
+    </div>
+    <div id="studentpage">
+        @RenderBody()
+        @RenderSection("Menu", false)
+    </div>
+    <script type="text/javascript" src="~/Content/Scripts/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="/Content/Scripts/jquery.reveal.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript" src="~/Content/layer/layer.js"></script>
+    <script type="text/javascript" src="~/Content/scrollbar/js/minified/jquery.mCustomScrollbar.min.js"></script>
+    <script type="text/javascript" src="/Content/Admin/js/plugins/webuploader/webuploader.min.js"></script>
+    <script src="~/Content/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Content/admin/js/jquery-validate-methods.js"></script>
+    <script src="~/Content/Scripts/MyStudent.js"></script>
+    <script src="~/Content/My97DatePicker/WdatePicker.js"></script>
+    <script src="~/Content/Scripts/Validform_v5.3.2.js"></script>
+    <!-- Editor  -->
+    <script src="~/Content/kindeditor/kindeditor-all-min.js"></script>
+    @RenderSection("Scripts", false)
+    <script>
+        $(function () {
+            var index;
+            // 设置jQuery Ajax全局的参数
+            $(document).ajaxStart(onStart).ajaxComplete(onComplete);
+            function onStart(event) {
+                index = layer.load(3, { time: 10 * 1000 });
+            }
+            function onComplete(event, xhr, settings) {
+                layer.close(index);
+                if (xhr.statusText == "OK") return;
+                if (xhr.status == 500) {
+                    var json = jQuery.parseJSON(xhr.responseText);
+                    if (json.ErrorState == 0 && json.ErrorType == "json") {
+                        layer.alert(json.Message);
+                    } else {
+                        layer.alert("未知错误");
+                    }
+                } else {
+                    layer.alert("未知错误");
+                }
+            }
+        });
+        function reloadtreatise(id) {
+            $.get("@Url.Action("change","home")/" + id, function (data) {
+                if (data != "" && data.State == 1)
+                    window.location.reload();
+                else
+                    layer.msg(data.Message);
+            });
+        }
+    </script>
+</body>
+</html>

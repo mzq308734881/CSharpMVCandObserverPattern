@@ -1,0 +1,25 @@
+﻿@model Notice
+@if (Model!=null&&Model.ID != 0 && Model.State == 1)
+{
+    <h1 class="r_title ">@Model.Title</h1>
+    <div class="r_p">@*作者：*@    发布于：@string.Format("{0:yyyy-MM-dd HH:mm}", Model.CreateDate)</div>
+    <div class="r_con_oversd" id="abloeds" style="height: 75%;">
+        <div class="tydvrg_content_box">
+            @Html.Raw(Model.Content)
+        </div>
+    </div>
+    if (Model.AnnexID != null && Model.AnnexID != 0)
+    {
+        <a href="/download/annex/@Model.AnnexID" class="btn btn-info fr" target="_blank">
+            <i class="fa fa-paste"></i>
+            下载附件
+        </a>
+    }
+    else
+    {
+        <div class="btn btn-info fr">
+            暂无附件
+        </div>
+        
+    }
+}

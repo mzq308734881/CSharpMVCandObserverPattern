@@ -1,0 +1,41 @@
+﻿@model Pager<Tool>
+@{Layout = "~/Areas/StudentSys/Views/Shared/_Layout.cshtml";}
+<div class="tycdv bd_rd10 bg_wite">
+    <div class="cdiv pd20 ptmg ow tyhg5" id="teacherpage">
+        @Html.Partial("search")
+    </div>
+</div>
+@section menu{
+        <div class="footer_menu_box">
+            <div class="menu">
+                <div class="bt-name">点我呀!</div>
+                <div class="sanjiao"></div>
+                <div class="new-sub">
+                    <ul>
+                        <li class="active"><a href="@Url.Action("search", "tool")" class="ty_tcurrt" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage">我上传的工具</a></li>
+                        <li><a href="@Url.Action("search", "resource")" class="ty_tcurrt" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage">我上传的资源</a></li>
+                        <li><a href="@Url.Action("search", "shareresource")" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage">共享资源</a></li>
+                        <li><a href="@Url.Action("search", "sharetool")" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage">共享工具</a></li>
+ </ul>
+                    <div class="tiggle"></div>
+                    <div class="innertiggle"></div>
+                </div>
+            </div>
+        </div>
+    }
+        @section Scripts{
+            <script>
+                function btndel(id) {
+                    if (confirm("删除后数据无法恢复，确定要删除吗?")) {
+                        $.post("/studentsys/tool/delete", { id: id }, function (data) {
+                            if (data == "OK") {
+                                alert("删除成功！");
+                                window.location.reload();
+                            } else {
+                                alert(data);
+                            }
+                        });
+                    };
+                }
+            </script>
+        }

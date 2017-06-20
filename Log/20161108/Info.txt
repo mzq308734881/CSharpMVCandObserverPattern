@@ -1,0 +1,90 @@
+执行语句：Opened connection at 2016/11/8 14:49:04 +08:00
+Started transaction at 2016/11/8 14:49:04 +08:00
+INSERT [dbo].[SchoolInfo]([ParentID], [NoticeID], [InfoType], [InfoName], [CreateUserID], [CreateTime], [Comment], [State], [Time], [SubjectType], [Logo])
+VALUES (@0, NULL, @1, @2, @3, @4, @5, @6, NULL, NULL, NULL)
+SELECT [ID]
+FROM [dbo].[SchoolInfo]
+WHERE @@ROWCOUNT > 0 AND [ID] = scope_identity()
+-- @0: '7' (Type = Int32)
+-- @1: '2' (Type = Int32)
+-- @2: '13123' (Type = String, Size = 64)
+-- @3: '1' (Type = Int32)
+-- @4: '2016/11/8 14:49:03' (Type = DateTime2)
+-- @5: 'adasda' (Type = String, Size = -1)
+-- @6: '1' (Type = Int32)
+-- Executing at 2016/11/8 14:49:04 +08:00
+-- Completed in 6 ms with result: SqlDataReader
+
+Committed transaction at 2016/11/8 14:49:04 +08:00
+Closed connection at 2016/11/8 14:49:04 +08:00
+返回结果：1执行语句：Opened connection at 2016/11/8 16:06:56 +08:00
+Started transaction at 2016/11/8 16:06:56 +08:00
+UPDATE [dbo].[OpeningReport]
+SET [StudentID] = @0, [TreatiseSubjectID] = @1, [TreatiseStudentID] = @2, [Title] = NULL, [Meaning] = NULL, [Review] = NULL, [Outline] = NULL, [Plan] = NULL, [Reference] = NULL, [TeacherComment] = NULL, [TeacherID] = @3, [TeacherTime] = NULL, [CollegeComment] = NULL, [CollegeTime] = NULL, [CollegeUerID] = NULL, [StudentSubjectID] = NULL, [CollegeState] = @4, [CreateTime] = @5, [Sort] = @6
+WHERE ([ID] = @7)
+-- @0: '92' (Type = Int32)
+-- @1: '72' (Type = Int32)
+-- @2: '271' (Type = Int32)
+-- @3: '54' (Type = Int32)
+-- @4: '3' (Type = Int32)
+-- @5: '2016/11/2 17:44:40' (Type = DateTime2)
+-- @6: '1' (Type = Int32)
+-- @7: '84' (Type = Int32)
+-- Executing at 2016/11/8 16:06:56 +08:00
+-- Completed in 13 ms with result: 1
+
+Committed transaction at 2016/11/8 16:06:56 +08:00
+Closed connection at 2016/11/8 16:06:56 +08:00
+返回结果：1执行语句：Opened connection at 2016/11/8 16:19:06 +08:00
+Started transaction at 2016/11/8 16:19:06 +08:00
+INSERT [dbo].[SchoolInfo]([ParentID], [NoticeID], [InfoType], [InfoName], [CreateUserID], [CreateTime], [Comment], [State], [Time], [SubjectType], [Logo])
+VALUES (@0, NULL, @1, NULL, @2, @3, NULL, @4, NULL, NULL, NULL)
+SELECT [ID]
+FROM [dbo].[SchoolInfo]
+WHERE @@ROWCOUNT > 0 AND [ID] = scope_identity()
+-- @0: '7' (Type = Int32)
+-- @1: '2' (Type = Int32)
+-- @2: '1' (Type = Int32)
+-- @3: '2016/11/8 16:19:06' (Type = DateTime2)
+-- @4: '1' (Type = Int32)
+-- Executing at 2016/11/8 16:19:06 +08:00
+-- Completed in 233 ms with result: SqlDataReader
+
+Committed transaction at 2016/11/8 16:19:07 +08:00
+Closed connection at 2016/11/8 16:19:07 +08:00
+返回结果：1执行语句：Opened connection at 2016/11/8 16:19:24 +08:00
+Started transaction at 2016/11/8 16:19:24 +08:00
+UPDATE [dbo].[SchoolInfo]
+SET [ParentID] = @0, [NoticeID] = NULL, [InfoType] = @1, [InfoName] = @2, [CreateUserID] = @3, [CreateTime] = @4, [Comment] = NULL, [State] = @5, [Time] = NULL, [SubjectType] = NULL, [Logo] = NULL
+WHERE ([ID] = @6)
+-- @0: '7' (Type = Int32)
+-- @1: '2' (Type = Int32)
+-- @2: '1234567890-' (Type = String, Size = 64)
+-- @3: '1' (Type = Int32)
+-- @4: '2016/11/8 16:19:06' (Type = DateTime2)
+-- @5: '1' (Type = Int32)
+-- @6: '48' (Type = Int32)
+-- Executing at 2016/11/8 16:19:24 +08:00
+-- Completed in 41 ms with result: 1
+
+Committed transaction at 2016/11/8 16:19:25 +08:00
+Closed connection at 2016/11/8 16:19:25 +08:00
+返回结果：1执行语句：Opened connection at 2016/11/8 星期二 17:28:56 +08:00
+Started transaction at 2016/11/8 星期二 17:28:56 +08:00
+INSERT [dbo].[SchoolInfo]([ParentID], [NoticeID], [InfoType], [InfoName], [CreateUserID], [CreateTime], [Comment], [State], [Time], [SubjectType], [Logo])
+VALUES (@0, NULL, @1, @2, @3, @4, NULL, @5, NULL, NULL, NULL)
+SELECT [ID]
+FROM [dbo].[SchoolInfo]
+WHERE @@ROWCOUNT > 0 AND [ID] = scope_identity()
+-- @0: '13' (Type = Int32)
+-- @1: '2' (Type = Int32)
+-- @2: '999' (Type = String, Size = 64)
+-- @3: '1' (Type = Int32)
+-- @4: '2016/11/8 星期二 17:28:56' (Type = DateTime2)
+-- @5: '1' (Type = Int32)
+-- Executing at 2016/11/8 星期二 17:28:56 +08:00
+-- Completed in 10 ms with result: SqlDataReader
+
+Committed transaction at 2016/11/8 星期二 17:28:56 +08:00
+Closed connection at 2016/11/8 星期二 17:28:56 +08:00
+返回结果：1

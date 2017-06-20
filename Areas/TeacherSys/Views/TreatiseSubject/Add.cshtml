@@ -1,0 +1,147 @@
+﻿@model TreatiseTeacherViewModel
+<style>
+    .ablogs_pwd_item label {
+        width: 9em;
+    }
+</style>
+<div class="ps hei-a85">
+    <h3 class="tydvrg_tit">课题添加</h3>
+    <div class="dhg2"></div>
+    <div class="cdiv ps" id="content_cp" style="height:65%;">
+        <div class="dhg3"></div>
+
+        <div class="r_con_over chenposi" id="abloeds">
+            <form method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" action="@Url.Action("add", new { id = Model.TreatiseID })">
+                <div class="ablogs_pwd">
+                    <div class="ablogs_pwd_item">
+                        <label>项目名称：</label>
+                        @Model.Treatise.TreatiseName
+                    </div>
+                    <div class="ablogs_pwd_item">
+                        <label>剩余未分配学生数：</label>
+                        <div id="surplussum">
+                            @Model.SurplusSum
+                        </div>
+                       
+                    </div>
+                    <table style="display:none">
+                        <tbody id="hidetr">
+                            <tr>
+                                <td>
+                                    @Html.DropDownList("SubjectID", ViewBag.SubjectID as SelectList, new { @class = "form-ctbord subjectid" })
+                                </td>
+                                <td>
+                                    <input name="StudentSum" id="StudentSum" class="form-control studentsum" onkeyup="checksum() " />
+                                </td>
+                                <td>
+                                    <input type="button" value="删除" onclick="delparent(this)" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                        <tbody id="trlist">
+                            <tr>
+                                <th>课题选择</th>
+                                <th>课题人数配置</th>
+                                <th><a class="btn btn-sm btn-primary" onclick="adddiv()" href="javascript:void(0)"> 增加</a></th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.DropDownList("SubjectID", ViewBag.SubjectID as SelectList, new { @class = "ctbord subjectid" })
+                                </td>
+                                <td>
+                                    <input name="StudentSum" id="StudentSum" class="ctbord studentsum" onkeyup="checksum() " />
+                                </td>
+                                <td>
+                                    <input type="button" value="删除" onclick="delparent(this)" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="ablogs_pwd_item">
+                        <button class="btn btn-primary" type="submit">保存内容</button>
+                        <a class="btn btn-white" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" href="@Url.Action("search", new { id = Model.TreatiseID })">取消</a>
+                    </div>
+
+                </div>
+            </form>
+            <div class="addvcp">
+
+
+
+            </div>
+        </div>
+        <div class="dhg2"></div>
+    </div>
+</div>
+
+
+<script>
+    $("#abloeds").mCustomScrollbar({
+        scrollButtons: {
+            enable: true
+        },
+        theme: "dark-thin"
+    });
+    function adddiv() {
+        var copy = $("#hidetr").html();
+        $("#trlist ").append(copy);
+    }
+    function delparent(a) {
+        $(a).parent().parent().remove();
+    }
+    function formsubmit() {
+        if (checksub() == true) {
+            if (checksum()) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+
+    }
+    function checksum() {
+        var i = 0;
+        var sum = $("#surplussum").html() - 0;
+        $(".studentsum").each(function (index, item) {
+            //item为遍历的当前td,是DOM对象
+            if (i != 0) {
+                var b = $(item).val() - 0;
+                console.log(1);
+                if (isNaN(b) == true) {
+                    console.log(2);
+                    $(item).val("");
+                }
+                if (b == 0) {
+                    $(item).val("");
+                    b = "aaa";
+                    console.log(3);
+                }
+                sum = sum - b;
+            }
+            i++;
+        });
+        if (sum < 0) { layer.msg("当前学生数大于未分配总人数！"); return false; }
+        return true;
+    }
+    function checksub() {
+        var i = 0;
+        var boo = true;
+        $(".subjectid").each(function (index, item) {
+            //item为遍历的当前td,是DOM对象
+            var b = $(item).val() - 0;
+            if (i != 0 && b == 0) {
+                layer.msg("第" + i + "项未选择课题！"); boo = false;
+            }
+            i++;
+        });
+        if (boo && i <= 1) { layer.msg("请添加课题后再提交！！"); boo = false; }
+        if (!boo) return false;
+        return true;
+    }
+</script>

@@ -1,0 +1,87 @@
+﻿<div class="tydvrg ps hei-a85">
+    <h3 class="tydvrg_tit">修改密码</h3>
+    <div class="dhg2"></div>
+    <div class="cdiv ps" id="content_cp" style="height:65%;">
+        <div class="dhg3"></div>
+            <div class="r_con_over chenposi" id="abloeds" tabindex="5000" style="overflow: hidden; outline: none;">
+                <form method="post" class="form-horizontal">
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">原密码:</label>
+                        <div class="col-sm-8">
+                            <input type="password" id="oldpwd" name="oldpwd" placeholder="原密码" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">新密码:</label>
+                        <div class="col-sm-8">
+                            <input id="newpwd1" name="newpwd1" placeholder="新密码" type="password" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">确认密码:</label>
+                        <div class="col-sm-8">
+                            <input id="newpwd" name="newpwd" placeholder="再输一次新密码" type="password" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <button class="btn btn-primary" type="button" onclick="pwd()">确认修改</button>
+                            <a class="btn btn-white" onclick="return confirm('返回后您输入的数据将不被储存，确认返回吗？')" href="/prms/user">取消</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function pwd() {
+        var id = $("#h1").val();
+        var oldpwd = $("#oldpwd").val();
+        var newpwd = $("#newpwd").val();
+        var newpwd1 = $("#newpwd1").val();
+        if (newpwd.length < 6) {
+            alert("密码长度少于6位，请重新输入");
+            return false;
+        }
+        $.post("/prms/usercenter/pwd", { oldpwd: oldpwd, newpwd: newpwd, newpwd1: newpwd1 }, function (data) {
+            if (data.State == 1) {
+                alert(data.Message);
+                location.href = "/home/logout";
+            }
+            else {
+                alert(data.Message);
+            }
+        });
+    }
+</script>
+<script>
+    $.getScript("/Content/scrollbar/js/minified/jquery.mCustomScrollbar.min.js", function () {
+        $.getScript("/Content/kindeditor/kindeditor-all-min.js", function () {
+
+            $("#abloeds").mCustomScrollbar({
+                scrollButtons: {
+                    enable: true
+                },
+                theme: "dark-thin"
+            });
+            KindEditor.basePath = '/Content/kindeditor/';
+
+            var editor = KindEditor.create('input[class="text_indent1"]', {
+                resizeType: 1,
+                allowPreviewEmoticons: false,
+                allowImageUpload: false,
+                items: [
+                    'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                    'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                    'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+            });
+
+        });
+    });
+</script>
+
+

@@ -1,0 +1,49 @@
+﻿@model TreatiseStudentViewModel
+@{Layout = "~/Areas/StudentSys/Views/Shared/_Layout.cshtml";}
+@section menu{
+    <div class="footer_menu_box">
+        <div class="menu">
+            @*<div class="bt-name">@Model.Treatise.TreatiseName</div>*@
+            <div class="bt-name">点我呀!</div>
+            <div class="sanjiao"></div>
+            <div class="new-sub">
+                <ul>
+                    <li><a class="ty_tcurrt" href="@Url.Action("")">论文详情</a></li>
+                    @foreach (var item in Model.ProcessList)
+                    {
+                        <li>
+                            @if (Model.StudentProcessList.Any(d => d.ProcessID == item.ID && item.IsOpen == 1))
+                            {
+                                <a href="@Url.Action("search", "treatiseprocess", new {id = item.ID})" data-ajax-update="#studentright" data-ajax-mode="replace" data-ajax="true">@item.ProcessName</a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("search", "treatiseprocess", new {id = item.ID})" data-ajax-update="#studentright" data-ajax-mode="replace" data-ajax="true">@item.ProcessName</a>
+                            }
+                        </li>
+                    }
+                </ul>
+                <div class="tiggle"></div>
+                <div class="innertiggle"></div>
+            </div>
+        </div>
+    </div>
+}
+<div class="tycdv bd_rd10 bg_wite">
+    <div class="cdiv pd20  ow tyhg5" id="studentright">
+        @Html.Partial("search")
+    </div>
+</div>
+    @section scripts{
+        <script src="/Content/scrollbar/js/minified/jquery.mCustomScrollbar.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("#studentright").mCustomScrollbar({
+                    scrollButtons: {
+                        enable: true
+                    },
+                    theme: "dark-thin"
+                });
+            });
+        </script>
+    }

@@ -1,0 +1,85 @@
+﻿@model IQueryable<StudentProcessLog>
+@{
+    var eventlist = ViewBag.EventList as IEnumerable<ProcessEventViewModel>;
+}
+<div class="ps hei-a85">
+    <h3 class="tydvrg_tit">评审对象</h3>
+    <div class="tysearch_c bd_rd5">
+        @using (Ajax.BeginForm("search", new AjaxOptions()
+        {
+            HttpMethod = "post",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "teacherpage"
+        }))
+        {
+            <input type="text" class="tyshtxt" placeholder="学生姓名/学号" name="keyword" /><button type="submit" class="tyshbut"></button>
+        }
+    </div>
+    <div class="dhg2"></div>
+
+    <div class="cdiv ps" id="content_cp" style="height: 100%;">
+        <div class="dhg3"></div>
+        <div class="r_con_over chenposi" id="abloeds">
+            <div class="addv">
+                <table width="100%" cellpadding="0" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>学号</th>
+                            <th>姓名</th>
+                            <th>课题</th>
+                            <th>所处阶段</th>
+                            <th>提交时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr id="item_@(item.ID)">
+                                <td>@item.StudentProcess.Student.UserInfo.LoginName</td>
+                                <td>@item.StudentProcess.Student.UserInfo.TrueName</td>
+                                <td>@item.StudentProcess.TreatiseStudent.TreatiseSubject.SubjectTitle</td>
+                                <td>@item.StudentProcess.TreatiseProcess.Treatise.TreatiseName @item.StudentProcess.TreatiseProcess.ProcessName</td>
+                                <td>@string.Format("{0:yyyy-MM-dd HH-mm}", item.CreateTime)</td>
+                                <td>
+                                    @if (item.StudentProcess.TreatiseProcess.TreatiseProcessEvents.Any(d => eventlist.Any(c => c.ID == d.EventID)) && item.StudentProcessReviews.All(d => eventlist.All(c=>c.ID!=d.EventID)))
+                                    {
+                                        <a href="@Url.Action("action", new {id = item.ID})" class="btn btn-info" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage">
+                                            操作
+                                        </a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="dhg2"></div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#abloeds").mCustomScrollbar({
+                scrollButtons: {
+                    enable: true
+                },
+                theme: "dark-thin"
+            });
+        });
+        function btndel(id) {
+            if (confirm("删除后数据无法恢复，确定要删除吗?")) {
+                $.post("/teachersys/resource/delete", { id: id }, function (data) {
+                    if (data == "OK") {
+                        alert("删除成功！");
+                        window.location.reload();
+                    } else {
+                        alert(data);
+                    }
+                });
+            };
+        }
+    </script>
+}

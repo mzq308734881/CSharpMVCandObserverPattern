@@ -1,0 +1,163 @@
+@model OpeningReport
+<form class="tycdv bd_rd10 bg_wite" method="post" action="/studentsys/subjectchoose/openingreport/@Model.TreatiseSubjectID" data-ajax-update="#studentpage" data-ajax-mode="replace" data-ajax="true">
+    <div class="dhg2"></div>
+    <!-- <div class="myts_tm">提交截止时间： 2015年2月1日</div> -->
+    <h3 class="tydvrg_tit">@Model.TreatiseSubject.SubjectTitle</h3>
+    <div class="cdiv ps" style="height:80%;">
+        <div class="dhg2"></div>
+        <div class="r_con_over chenposi" id="openingreport" tabindex="5000" style="overflow: hidden; outline: none;">
+
+            <div class="ablogs_pwd">
+
+                <div class="ablogs_pwd_item">
+                    <p class="">
+                        <span class="fl tydvrg_hf_title mg_top10">课题名称：</span>
+                        <span class="fl tydvrg_hf_content mg_top10">
+                            @Html.Raw(Model.TreatiseSubject.SubjectTitle)
+                        </span>
+                    </p>
+                </div>
+                @if (Model.TreatiseSubject.Treatise.ShowTeacher == 1)
+                {
+                    <div class="ablogs_pwd_item">
+                        <p class="">
+                            <span class="fl tydvrg_hf_title mg_top10">导师姓名：</span>
+                            <span class="fl tydvrg_hf_content mg_top10">
+                                @Model.TreatiseSubject.Teacher.UserInfo.TrueName
+                            </span>
+                        </p>
+                    </div>
+                }
+                <div class="ablogs_pwd_item">
+                    <p class="">
+                        <span class="fl tydvrg_hf_title mg_top10">课题性质：</span>
+                        <span class="fl tydvrg_hf_content mg_top10">
+                            @Html.Raw(!string.IsNullOrWhiteSpace(Model.TreatiseSubject.SubjectNature) ? Model.TreatiseSubject.SubjectNature.Replace("pre", "span") : Model.TreatiseSubject.SubjectNature)
+                        </span>
+                    </p>
+                </div>
+                <div class="ablogs_pwd_item">
+                    <p class="">
+                        <span class="fl tydvrg_hf_title mg_top10">研究方向：</span>
+                        <span class="fl tydvrg_hf_content mg_top10">
+                            @Html.Raw(!string.IsNullOrWhiteSpace(Model.TreatiseSubject.SubjectResearchAreas) ? Model.TreatiseSubject.SubjectResearchAreas.Replace("pre", "span") : Model.TreatiseSubject.SubjectResearchAreas)
+                        </span>
+                    </p>
+                </div>
+                <div class="ablogs_pwd_item">
+                    <p class="">
+                        <span class="fl tydvrg_hf_title mg_top10">研究价值：</span>
+                        <span class="fl tydvrg_hf_content mg_top10">
+                            @Html.Raw(!string.IsNullOrWhiteSpace(Model.TreatiseSubject.SubjectResearchValue) ? Model.TreatiseSubject.SubjectResearchValue.Replace("pre", "span") : Model.TreatiseSubject.SubjectResearchValue)
+                        </span>
+                    </p>
+                </div>
+                <div class="ablogs_pwd_item">
+                    <p class="">
+                        <span class="fl tydvrg_hf_title mg_top10">考核标准：</span>
+                        <span class="fl tydvrg_hf_content mg_top10">
+                            @Html.Raw(!string.IsNullOrWhiteSpace(Model.TreatiseSubject.SubjectPassStandard) ? Model.TreatiseSubject.SubjectPassStandard.Replace("pre", "span") : Model.TreatiseSubject.SubjectPassStandard)
+                        </span>
+                    </p>
+                </div>
+                <div class="ablogs_pwd_item">
+                    <p class="">
+                        <span class="fl tydvrg_hf_title mg_top10">课题描述：</span>
+                        <span class="fl tydvrg_hf_content mg_top10">
+                            @Html.Raw(!string.IsNullOrWhiteSpace(Model.TreatiseSubject.SubjectComment) ? Model.TreatiseSubject.SubjectComment.Replace("pre", "span") : Model.TreatiseSubject.SubjectComment)
+                        </span>
+                    </p>
+                </div>
+                <div class="ablogs_pwd_item">
+                    <p class="">
+                        <span class="fl tydvrg_hf_title mg_top10">论文标题：</span>
+                        <span class="fl tydvrg_hf_content mg_top10">
+                            @Html.TextBoxFor(d => d.Title, new { @class = "wid300 text_indent1" })
+                        </span>
+                    </p>
+                </div>
+                <div class="ablogs_pwd_item">
+                    <p class="">
+                        <span class="fl tydvrg_hf_title mg_top10">本选题的研究目的及意义：</span>
+                        <span class="fl tydvrg_hf_content mg_top10">
+                            @Html.TextBoxFor(d => d.Meaning, new { @class = "wid300 text_indent1 kindeditor" })
+                        </span>
+                    </p>
+                </div>
+                <div class="ablogs_pwd_item">
+                    <p class="">
+                        <span class="fl tydvrg_hf_title mg_top10">国内外研究状况评述：</span>
+                        <span class="fl tydvrg_hf_content mg_top10">
+                            @Html.TextBoxFor(d => d.Review, new { @class = "wid300 text_indent1 kindeditor" })
+                        </span>
+                    </p>
+                </div>
+                <div class="ablogs_pwd_item">
+                    <p class="">
+                        <span class="fl tydvrg_hf_title mg_top10">本课题的研究内容及写作大纲：</span>
+                        <span class="fl tydvrg_hf_content mg_top10">
+                            @Html.TextBoxFor(d => d.Outline, new { @class = "wid300 text_indent1 kindeditor" })
+                        </span>
+                    </p>
+                </div>
+                <div class="ablogs_pwd_item">
+                    <p class="">
+                        <span class="fl tydvrg_hf_title mg_top10">本课题完成措施及进度计划：</span>
+                        <span class="fl tydvrg_hf_content mg_top10">
+                            @Html.TextBoxFor(d => d.Plan, new { @class = "wid300 text_indent1 kindeditor" })
+                        </span>
+                    </p>
+                </div>
+                <div class="ablogs_pwd_item">
+                    <p class="">
+                        <span class="fl tydvrg_hf_title mg_top10">主要参考文献：</span>
+                        <span class="fl tydvrg_hf_content mg_top10">
+                            @Html.TextBoxFor(d => d.Reference, new { @class = "wid300 text_indent1 kindeditor" })
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="cdiv_cen" id="mg-btn-pos" style="height: 10%;width: 40%">
+        <dl class="tydl mytc_ad2">
+            <dd>
+                <button class="tydv_btn_pka bd_rd5 fl" type="submit">保存内容</button>
+            </dd>
+            <dd>
+                <a href="@Url.Action("subject", new { id = Model.TreatiseSubjectID })" data-ajax-update="#studentpage" data-ajax-mode="replace" data-ajax="true" class="tydv_btn_pka bd_rd5 fl">返回</a>
+            </dd>
+        </dl>
+    </div>
+
+</form>
+
+<script>
+    $.getScript("/Content/scrollbar/js/minified/jquery.mCustomScrollbar.min.js", function () {
+        $.getScript("/Content/kindeditor/kindeditor-all-min.js", function () {
+
+            $("#openingreport").mCustomScrollbar({
+                scrollButtons: {
+                    enable: true
+                },
+                theme: "dark-thin"
+            });
+            // data 是该请求返回的数据(可能经过处理)
+            // textStatus 可能是"success"、 "notmodified"等
+            // jqXHR 是经过jQuery封装的XMLHttpRequest对象(保留其本身的所有属性和方法)
+            KindEditor.basePath = '/Content/kindeditor/';
+
+            editor = KindEditor.create('input[class="kindeditor"]', {
+                resizeType: 1,
+                allowPreviewEmoticons: false,
+                allowImageUpload: false,
+                items: [
+                    'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                    'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                    'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+            });
+
+        });
+    });
+</script>

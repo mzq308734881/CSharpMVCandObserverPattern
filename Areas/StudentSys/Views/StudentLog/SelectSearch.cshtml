@@ -1,0 +1,41 @@
+﻿@model Pager<StudentLog>
+<div class="cdiv">
+    @foreach (var item in Model)
+    {
+        <dl class="tydl lgmg_dl" id="item_@item.ID">
+            <dt>@String.Format("{0:yyyy-MM-dd}", item.CreateTime)</dt>
+            <dd><a href="/StudentSys/studentlog/detail/@item.ID" data-ajax-update="#teacherpage" data-ajax-mode="replace" data-ajax="true">@item.Title</a></dd>
+            @if (item.StudentLogComments.Any(d => d.UserType == 2 && d.State == 1))
+            {
+                <span><a class="btn btn3" href="/StudentSys/studentlog/detail/@item.ID" data-ajax-update="#teacherpage" data-ajax-mode="replace" data-ajax="true">老师已回复</a></span>
+            }
+            else
+            {
+                <span><a class="btn btn3" href="/StudentSys/studentlog/edit/@item.ID" data-ajax-update="#teacherpage" data-ajax-mode="replace" data-ajax="true"><i class="icon-pencil icon-white"></i>修改</a></span>
+                <span>
+                    <a href="javascript:void(0)" class="btn btn-info" onclick="btndel(@item.ID)">
+                        <i class="fa fa-paste"></i>删除
+                    </a>
+                </span>
+                <span><a class="btn btn3" href="/StudentSys/studentlog/detail/@item.ID" data-ajax-update="#teacherpage" data-ajax-mode="replace" data-ajax="true">查看详情</a></span>
+            }
+
+
+        </dl>
+        <div class="dhg1"></div>
+    }
+</div>
+    <script>
+        function btndel(id) {
+            if (confirm("删除后数据无法恢复，确定要删除吗?")) {
+                $.post("/studentsys/studentlog/delete", { id: id }, function (data) {
+                    if (data == "OK") {
+                        alert("删除成功！");
+                        window.location.reload();
+                    } else {
+                        alert(data);
+                    }
+                });
+            };
+        }
+    </script>

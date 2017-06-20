@@ -1,0 +1,166 @@
+﻿@model Subject
+<h3 class="tydvrg_tit">添加课题</h3>
+
+<div class="cdiv ps" id="content_cp" style="height: 85%;">
+    <form method="post" id="subject-From" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" action="@Url.Action("add")">
+        <div class="dhg2"></div>
+        <div class="r_con_over chenposi" id="abloeds" tabindex="5000" style="overflow: hidden; outline: none;">
+
+            <div class="ablogs_pwd">
+                <div class="ablogs_pwd_item">
+                    <label>标题：</label>
+                    @Html.TextBoxFor(d => d.Title, new { @class = "wid300 ctbord" ,datatype="*"})
+                </div>
+                <div class="ablogs_pwd_item">
+                    <label>课题性质：</label>
+                    @Html.TextBoxFor(d => d.Nature, new { @class = "ctbord wid300 text_indent1 minhei150" })
+                </div>
+                <div class="ablogs_pwd_item">
+                    <label>研究方向：</label>
+                    @Html.TextBoxFor(d => d.ResearchAreas, new { @class = "ctbord wid300 text_indent1 minhei150" })
+                </div>
+                <div class="ablogs_pwd_item">
+                    <label>研究价值：</label>
+                    @Html.TextBoxFor(d => d.ResearchValue, new { @class = "ctbord wid300 text_indent1 minhei150" })
+                </div>
+                <div class="ablogs_pwd_item">
+                    <label>考核标准：</label>
+                    @Html.TextBoxFor(d => d.PassStandard, new { @class = "ctbord wid300 text_indent1 minhei150" })
+                </div>
+                <div class="ablogs_pwd_item">
+                    <label>描述：</label>
+                    @Html.TextBoxFor(d => d.Comment, new { @class = "ctbord wid300 text_indent1 minhei150" })
+                </div>
+                <div class="ablogs_pwd_item">
+                    <label>附件：</label>
+                    <span class="fl tydvrg_hf_content mg_top10">
+                        <span id="uploader" class="fl">
+                            <!--用来存放文件信息-->
+                            <span class="btns">
+                                <span id="picker">选择文件</span>
+                            </span>
+                        </span>
+                        <div class="fl" id="filecontent" class="upcont" style="display: none">
+                            <span id="filemsg"></span><br />
+                            <div class="progress fl">
+                                <span class="progress">
+                                    <span id="filepro" class="blue" style="width: 0%;">
+                                    </span>
+                                </span>
+                            </div>
+                            <input type="hidden" id="filename" name="filename" />
+                            <input type="hidden" id="filepath" name="filepath" />
+                        </div>
+                    </span>
+                    <span class="fl tydvrg_hf_title mg_top10"></span>
+                    <span class="fl tydvrg_hf_content mg_top10">
+                    </span>
+                    <span class="fl tydvrg_hf_title mg_top10"></span>
+                </div>
+
+                <div class="ablogs_pwd_item">
+                    <label></label>
+                    <button class="tydv_btn_pka bd_rd5 fl" type="submit">保存内容</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="cdiv_cen" id="mg-btn-pos" style="height: 10%;width: 10%">
+    <dl class="tydl mytc_ad2">
+        <dd>
+            <a class="tydv_btn_pka bd_rd5 fl" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" href="@Url.Action("search")">取消</a>
+        </dd>
+    </dl>
+</div>
+
+<script>
+    $.getScript('/Content/Admin/js/plugins/webuploader/webuploader.min.js', function () {
+        $.getScript("/Content/scrollbar/js/minified/jquery.mCustomScrollbar.min.js", function () {
+            $.getScript("/Content/kindeditor/kindeditor-all-min.js", function () {
+                $.getScript("/Content/Scripts/Validform_v5.3.2.js", function () {
+                $("#abloeds").mCustomScrollbar({
+                    scrollButtons: {
+                        enable: true
+                    },
+                    theme: "dark-thin"
+                });
+                KindEditor.basePath = '/Content/kindeditor/';
+
+                var editor = KindEditor.create('input[class="text_indent1"]', {
+                    resizeType: 1,
+                    allowPreviewEmoticons: false,
+                    allowImageUpload: false,
+                    items: [
+                        'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                        'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                        'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+                });
+                var uploader = WebUploader.create({
+                    auto: true,
+                    // swf文件路径
+                    swf: + '/Content/js/Uploader.swf',
+                    // 文件接收服务端。
+                    server: '@Url.Action("subject", "upload")',
+                    // 选择文件的按钮。可选。
+                    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                    pick: {
+                        id: '#picker',
+                        multiple: false
+                    },
+
+                    // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+                    resize: false,
+                    //fileNumLimit: 1,
+                    fileSingleSizeLimit: 100 * 1024 * 1024,
+                    // 选址文件选择格式。
+                    accept: {
+                        title: '指定格式',
+                        extensions: 'xls,xlsx,doc,docx,rar,zip,png,jpeg,jpg,bmp,wps',
+                    }
+                });
+
+                //验证文件格式以及文件大小
+                uploader.on("error", function (type) {
+                    if (type == "Q_TYPE_DENIED") {
+                        alert("请上传xls,xlsx,doc,docx,rar,zip,png,jpeg,jpg,bmp,wps格式文件");
+                    } else if (type == "F_EXCEED_SIZE") {
+                        alert("文件大小不能超过100M");
+                    }
+                });
+                // 当有文件被添加进队列的时候
+                uploader.on('fileQueued', function (file) {
+                    $("#filemsg").html("文件 " + file.name + "准备上传…… ");
+                });
+                // 文件上传过程中创建进度条实时显示。
+                uploader.on('uploadProgress', function (file, percentage) {
+                    $("#filemsg").html("文件 " + file.name + "正在上传");
+                    $("#filecontent").show();
+                    $("#filepro").css('width', percentage * 100 + '%');
+                });
+                // 文件上传成功
+                uploader.on('uploadSuccess', function (file, response) {
+                    if (response.State == 0) {
+                        $("#filemsg").html("文件 " + file.name + "上传失败！");
+                        layer.alert(response.Message);
+                    } else {
+                        $("#filemsg").html("文件 " + file.name + "已上传");
+                        $("#filepath").val(response.FilePath);
+                        $("#filename").val(response.FileName);
+                    }
+                });
+                // 文件上传失败
+                uploader.on('uploadError', function (file) {
+                    $("#filemsg").html("文件 " + file.name + "上传失败！");
+                });
+                $("#subject-From").Validform(
+        {
+            tiptype: 3,
+            ignoreHidden: true
+        });
+                });
+            });
+        });
+    });
+</script>

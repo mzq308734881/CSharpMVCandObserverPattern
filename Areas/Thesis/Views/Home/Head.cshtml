@@ -1,0 +1,42 @@
+﻿@model TreatiseConfigViewModel
+<div class="row border-bottom white-bg">
+    <nav class="navbar navbar-static-top" role="navigation">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                <i class="fa fa-reorder"></i>
+            </button>
+            <a href="#" class="navbar-brand">@Model.Treatise.TreatiseName</a>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="nav navbar-top-links navbar-left">
+                @foreach (var key in Model.TreatiseList.GroupBy(d => d.SchoolID))
+                    {
+                    <li class="dropdown @(key.Any(d => d.ID == Model.TreatiseID) ? "active" : "")">
+                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> @StaticHelper.GetSchoolName(key.Key ?? 0) <span class="caret"></span></a>
+                        <ul role="menu" class="dropdown-menu">
+                            @foreach (var item in key.OrderBy(d=>d.TreatiseStage))
+                                {
+                                <li>
+                                    <a href="#" onclick="reloadtreatise(@item.ID)">@item.TreatiseName - @(item.School != null ? item.School.InfoName : "")(@SelectListHelper.TreatiseStageName(item.TreatiseStage))（@item.TreatiseStudents.Count()）</a>
+                                </li>
+                                }
+                        </ul>
+                    </li>
+                    }
+                <li>
+                    <a role="button" onclick="addtreatise()">开始新论文</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <a href="/prms">返回首页</a>
+                </li>
+                <li>
+                    <a href="/home/logout">
+                        <i class="fa fa-sign-out"></i> 退出
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>

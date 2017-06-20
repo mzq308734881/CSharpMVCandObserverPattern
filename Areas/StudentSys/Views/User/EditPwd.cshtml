@@ -1,0 +1,57 @@
+﻿@{Layout = "~/Areas/StudentSys/Views/Shared/_Layout.cshtml";}
+<div class="tycdv bd_rd10 bg_wite">
+    <div class="tydvrg ps hei-a85">
+        <div class="text" style="padding-left:120px;"><h3 class="tydvrg_tit">修改密码</h3></div>
+        <div class="dhg2"></div>
+        <div class="cdiv ps" id="content_cp" style="height:65%;">
+            <div class="dhg3"></div>
+            <div class="r_con_over chenposi" id="abloeds" tabindex="5000" style="overflow: hidden; outline: none;">
+                <form method="post" id="h1" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" action="@Url.Action("#")">
+                    <div class="ablogs_pwd">
+                        <div class="ablogs_pwd_item" style="color: red">
+                            初次登陆，请先修改密码！
+                        </div>
+                        <div class="ablogs_pwd_item">
+                            <label>原密码：</label>
+                            <input type="password" id="oldpwd" name="oldpwd" placeholder="旧密码" class="form-control" />
+                        </div>
+
+                        <div class="ablogs_pwd_item">
+                            <label>新密码：</label>
+                            <input id="newpwd1" name="newpwd1" placeholder="新密码" type="password" class="form-control" />
+                        </div>
+                        <div class="ablogs_pwd_item">
+                            <label>确认密码：</label>
+                            <input id="newpwd" name="newpwd" placeholder="再输一次新密码" type="password" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="ablogs_pwd_item">
+                        <button class="btn btn-primary" type="button" onclick="pwd()">确认修改</button>
+                        <a class="btn btn-white" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" href="@Url.Action("")">取消</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    <script type="text/javascript">
+        function pwd() {
+            var id = $("#h1").val();
+            var oldpwd = $("#oldpwd").val();
+            var newpwd = $("#newpwd").val();
+            var newpwd1 = $("#newpwd1").val();
+            if (newpwd.length < 6) {
+                alert("密码长度少于6位，请重新输入");
+                return false;
+            }
+            $.post("/studentsys/user/editpwd", { oldpwd: oldpwd, newpwd: newpwd, newpwd1: newpwd1 }, function (data) {
+                if (data.State == 1) {
+                    alert(data.Message);
+                    location.href = "/home/logout";
+                }
+                else {
+                    alert(data.Message);
+                }
+            });
+        }
+    </script>

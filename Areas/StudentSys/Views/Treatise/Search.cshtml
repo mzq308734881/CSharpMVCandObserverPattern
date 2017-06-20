@@ -1,0 +1,67 @@
+﻿@model TreatiseStudentViewModel
+<style>
+    .pment table {
+        height: auto;
+    }
+</style>
+@*<div class="myts_tm">提交截止时间： 2015年2月1日</div>*@
+<h3 class="tydvrg_tit">@Model.Treatise.TreatiseName</h3>
+<div class="dhg2"></div>
+<div class="r_con_over" id="abloeds">
+    <div class="tydvrg_bylw_table">
+
+        <div class="tydvrg_bylw_mcoon">
+            <ul>
+                <li>
+                    <span class="tydvrg_bylw_mtitle">项目名称：</span>
+                    <span class="tydvrg_bylw_mcontent">@Model.Treatise.TreatiseName</span>
+                </li>
+                <li>
+                    <span class="tydvrg_bylw_mtitle">时间分：</span>
+                    <span class="tydvrg_bylw_mcontent">@Model.Treatise.TimeGrades</span>
+                </li>
+                <li>
+                    <span class="tydvrg_bylw_mtitle">质量分：</span>
+                    <span class="tydvrg_bylw_mcontent">@Model.Treatise.QualityGrades</span>
+                </li>
+                <li>
+                    <span class="tydvrg_bylw_mtitle">项目简介：</span>
+                    <span class="tydvrg_bylw_mcontent">
+                        @Html.Raw(Model.Treatise.Comment)
+                    </span>
+                </li>
+
+                <li>
+                    <span class="tydvrg_bylw_mtitle">项目简介：</span>
+                    <span class="tydvrg_bylw_mcontent">
+                        @Html.Raw(Model.Treatise.Comment)
+                    </span>
+                </li>
+                @if (Model.TreatiseStudent != null)
+                {
+                    if (Model.TreatiseStudent.TreatiseSubject != null)
+                    {
+                        <li>
+                            <span class="tydvrg_bylw_mtitle">课题名称：</span>
+                            <span class="tydvrg_bylw_mcontent">
+                                @Html.Raw(Model.TreatiseStudent.TreatiseSubject.SubjectTitle)
+                            </span>
+                        </li>
+                    }
+                    else
+                    {
+
+
+                        <li>
+                            <span class="tydvrg_bylw_mtitle">论文课题：</span>
+                            <span class="tydvrg_bylw_mcontent">
+                                暂未选题或选题审核中
+                            </span>
+                        </li>
+                    }
+
+                }
+            </ul>
+        </div>
+    </div>
+</div>

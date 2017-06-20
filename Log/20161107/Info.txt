@@ -1,0 +1,37 @@
+执行语句：Opened connection at 2016/11/7 15:29:15 +08:00
+Started transaction at 2016/11/7 15:29:15 +08:00
+INSERT [dbo].[UserInfo]([LoginName], [Password], [TrueName], [Tel], [Email], [IDNo], [QQ], [WeChat], [Sex], [UserType], [Comment], [CreateInfoID], [CreateTime], [State], [SchoolID])
+VALUES (@0, @1, @2, @3, @4, NULL, @5, @6, @7, @8, NULL, NULL, @9, @10, @11)
+SELECT [ID]
+FROM [dbo].[UserInfo]
+WHERE @@ROWCOUNT > 0 AND [ID] = scope_identity()
+-- @0: '这是个测试学生' (Type = String, Size = 64)
+-- @1: 'kUFIdXhom2CTnRltrWfsvw==' (Type = String, Size = 128)
+-- @2: '这是个测试学生' (Type = String, Size = 64)
+-- @3: '这是个测试学生' (Type = String, Size = 32)
+-- @4: '这是个测试学生' (Type = String, Size = 64)
+-- @5: '这是个测试学生' (Type = String, Size = 32)
+-- @6: '这是个测试学生' (Type = String, Size = 64)
+-- @7: '1' (Type = Int32)
+-- @8: '3' (Type = Int32)
+-- @9: '2016/11/7 15:29:15' (Type = DateTime2)
+-- @10: '1' (Type = Int32)
+-- @11: '9' (Type = Int32)
+-- Executing at 2016/11/7 15:29:15 +08:00
+-- Completed in 4 ms with result: SqlDataReader
+
+INSERT [dbo].[Student]([SchoolID], [TwoMajor], [ThreeMajor], [State], [InfoID], [CreateTime])
+VALUES (@0, NULL, NULL, @1, @2, @3)
+SELECT [ID]
+FROM [dbo].[Student]
+WHERE @@ROWCOUNT > 0 AND [ID] = scope_identity()
+-- @0: '9' (Type = Int32)
+-- @1: '2' (Type = Int32)
+-- @2: '172' (Type = Int32)
+-- @3: '2016/11/7 15:29:15' (Type = DateTime2)
+-- Executing at 2016/11/7 15:29:15 +08:00
+-- Completed in 1 ms with result: SqlDataReader
+
+Committed transaction at 2016/11/7 15:29:15 +08:00
+Closed connection at 2016/11/7 15:29:15 +08:00
+返回结果：2

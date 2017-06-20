@@ -1,0 +1,40 @@
+﻿@model TreatiseStudentViewModel
+<div class="myts_tm">提交截止时间： @string.Format("{0:yyyy年MM月dd日}", Model.Process.EndTime)</div>
+<h3 class="tydvrg_tit">开题报告</h3>
+<div class="dhg2"></div>
+<div class="cdiv ps" id="content_cp" style="height:65%;">
+    <div class="r_con_over chenposi" id="abloeds">
+        <div class="myts_xtit">注：标准时间分10分，标准质量分为10分，占总分值的10%</div>
+        <div class="myts_xtit">注：记得先保存再提交哦!</div>
+        <div class="dhg2"></div>
+        <div class="myts_pn"><font>0910503111资产减值会计问题研究.docx </font><a href="#">编辑</a> <a href="#">预览</a> <a href="#">删除</a></div>
+        <div class="dhg2"></div>
+        <div class="addv">
+            <dl class="tydl ptmg_stp_dl">
+                <dt>附件：</dt>
+                <dd>
+                    <div class="upcont">
+                        <input type="button" class="but_ptmg ow bd_rd5 mytc_but1 fl" value="添加文件" /><font>&nbsp;&nbsp;&nbsp;&nbsp;*文件必须是 .docx  .doc  .xls</font>
+                    </div>
+                    <div class="upcont">
+                        <span>我的论文（.docx）</span><span>上传成功!</span><a href="#">点击下载</a>
+                    </div>
+                </dd>
+            </dl>
+            <div class="dhg2"></div>
+            <dl class="tydl ptmg_stp_dl ">
+                <dt>我的疑问</dt>
+                <dd class="stp_txtarea "><textarea class="ctbord hei12em stp_twh3 "></textarea></dd>
+            </dl>
+            <div class="dhg3"></div>
+
+        </div>
+    </div>
+
+    <div class="cdiv_cen" id="mg-btn-pos" style="height: 10%;width:40%;">
+
+        <dd><input type="button" class="tydv_but1 bd_rd5  fl" value="提交" onclick="window.location.href='index_myts2.html';" /></dd>
+
+        <dd class=""><input type="button" class="tydv_but1 bd_rd5  fl " value="返回" onclick="window.location.href='index_myts.html';" /></dd>
+    </div>
+</div>

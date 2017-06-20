@@ -1,0 +1,35 @@
+﻿@model Pager<StudentLog>
+@{Layout = "~/Areas/StudentSys/Views/Shared/_Layout.cshtml";}
+<div class="tycdv bd_rd10 bg_wite">
+    <div class="cdiv pd20 ptmg ow tyhg5" id="teacherpage">
+        @Html.Partial("search")
+    </div>
+</div>
+@section menu{
+    <div class="footer_menu_box">
+        <div class="menu">
+            <div class="bt-name">点我呀!</div>
+            <div class="sanjiao"></div>
+            <div class="new-sub">
+                <ul>
+                    <li><a href="@Url.Action("search", "studentlog")" class="ty_tcurrt" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage">我的日志</a></li>
+                    <li><a href="@Url.Action("search", "sharelog")" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage">共享日志</a></li>
+                </ul>
+                <div class="tiggle"></div>
+                <div class="innertiggle"></div>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#abloeds").mCustomScrollbar({
+                scrollButtons: {
+                    enable: true
+                },
+                theme: "dark-thin"
+            });
+        });
+    </script>
+}

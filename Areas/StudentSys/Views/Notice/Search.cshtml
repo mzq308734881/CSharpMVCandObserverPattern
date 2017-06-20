@@ -1,0 +1,52 @@
+﻿@model Pager<Notice>
+@{
+    var type = ViewBag.Type;
+    var key = "#noticepage";
+}
+
+<ul class="nt_ul ow">
+    @foreach (var item in Model)
+    {
+        var isread = item.NoticeUsers.Any(d => d.State == 0);
+        <li>
+            <a href="@Url.Action("detail", "notice", new { id = item.ID })" class="ty_tcurrt" style="color:@(isread?"":"red")" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#noticeinfo" onclick="removered(this)">
+                <font class="max_width180 ellipsis" title="@item.Title" alt="@item.Title">@item.Title</font>
+                <span>@string.Format("{0:yyyy-M-d}", item.CreateDate)</span>
+            </a>
+        </li>
+    }
+</ul>
+
+<!--分页-->
+@if (Model.TotalPages > 0)
+{
+    <div class="searchdiv pagination">
+        <ul>
+
+            <li class="active">
+                <a href="@Url.Action("search",new {type=type,id=1})" data-ajax-update="@key" data-ajax-mode="replace" data-ajax="true">首页</a>
+            </li>
+
+            @foreach (var i in Model.Page5List)
+            {
+                if (Model.PageIndex + 1 == i)
+                {
+                    <li class="active">
+                        <a href="@Url.Action("search",new {type=type,id=i})" data-ajax-update="@key" data-ajax-mode="replace" data-ajax="true">@i</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="@Url.Action("search",new {type=type,id=i})" data-ajax-update="@key" data-ajax-mode="replace" data-ajax="true">@i</a>
+                    </li>
+                }
+            }
+
+            <li class="active">
+                <a href="@Url.Action("search",new {type=type,id=Model.TotalPages})" data-ajax-update="@key" data-ajax-mode="replace" data-ajax="true">末页</a>
+            </li>
+
+        </ul>
+    </div>
+}

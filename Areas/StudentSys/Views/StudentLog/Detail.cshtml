@@ -1,0 +1,99 @@
+﻿@model StudentLog
+<div class="dhg2"></div>
+<div class="cdiv ow tydl" style="height:100%">
+    <div class="content" style="height:85%" id="abloeds">
+        <form class="ablogs_pwd" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" action="@Url.Action("detail")">
+            <div class="r_title">
+                <span class="lgmg_wtlg_t dp1 fl w100">
+                    <i><img src="~/Content/Images/icon_wt.png" /></i>
+                    <font>查看日志</font>
+                </span>
+            </div>
+            <h1 class="r_title">@Model.Title</h1>
+            <div class="r_p">
+                <span class="dp1 pd_lf_rg">发布于:@String.Format("{0:yyyy-MM-dd}", Model.CreateTime)</span>
+                <dd>
+                    @((Model != null && Model.TreatiseStudent != null && Model.TreatiseStudent.TreatiseSubject != null) ? Model.TreatiseStudent.TreatiseSubject.SubjectTitle : "未选题")
+                </dd>
+                <span class="dp1 pd_lf_rg">@(Model.IsSharing == 1 ? "已共享" : "未共享")</span>
+                <span class="dp1 pd_lf_rg">@(Model.IsTeacherHelp == 1 ? "已提交老师" : "未提交老师")</span>
+            </div>
+            <div class="r_con">
+                <div class="tydl gbdv">
+                    <leble style="font-size:16px; line-height:30px;">
+                        @Html.Raw(Model.Content)
+                    </leble>
+                    <leble style="font-size:16px; line-height:30px;">
+                        @Html.Raw(Model.TreatiseStudent.Student.UserInfo.TrueName)
+                    </leble>
+                    <div class="dhg3"></div>
+                    <h3>历史回复:</h3>
+                    @foreach (var item in Model.StudentLogComments.Where(d => d.State == 1).OrderByDescending(d => d.CreateTime))
+                    {
+                        <dl class="tydl ptmg_stp_dl">
+                            @switch ((UserInfoType)(item.UserType ?? 0))
+                            {
+                                case UserInfoType.Teacher:
+                                    <lable>@(item.Teacher != null ? item.Teacher.UserInfo.TrueName : "未知用户") ：</lable>
+                                    break;
+                                case UserInfoType.Student:
+                                <lable>@(item.Student != null ? item.Student.UserInfo.TrueName : "未知用户") ：</lable>
+                                    break;
+                                default:
+                                <leble>未知用户 ：</leble>
+                                    break;
+                            }
+                            <dd class="stp_txtarea">
+                                @Html.Raw(item.Content)
+                            </dd>
+                        </dl>
+                    }
+
+                    <div class="ablogs_pwd_item">
+                        <a class="tydv_btn_pka bd_rd5 fr" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" href="@Url.Action("search")">取消</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<script>
+    function btndels(id) {
+        if (confirm("删除后数据无法恢复，确定要删除吗?")) {
+            $.post("/studentsys/studentlog/deletehuifu", { id: id }, function (data) {
+                if (data == "OK") {
+                    alert("删除成功！");
+                    window.location.reload();
+                } else {
+                    alert(data);
+                }
+            });
+        };
+    }
+</script>
+<script>
+    $.getScript("/Content/scrollbar/js/minified/jquery.mCustomScrollbar.min.js", function () {
+        $.getScript("/Content/kindeditor/kindeditor-all-min.js", function () {
+
+            $("#abloeds").mCustomScrollbar({
+                scrollButtons: {
+                    enable: true
+                },
+                theme: "dark-thin"
+            });
+            KindEditor.basePath = '/Content/kindeditor/';
+
+            var editor = KindEditor.create('#Content', {
+                resizeType: 1,
+                allowPreviewEmoticons: false,
+                allowImageUpload: false,
+                items: [
+                    'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                    'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                    'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+            });
+
+        });
+    });
+</script>

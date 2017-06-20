@@ -1,0 +1,88 @@
+﻿@model Pager<EmailLog>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>邮件记录</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/prms/">主页</a>
+            </li>
+            <li>
+                <strong>邮件记录</strong>
+            </li>
+            <li>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>邮件记录</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <form action="/prms/emaillog/search" method="post">
+                                    <div class="input-group">
+                                        <input type="text" name="keyword" placeholder="标题名称" class="form-control"> <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-primary">
+                                                搜索
+                                            </button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>标题</th>
+                                    <th>内容</th>
+                                    <th>类型</th>
+                                    <th>发送时间</th>
+                                    <th>发送人</th>
+                                    <th>发送结果</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr id="item_@item.ID">
+                                        <td>@item.Title</td>
+                                        <td>@item.Comment</td>
+                                        <td>@item.Recipient</td>
+                                        <td>@item.EmailType</td>
+                                        <td>@string.Format("{0:d}", item.CreateTime)</td>
+                                        <td>@item.CreateUser</td>
+                                        <td>@item.Message</td>
+                                        <td>
+                                            <a href="/prms/emaillog/detail/@item.ID" class="btn btn-info ">
+                                                <i class="fa fa-paste"></i>详情
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    @UIHelper.PageHelper("emaillog", Model.TotalPages, Model.PageIndex, Model.PageSize, Model.TotalCount, Model.HasPreviousPage, Model.HasNextPage, Model.PageList)
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

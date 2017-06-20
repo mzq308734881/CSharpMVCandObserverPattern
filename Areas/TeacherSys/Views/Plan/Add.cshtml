@@ -1,0 +1,85 @@
+﻿@model WorkPlan
+<div class="cdiv pd20 ptmg ow tyhg5">
+    <div class="ps hei-a85">
+        <h3 class="tydvrg_tit ps">
+            我的工作计划
+        </h3>
+        <div class="dhg2"></div>
+        <div class="cdiv ps" id="content_cp" style="height: 100%;">
+            <div class="r_con_over chenposi" id="abloeds">
+                <form class="ablogs_pwd"id="plan-From" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#rightbody" action="@Url.Action("add")">
+                    <dl class="tydl ptmg_stp_dl">
+                        <dt>主   题：</dt>
+                        <dd>
+                            @Html.TextBoxFor(d => d.Title, new { @class = "ctbord stp_txt stp_twh1", placeholder = "计划主题",datatype="*" })
+                        </dd>
+                    </dl>
+                    <div class="dhg2"></div>
+                    <dl class="tydl ptmg_stp_dl">
+                        <dt>内   容：</dt>
+                        <dd class="stp_txtarea">
+                            @Html.TextAreaFor(d => d.Comment, new { @class = "ctbord stp_area stp_twh3", placeholder = "计划内容提醒", datatype = "*" })
+                        </dd>
+                    </dl>
+                    <div class="dhg2"></div>
+                    <dl class="tydl ptmg_stp_dl">
+                        <dt>提醒时间：</dt>
+                        <dd>
+                            @Html.TextBoxFor(d => d.RemindTime, new { @class = "ctbord stp_txt stp_twh1", placeholder = "提醒时间" })
+                        </dd>
+                    </dl>
+                    <div class="dhg2"></div>
+                    <div class="dhg2"></div>
+                    <dl class="tydl ptmg_stp_dl">
+                        <dt></dt>
+                        <dd><input type="submit" class="ow bd_rd5 fl tydv_but" value="保存" /></dd>
+                    </dl>
+                </form>
+            </div>
+        </div>
+        <div class="cdiv_cen" id="mg-btn-pos" style="height: 5%;">
+            <dl class="tydl ptmg_stp_dl">
+                <dt></dt>
+                <dd>
+                    <a class="ow bd_rd5 fl tydv_but" href="@Url.Action("search")" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#rightbody">返回</a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<script>
+    $.getScript("/Content/scrollbar/js/minified/jquery.mCustomScrollbar.min.js", function () {
+        $.getScript("/Content/kindeditor/kindeditor-all-min.js", function () {
+            $.getScript("/Content/My97DatePicker/WdatePicker.js", function () {
+                $.getScript("/Content/Scripts/Validform_v5.3.2.js", function () {
+                    $("#abloeds").mCustomScrollbar({
+                        scrollButtons: {
+                            enable: true
+                        },
+                        theme: "dark-thin"
+                    });
+                    $("#RemindTime").click(function () {
+                        WdatePicker({ minDate: "%y-%M-%d", dateFmt: "yyyy-MM-dd", errDealMode: true });
+                    });
+                    KindEditor.basePath = '/Content/kindeditor/';
+
+                    var editor = KindEditor.create('#Comment', {
+                        resizeType: 1,
+                        allowPreviewEmoticons: false,
+                        allowImageUpload: false,
+                        items: [
+                            'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                            'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                            'insertunorderedlist', '|', 'emoticons', 'image', 'link']
+                    });
+                    $("#plan-From").Validform(
+         {
+             tiptype: 3,
+             ignoreHidden: true
+         });
+                });
+            });
+        });
+    });
+</script>

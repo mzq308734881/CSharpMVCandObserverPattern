@@ -1,0 +1,27 @@
+﻿@model StudentProcess
+<style>
+
+    .ablogs_pwd_item input {
+        color: #000;
+        height: 28px;
+    }
+
+    .black {
+        color: #fff !important;
+    }
+</style>
+
+<form action="@Url.Action("point", new {id = Model.ID})" method="post" data-ajax-update="#teacherpage" data-ajax-mode="replace" data-ajax="true">
+    <div class="ablogs_pwd_item">
+        <label>时间分：</label>
+        @Model.TimeMark
+    </div>
+    <div class="ablogs_pwd_item">
+        <label>质量分：</label>
+        @Model.QualityMark
+    </div>
+    <div class="ablogs_pwd_item">
+        <label>评分说明：</label>
+        @Model.ScoreComment
+    </div>
+</form>

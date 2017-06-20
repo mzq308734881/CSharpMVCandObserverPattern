@@ -1,0 +1,112 @@
+﻿@model TreatiseConfigViewModel
+@{
+    var unstart = Model.TreatiseStage == 0;
+}
+<div class="row">
+    <div class="col-lg-5">
+        <dl class="dl-horizontal">
+            <dt>学生人数：</dt>
+            <dd id="studentcount">@Model.StudentCount</dd>
+            <dt>课题总数：</dt>
+            <dd id="subjectcount">@Model.SubjectCount</dd>
+            <dt>导师人数：</dt>
+            <dd id="teachercount">@Model.TeacherCount</dd>
+        </dl>
+    </div>
+    <div class="col-lg-5">
+        <dl class="dl-horizontal">
+            <dt>未选题学生人数：</dt>
+        </dl>
+    </div>
+    <div class="col-lg-2">
+        @if (unstart)
+        {
+            <button type="button" class="btn btn-info" onclick="stagetochoose()">进入选题阶段</button>
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-7">
+        <dl class="dl-horizontal">
+            <dt>所属专业：</dt>
+            <dd>@(Model.Treatise.School != null ? Model.Treatise.School.InfoName : "")</dd>
+            <dt>开始时间：</dt>
+            <dd>@string.Format("{0:yyyy年 MM月 dd日}", Model.Treatise.StartTime)</dd>
+            <dt>结束时间：</dt>
+            <dd>@string.Format("{0:yyyy年 MM月 dd日}", Model.Treatise.EndTime)</dd>
+        </dl>
+    </div>
+</div>
+<div class="row m-t-sm">
+    <div class="col-lg-12">
+        <div class="panel blank-panel">
+            <div class="panel-heading">
+                <div class="panel-options">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a data-toggle="tab" href="#tab-treatise">1、项目信息</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tabajax" href="@Url.Action("search", "process")" data-target="#tab-process">2、流程管理</a>
+                        </li>
+
+                        <li>
+                            <a data-toggle="tabajax" href="@Url.Action("search","student")" data-target="#tab-student">3、学生管理</a>
+                        </li>
+
+                        <li>
+                            <a data-toggle="tabajax" href="@Url.Action("search", "teacher")" data-target="#tab-teacher">4、导师管理</a>
+                        </li>
+
+                        <li>
+                            <a data-toggle="tabajax" href="@Url.Action("search", "subject")" data-target="#tab-subject">5、课题审核</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="tab-content">
+                    <div id="tab-treatise" class="tab-pane active">
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <dl class="dl-horizontal">
+                                    <dt>学生人数：</dt>
+                                    <dd>@Model.StudentCount</dd>
+                                    <dt>课题总数：</dt>
+                                    <dd>@Model.SubjectCount</dd>
+                                    <dt>导师人数：</dt>
+                                    <dd>@Model.TeacherCount</dd>
+                                </dl>
+                            </div>
+                            <div class="col-lg-7" id="cluster_info">
+                                <dl class="dl-horizontal">
+                                    <dt>所属专业：</dt>
+                                    <dd>@(Model.Treatise.School != null ? Model.Treatise.School.InfoName : "")</dd>
+                                    <dt>开始时间：</dt>
+                                    <dd>@string.Format("{0:yyyy年 MM月 dd日 HH:mm}", Model.Treatise.StartTime)</dd>
+                                    <dt>结束时间：</dt>
+                                    <dd>@string.Format("{0:yyyy年 MM月 dd日 HH:mm}", Model.Treatise.EndTime)</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tab-process" class="tab-pane">
+                    </div>
+
+                    <div id="tab-student" class="tab-pane">
+                    </div>
+
+                    <div id="tab-teacher" class="tab-pane">
+                    </div>
+
+                    <div id="tab-subject" class="tab-pane">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

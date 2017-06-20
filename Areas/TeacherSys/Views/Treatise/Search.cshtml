@@ -1,0 +1,65 @@
+﻿@model TreatiseTeacherViewModel
+<div class="cdiv ps" id="abloeds" style="overflow: hidden; outline: none;">
+    <div class="ablogs_pwd">
+        <div class="ablogs_pwd_item">
+            <p class="">
+                <span class="fl tydvrg_hf_title mg_top10">项目名称：</span>
+                <span class="fl tydvrg_hf_content mg_top10">@Model.Treatise.TreatiseName</span>
+            </p>
+        </div>
+
+        <div class="ablogs_pwd_item">
+            <p class="">
+                <span class="fl tydvrg_hf_title mg_top10">状态：</span>
+                <span class="fl tydvrg_hf_content mg_top10">@SelectListHelper.TreatiseStageModeName(Model.Treatise.TreatiseStage)</span>
+            </p>
+        </div>
+        <div class="ablogs_pwd_item">
+            <p class="">
+                <span class="fl tydvrg_hf_title mg_top10">项目描述：</span>
+                <span class="fl tydvrg_hf_content mg_top10">@Model.Treatise.Comment</span>
+            </p>
+        </div>
+        <div class="ablogs_pwd_item">
+            <p class="">
+                <span class="fl tydvrg_hf_title mg_top10">所属专业：</span>
+                <span class="fl tydvrg_hf_content mg_top10">@Model.Treatise.School.InfoName</span>
+            </p>
+        </div>
+        <div class="ablogs_pwd_item">
+            <p class="">
+                <span class="fl tydvrg_hf_title mg_top10">开始时间：</span>
+                <span class="fl tydvrg_hf_content mg_top10">@string.Format("{0:yyyy年 MM月 dd日 HH:mm}", Model.Treatise.StartTime) </span>
+            </p>
+        </div>
+        <div class="ablogs_pwd_item">
+            <p class="">
+                <span class="fl tydvrg_hf_title mg_top10">结束时间：</span>
+                <span class="fl tydvrg_hf_content mg_top10">@string.Format("{0:yyyy年 MM月 dd日 HH:mm}", Model.Treatise.EndTime)</span>
+            </p>
+        </div>
+        <div class="ablogs_pwd_item">
+            <p class="">
+                <span class="fl tydvrg_hf_title mg_top10">已分配课题数：</span>
+                <span class="fl tydvrg_hf_content mg_top10">@Model.SubjectSum</span>
+            </p>
+        </div>
+        <div class="ablogs_pwd_item">
+            <p class="">
+                <span class="fl tydvrg_hf_title mg_top10">总学生数：</span>
+                <span class="fl tydvrg_hf_content mg_top10">@Model.StudentSum</span>
+            </p>
+        </div>
+        <div class="ablogs_pwd_item">
+            <p class="">
+                <span class="fl tydvrg_hf_title mg_top10">已分配学生数：</span>
+                <span class="fl tydvrg_hf_content mg_top10">@Model.AllocatedSum</span>
+            </p>
+        </div>
+        <div class="ablogs_pwd_item">
+            <span class="fl tydvrg_hf_title mg_top10"></span>
+            <a class="btn btn-white" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" href="@Url.Action("search", "treatisesubject", new { id = Model.TreatiseID })">项目课题</a>
+            <a class="btn btn-white" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" href="@Url.Action("search", "treatisestudent", new { id = Model.TreatiseID })">项目学生</a>
+        </div>
+    </div>
+</div>

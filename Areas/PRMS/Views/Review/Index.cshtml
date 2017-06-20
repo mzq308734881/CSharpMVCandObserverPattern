@@ -1,0 +1,82 @@
+﻿@model IQueryable<StudentProcessLog>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>评审管理</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/prms/">主页</a>
+            </li>
+            <li>
+                <strong>评审管理</strong>
+            </li>
+            <li>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>评审管理</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <form action="@Url.Action("search")" method="post">
+                                    <div class="input-group">
+                                        <input type="text" name="keyword" placeholder="学生姓名/学号" class="form-control"> <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-primary">搜索</button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>学号</th>
+                                    <th>姓名</th>
+                                    <th>课题</th>
+                                    <th>所处阶段</th>
+                                    <th>提交时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr id="item_@(item.ID)">
+                                        <td>@item.StudentProcess.Student.UserInfo.LoginName</td>
+                                        <td>@item.StudentProcess.Student.UserInfo.TrueName</td>
+                                        <td>@(item.StudentProcess.TreatiseStudent.TreatiseSubject!=null? item.StudentProcess.TreatiseStudent.TreatiseSubject.SubjectTitle:"未选题")</td>
+                                        <td>@item.StudentProcess.TreatiseProcess.Treatise.TreatiseName @item.StudentProcess.TreatiseProcess.ProcessName</td>
+                                        <td>@string.Format("{0:yyyy-MM-dd HH-mm}", item.CreateTime)</td>
+                                        <td>
+                                            @if (item.StudentProcess.TreatiseProcess.TreatiseProcessEvents.Any(d => d.EventID == 11))
+                                            {
+                                                <a href="@Url.Action("detail", new {id = item.ID})" class="btn btn-info" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage">
+                                                    评阅
+                                                </a>
+                                            }
+                                            @if (item.StudentProcess.TreatiseProcess.TreatiseProcessEvents.Any(d => d.EventID == 21))
+                                            {
+                                                <a href="@Url.Action("edit", new {id = item.ID})" class="btn btn-info" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage">
+                                                    评分
+                                                </a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

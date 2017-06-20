@@ -1,0 +1,98 @@
+﻿@model StudentProcessViewModel
+@{
+    var num = 0;
+}
+<link href="~/Content/admin/Css/plugins/webuploader/webuploader.css" rel="stylesheet" />
+<link href="~/Content/scrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
+<div class="myts_tm">流程时间： @string.Format("{0:yyyy年MM月dd日}~~{1:yyyy年MM月dd日}", Model.Process.StartTime, Model.Process.EndTime)</div>
+<h3 class="tydvrg_tit">@Model.Process.ProcessName</h3>
+<div class="dhg2"></div>
+<div class="cdiv ps" tabindex="5000" style="overflow: hidden; outline: none;height: 90%">
+    <form action="@Url.Action("savelog", new { id = Model.Process.ID })" method="post" data-ajax-update="#studentright" data-ajax-mode="replace" data-ajax="true">
+        <div class="r_con_over chenposi" id="abloeds">
+            <div class="myts_xtit">注：标准时间分 @Model.Process.TimeMark 分，标准质量分为 @Model.Process.QualityMark 分。</div>
+            <div class="myts_xtit">注：记得先保存再提交哦!</div>
+            <div class="dhg2"></div>
+            <table width="100%" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>附件名称</th>
+                        <th>上传时间</th>
+                        <th>审核结果</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.StudentProcess != null)
+                    {
+                        foreach (var item in Model.StudentProcess.StudentProcessLogs.Where(d => d.State == 1).OrderBy(d => d.CreateTime))
+                        {
+                            num++;
+                            var annex = StaticHelper.GetAnnex(item.AnnexID ?? 0);
+                            var checkannex = StaticHelper.GetAnnex(item.CheckAnnexID ?? 0);
+                            <tr id="item_@item.ID">
+                                <td>@num</td>
+                                <td>
+                                    @if (annex != null)
+                                    {
+                                        <a href="@Url.Action("Annex","DownLoad",new {area="",id=annex.ID})" target="_blank">@annex.AnnexName</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#">暂无附件</a>
+                                    }
+                                </td>
+                                <td>@string.Format("{0:yyyy-MM-dd HH:mm}", item.CreateTime)</td>
+                                <td>
+                                    <a href="@Url.Action("detail", new {id = item.ID})" data-ajax-update="#logdetail" data-ajax-mode="replace" data-ajax="true">@SelectListHelper.StudentProcessLogCheckStateName(item.CheckState)</a>
+                                </td>
+                                <td>
+                                    @(item.IsBest == 1? "已提交" : "未提交")
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <div>暂未开始流程</div>
+                    }
+
+                </tbody>
+            </table>
+            <div class="dhg4"></div>
+            <div class="addv" id="logdetail">
+            </div>
+            <div class="dhg4"></div>
+            @*<div class="addv">
+                <dl class="tydl ptmg_stp_dl">
+                    <dt>时间分：</dt>
+                    <dd>
+                        @Model.StudentProcess.TimeMark
+                    </dd>
+                </dl>
+                <div class="dhg2"></div>
+                <dl class="tydl ptmg_stp_dl ">
+                    <dt>质量分：</dt>
+                    <dd class="stp_txtarea">
+                        @Model.StudentProcess.QualityMark
+                    </dd>
+                </dl>
+                <div class="dhg4"></div>
+            </div>*@
+
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function () {
+        $.getScript("/Content/scrollbar/js/minified/jquery.mCustomScrollbar.min.js", function () {
+            $("#abloeds").mCustomScrollbar({
+                scrollButtons: {
+                    enable: true
+                },
+                theme: "dark-thin"
+            });
+        });
+    });
+</script>

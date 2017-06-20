@@ -1,0 +1,66 @@
+﻿@model TagLib
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>标签添加</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/prms/">主页</a>
+            </li>
+            <li>
+                <a href="/prms/taglib">标签管理</a>
+            </li>
+            <li>
+                <strong>标签添加</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form method="post" class="form-horizontal" id="taglib-From">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">标签名称</label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(d => d.TagName, new { @class = "form-control required" })
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">工具或资源</label>
+                            <div class="col-sm-8">
+                                @Html.DropDownListFor(d => d.TagType, ViewBag.TagType as SelectList, new { @class = "form-control required" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">保存内容</button>
+                                <a class="btn btn-white" onclick="return confirm('返回后您输入的数据将不被储存，确认返回吗？')" href="/prms/taglib">取消</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+<script>
+    $(document).ready(function () {
+        var validate = $("#taglib-From").validate();
+    });
+</script>
+    }
+
+
+
+

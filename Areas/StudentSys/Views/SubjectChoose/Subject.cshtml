@@ -1,0 +1,93 @@
+﻿@model TreatiseSubject
+<div class="tycdv bd_rd10 bg_wite">
+    <div class="dhg2"></div>
+    <!-- <div class="myts_tm">提交截止时间： 2015年2月1日</div> -->
+    <h3 class="tydvrg_tit">@Model.SubjectTitle</h3>
+    <div class="cdiv ps" style="height:90%;">
+        <div class="dhg2"></div>
+        <div class="r_con_over chenposi" id="openingreport">
+            <div class="ablogs_pwd">
+                <div class="ablogs_pwd_item">
+                    <p class="">
+                        <span class="fl tydvrg_hf_title mg_top10">课题名称：</span>
+                        <span class="fl tydvrg_hf_content mg_top10">
+                            @Html.Raw(Model.SubjectTitle)
+                        </span>
+                    </p>
+                </div>
+                @if (Model.Treatise.ShowTeacher == 1)
+                {
+                    <div class="ablogs_pwd_item">
+                        <p class="">
+                            <span class="fl tydvrg_hf_title mg_top10">导师姓名：</span>
+                            <span class="fl tydvrg_hf_content mg_top10">
+                                @Model.Teacher.UserInfo.TrueName
+                            </span>
+                        </p>
+                    </div>
+                }
+                <div class="ablogs_pwd_item">
+                    <p class="">
+                        <span class="fl tydvrg_hf_title mg_top10">课题性质：</span>
+                        <span class="fl tydvrg_hf_content mg_top10">
+                            @Html.Raw(!string.IsNullOrWhiteSpace(Model.SubjectNature) ? Model.SubjectNature.Replace("pre", "span") : Model.SubjectNature)
+                        </span>
+                    </p>
+                </div>
+                <div class="ablogs_pwd_item">
+                    <p class="">
+                        <span class="fl tydvrg_hf_title mg_top10">研究方向：</span>
+                        <span class="fl tydvrg_hf_content mg_top10">
+                            @Html.Raw(!string.IsNullOrWhiteSpace(Model.SubjectResearchAreas) ? Model.SubjectResearchAreas.Replace("pre", "span") : Model.SubjectResearchAreas)
+                        </span>
+                    </p>
+                </div>
+                <div class="ablogs_pwd_item">
+                    <p class="">
+                        <span class="fl tydvrg_hf_title mg_top10">研究价值：</span>
+                        <span class="fl tydvrg_hf_content mg_top10">
+                            @Html.Raw(!string.IsNullOrWhiteSpace(Model.SubjectResearchValue) ? Model.SubjectResearchValue.Replace("pre", "span") : Model.SubjectResearchValue)
+                        </span>
+                    </p>
+                </div>
+                <div class="ablogs_pwd_item">
+                    <p class="">
+                        <span class="fl tydvrg_hf_title mg_top10">考核标准：</span>
+                        <span class="fl tydvrg_hf_content mg_top10">
+                            @Html.Raw(!string.IsNullOrWhiteSpace(Model.SubjectPassStandard) ? Model.SubjectPassStandard.Replace("pre", "span") : Model.SubjectPassStandard)
+                        </span>
+                    </p>
+                </div>
+                <div class="ablogs_pwd_item">
+                    <p class="">
+                        <span class="fl tydvrg_hf_title mg_top10">课题描述：</span>
+                        <span class="fl tydvrg_hf_content mg_top10">
+                            @Html.Raw(!string.IsNullOrWhiteSpace(Model.SubjectComment) ? Model.SubjectComment.Replace("pre", "span") : Model.SubjectComment)
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cdiv_cen" id="mg-btn-pos" style="height: 7%;width: 20%">
+        <dl class="tydl mytc_ad2">
+            <dd>
+                <a href="@Url.Action("submitsubject",new { id =Model.ID})" data-a data-ajax-update="#studentpage" data-ajax-mode="replace" data-ajax="true" class="tydv_btn_pka bd_rd5 fl">确认选题</a>
+            </dd>
+            <dd>
+                <a href="@Url.Action("choosesubject",new { id =Model.TreatiseTeacherID})" data-ajax-update="#studentpage" data-ajax-mode="replace" data-ajax="true" class="tydv_btn_pka bd_rd5 fl">返回</a>
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<script>
+    $.getScript("/Content/scrollbar/js/minified/jquery.mCustomScrollbar.min.js", function () {
+        $("#openingreport").mCustomScrollbar({
+            scrollButtons: {
+                enable: true
+            },
+            theme: "dark-thin"
+        });
+    });
+</script>

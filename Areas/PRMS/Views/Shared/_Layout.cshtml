@@ -1,0 +1,225 @@
+﻿@{var userModel = new UserModuleViewModel();}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <title>@(ConfigHelper.SchoolName + "论文管理系统")</title>
+    <!--  <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+      <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+      -->
+    @RenderSection("Head", false)
+    <link href="/content/admin/css/bootstrap.min.css?v=3.4.0" rel="stylesheet">
+    <link href="/content/admin/font-awesome/css/font-awesome.css?v=4.3.0" rel="stylesheet">
+    <!-- Morris -->
+    <link href="/content/admin/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+    <!-- Gritter -->
+    <link href="/content/admin/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+    <link href="/content/admin/css/animate.css" rel="stylesheet">
+    <link href="/content/admin/css/style.css?v=2.2.0" rel="stylesheet">
+    <link href="~/Content/fine-uploader/fine-uploader.min.css" rel="stylesheet" />
+    <link href="~/Content/admin/Css/plugins/webuploader/webuploader.css" rel="stylesheet" />
+    <link href="~/Content/admin/css/plugins/chosen/chosen.css" rel="stylesheet" />
+    <link href="~/Content/layer/skin/layer.css" rel="stylesheet" />
+    <link href="~/Content/admin/Css/plugins/webuploader/webuploader.css" rel="stylesheet" />
+    <link href="~/Content/Scripts/select2/select2.css" rel="stylesheet" />
+    <link href="~/Content/plugins/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" />
+    @*@StackExchange.Profiling.MiniProfiler.RenderIncludes()*@
+    <style>
+        .field-validation-error {
+            color: red;
+        }
+        .chosen-select {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            <span>
+                                <img alt="image" class="img-circle" src="~/Content/Images/1.jpg" height="120" />
+                            </span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear">
+                                    <span class="block m-t-xs">
+                                        <strong class="font-bold">@userModel.User.UserInfo.TrueName</strong>
+                                    </span>  <span class="text-muted text-xs block">@userModel.User.UserInfo.LoginName <b class="caret"></b></span>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li>
+                                    <a href="@Url.Action("detail","usercenter")">个人中心</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("pwd", "usercenter")"> 修改密码</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="/home/logout">安全退出</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+                            论文
+                        </div>
+                    </li>
+                    <li class="active">
+                        <a href="/prms"><i class="fa fa-th-large"></i> <span class="nav-label">主页</span></a>
+                    </li>
+                    @{
+                        var parnet = userModel.ParnetModuleList;
+                        var towmodule = userModel.TowModuleList;
+
+                        foreach (var item in parnet.Where(d => d.State == 1).OrderBy(d => d.Sort))
+                        {
+                            var towmodulelist = from c in towmodule
+                                                where c.ParentID == item.ID
+                                                select c;
+                            if (item.Module1.Any(d => d.State == 1))
+                            {
+                                <li class="active" id="@item.ControllerName">
+                                    <a href="#">
+                                        <i class="fa @item.StyleName"></i> <span class="nav-label">@item.ModuleName</span>
+                                        @if (towmodulelist.Any())
+                                        {
+                                            <span class="fa arrow"></span>
+                                        }
+                                    </a>
+                                    @if (towmodulelist.Any())
+                                    {
+                                        <ul class="nav nav-second-level">
+                                            @foreach (var two in towmodulelist.Where(d => d.State == 1).OrderBy(d => d.Sort))
+                                            {
+                                                <li id="@two.ControllerName" class=""><a href="/@two.AreaName/@two.ControllerName">@two.ModuleName</a></li>
+                                            }
+                                        </ul>
+                                    }
+                                </li>
+                            }
+                            else
+                            {
+                                if (string.IsNullOrWhiteSpace(item.ControllerName))
+                                {
+                                    <li class="active">
+                                        <i class="fa @item.StyleName"></i> <span class="nav-label">@item.ModuleName</span>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="active">
+                                        <a href="/@item.AreaName/@item.ControllerName">
+                                            <i class="fa @item.StyleName"></i> <span class="nav-label">@item.ModuleName</span>
+                                        </a>
+                                    </li>
+                                }
+                            }
+
+                        }
+                    }
+                </ul>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <span class="m-r-sm text-muted welcome-message"><a href="/prms" title="返回首页"><i class="fa fa-home"></i></a>@("欢迎使用" + ConfigHelper.SchoolName + "论文管理系统")</span>
+                        </li>
+                        <li>
+
+                            <a href="/thesis"><i class="fa fa-graduation-cap"></i>配置论文</a>
+
+                        </li>
+                        <li>
+                            <span class="m-r-sm text-muted welcome-message">
+                                <a href="/home/logout">
+                                    <i class="fa fa-sign-out"></i> 退出
+                                </a> 
+                            </span>
+
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="wrapper wrapper-content">
+                @RenderBody()
+            </div>
+            <div class="footer">
+                <div class="pull-right">
+                    By：<a href="http://www.lskejisoft.com" target="_blank">览山科技</a>
+                </div>
+                <div>
+                    <strong>Copyright</strong> 览山科技 &copy; 2016
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Mainly scripts -->
+    <script src="/content/admin/js/jquery-2.1.1.min.js"></script>
+    <script src="/content/admin/js/bootstrap.min.js?v=3.4.0"></script>
+    <script src="/content/admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/content/admin/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- Custom and plugin javascript -->
+    <script src="/content/admin/js/hplus.js?v=2.2.0"></script>
+    <script src="/content/admin/js/plugins/pace/pace.min.js"></script>
+    <!-- jQuery UI -->
+    <script src="/content/admin/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Jvectormap -->
+    <script src="/content/admin/js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="/content/admin/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- EayPIE -->
+    <script src="/content/admin/js/plugins/easypiechart/jquery.easypiechart.js"></script>
+    <!-- layer -->
+    <script src="~/Content/layer/layer.js"></script>
+    <!-- Ajax  -->
+    <script src="~/Content/admin/js/jquery.unobtrusive-ajax.min.js"></script>
+    <!-- Editor  -->
+    <script src="~/Content/kindeditor/kindeditor-all-min.js"></script>
+    <!-- Upload  -->
+    <script src="~/Content/fine-uploader/jquery.fine-uploader.min.js"></script>
+    <script src="~/Content/Scripts/Validform_v5.3.2.js"></script>
+    <!-- My97  -->
+    <script src="~/Content/My97DatePicker/WdatePicker.js"></script>
+    <script src="~/Content/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Content/admin/js/jquery-validate-methods.js"></script>
+    <script src="~/Content/plugins/zTree/js/jquery.ztree.all.min.js"></script>
+    <script src="/Content/Scripts/select2/select2.js"></script>
+    @RenderSection("Scripts", false)
+    <script>
+        $(function () {
+            var index;
+            // 设置jQuery Ajax全局的参数
+            $(document).ajaxStart(onStart).ajaxComplete(onComplete);
+            function onStart(event) {
+                index = layer.load(3, { time: 10 * 1000 });
+            }
+            function onComplete(event, xhr, settings) {
+                layer.close(index);
+                if (xhr.statusText == "OK") return;
+                if (xhr.status == 500) {
+                    var json = jQuery.parseJSON(xhr.responseText);
+                    if (json.ErrorState == 0 && json.ErrorType == "json") {
+                        layer.alert(json.Message);
+                    } else {
+                        layer.alert("未知错误");
+                    }
+                } else {
+                    layer.alert("未知错误");
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+﻿@model Pager<StudentLog>
+    @{ 
+        var intrea = ViewBag.InTreatise as bool?;
+    }
+<div class="ps hei-a85">
+    <h3 class="tydvrg_tit ps">
+        我的日志
+    </h3>
+    <div class="tysearch bd_rd5" style="border:none;width:450px;">
+        @using (Ajax.BeginForm("search", new AjaxOptions()
+        {
+            HttpMethod = "post",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "teacherpage"
+        }))
+        {
+            @Html.DropDownList("Reply", ViewBag.Reply as SelectList, new { @class = "wid100 yu_css fl" })
+            <input type="text" class="tyshtxt" placeholder="日志标题名称" name="keyword" style="border:1px solid #ccc;margin:0 20px" />
+            <button type="submit" class="btn btn-primary" style="padding: 1px 6px;">
+                搜索
+            </button>
+        }
+    </div>
+    <div class="poa_wer fr">
+        <dl class=" mytc_ad2 ">
+            <dd style="">
+                @if (intrea==true)
+                {
+                    <a class="tydv_btn_pka bd_rd5 fr poa_wer1" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" href="@Url.Action("add")">添加日志</a>
+                }               
+            </dd>
+        </dl>
+    </div>
+    <div class="" style="height:40px;"></div>
+    <div class="cdiv ps" id="content_cp" style="height:80%;z-index:12">
+        <div class="r_con_over chenposi" id="abloeds">
+            <div class="salg ow">
+                @foreach (var item in Model)
+                {
+                    <div class="dhg2"></div>
+                    <dl class="tydl salg_dl">
+                        <dt>来自于  @item.TreatiseStudent.Student.UserInfo.TrueName         发表时间  @String.Format("{0:yyyy-MM-dd}", item.CreateTime)</dt>
+                        <dd>@StringHelper.GetNoHtmlSubString(item.Title, 50) </dd>
+                        <dt>
+                            @if (item.StudentLogComments.Any(d => d.UserType == 2 && d.State == 1))
+                            {
+                                <a class="btn btn3" href="/StudentSys/studentlog/detail/@item.ID" data-ajax-update="#teacherpage" data-ajax-mode="replace" data-ajax="true">已回复</a>
+                            }
+                            else
+                            {
+                                <a class="btn btn3" href="/StudentSys/studentlog/edit/@item.ID" data-ajax-update="#teacherpage" data-ajax-mode="replace" data-ajax="true"><i class="icon-pencil icon-white"></i>修改</a>
+                                <a href="javascript:void(0)" class="btn btn-info" onclick="btndel(@item.ID)">
+                                    <i class="fa fa-paste"></i>删除
+                                </a>
+                                <a class="btn btn3" href="/StudentSys/studentlog/detail/@item.ID" data-ajax-update="#teacherpage" data-ajax-mode="replace" data-ajax="true">查看详情</a>                           }
+                    </dl>
+                    <div class="dhg2"></div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="cdiv_cen" id="mg-btn-pos" style="height: 5%; width: 90%;">
+        @UIHelper.StudentPageHelper("#teacherpage", "studentlog", "search", null, null, null, Model.TotalPages, Model.PageIndex, Model.PageSize, Model.TotalCount, Model.HasPreviousPage, Model.HasNextPage, Model.PageList)
+    </div>
+</div>
+@if (IsAjax)
+{
+    <script>
+        $.getScript("/Content/scrollbar/js/minified/jquery.mCustomScrollbar.min.js", function () {
+            $("#abloeds").mCustomScrollbar({
+                scrollButtons: {
+                    enable: true
+                },
+                theme: "dark-thin"
+            });
+        });
+    </script>
+}
+<script>
+    function btndel(id) {
+        if (confirm("删除后数据无法恢复，确定要删除吗?")) {
+            $.post("/studentsys/studentlog/delete", { id: id }, function (data) {
+                if (data == "OK") {
+                    alert("删除成功！");
+                    window.location.reload();
+                } else {
+                    alert(data);
+                }
+            });
+        };
+    }
+</script>
+

@@ -1,0 +1,82 @@
+﻿@model Pager<Subject>
+<div class="ps hei-a85">
+    <h3 class="tydvrg_tit">待审核课题</h3>
+
+    <div class="tysearch_c bd_rd5">
+        @using (Ajax.BeginForm("search", new AjaxOptions()
+        {
+            HttpMethod = "post",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "teacherpage"
+        }))
+        {
+            <input type="text" class="tyshtxt" placeholder="课题名称" name="keyword"><button type="submit" class="tyshbut"></button>
+        }
+    </div>
+    <div class="fr">
+        <dl class="mytc_ad2 ">
+            <dd>
+                <a class="tydv_btn_p bd_rd5" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" href="@Url.Action("add","subject")">添加</a>
+            </dd>
+        </dl>
+    </div>
+    <div class="dhg2"></div>
+    <div class="cdiv ps" id="content_cp" style="height:65%;">
+        <div class="dhg3"></div>
+        <div class="r_con_over chenposi" id="abloeds">
+            <div class="addv">
+
+                <table width="100%" cellpadding="0" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <th>标题</th>
+                            <th>专业</th>
+                            <th>课题状态</th>
+                            <th>创建时间</th>
+                            <th>操作</th>
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr id="item_@(item.ID)">
+                                <td class="center">@item.Title</td>
+                                <td class="center">@StaticHelper.GetSchoolName(item.SchoolID ?? 0)</td>
+                                <td class="center">@SelectListHelper.SubjectStateName(item.SubjectState)</td>
+                                <td class="center">@string.Format("{0:yyyy-MM-dd}", item.CreateTime) </td>
+                                <td>
+                                    <a href="@Url.Action("edit","subject",new {id=item.ID})" class="btn btn-info" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage">
+                                        <i class="fa fa-paste"></i>
+                                        编辑
+                                    </a>
+                                    <a href="#" class="btn btn-info" onclick="btndel(@item.ID)">
+                                        <i class="fa fa-paste"></i>
+                                        刪除
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div class="dhg2"></div>
+    </div>
+    <div class="cdiv_cen" id="mg-btn-pos">
+        @UIHelper.TeacherPageHelper("#teacherpage", "subjectcheck", "search", null, null, null, Model.TotalPages, Model.PageIndex, Model.PageSize, Model.TotalCount, Model.HasPreviousPage, Model.HasNextPage, Model.PageList)
+    </div>
+    <div style="clear: both;"></div>
+</div>
+    <script>
+        function btndel(id) {
+            if (confirm("删除后数据无法恢复，确定要删除吗?")) {
+                $.post("/teachersys/subjectcheck/delete", { id: id }, function (data) {
+                    if (data == "OK") {
+                        alert("删除成功！");
+                        window.location.reload();
+                    } else {
+                        alert(data);
+                    }
+                });
+            };
+        }
+    </script>

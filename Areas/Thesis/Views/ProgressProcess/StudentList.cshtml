@@ -1,0 +1,92 @@
+﻿@model TreatiseProcessViewModel
+<div class="row">
+    <div class="col-md-4">
+        <div class="input-group">
+            @using (Ajax.BeginForm("studentlist", new {id = Model.Process.ID}, new AjaxOptions()
+            {
+                HttpMethod = "post",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "tab-process-" + @Model.Process.ID
+            }))
+            {
+            <form role="form" class="form-control" method="post" action="@Url.Action("search")/">
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="stuno" placeholder="学号">
+                </div>
+                <div class="col-sm-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="stuname" placeholder="姓名">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary">
+                                搜索
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+            }
+        </div>
+    </div>
+    <div class="col-md-8">
+      Action：  @string.Join("，", Model.EventList.Select(d => d.Identity + d.Action).ToArray())
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>学号</th>
+                        <th>姓名</th>
+                        <th>时间分</th>
+                        <th>质量分</th>
+                        <th>流程总分</th>
+                        <th>提交时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.TreatiseStudentPager)
+                    {
+                        var stupro = item.StudentProcesses.FirstOrDefault(d => d.ProcessID == Model.Process.ID);
+                        <tr>
+                            <td>
+                                @item.Student.UserInfo.LoginName
+                            </td>
+                            <td>
+                                @item.Student.UserInfo.TrueName
+                            </td>
+                            @if (stupro == null)
+                            {
+                                <td colspan="4" style="text-align: center">暂未提交</td>
+                            }
+                            else
+                            {
+                                if (stupro.ScoreTime == null)
+                                {
+                                    <td colspan="3" style="text-align: center">暂未打分</td>
+                                }
+                                else
+                                {
+                                    <td>@stupro.TimeMark</td>
+                                    <td>@stupro.QualityMark</td>
+                                    <td>@stupro.TotalMark</td>
+                                }
+                                <td>@string.Format("{0:yyyy年 MM月 dd日}", stupro.SubmitTime)  </td>
+                            }
+
+                            <td>
+                                @*<a class="btn btn-info" onclick="processshow(item.ID)">
+                                        <i class="fa fa-paste"></i>
+                                        查看
+                                    </a>*@
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @UIHelper.ThesisPageHelper("#processstudentlist", "progressprocess", "id", Model.Process.ID.ToString(), Model.TreatiseStudentPager.TotalPages, Model.TreatiseStudentPager.PageIndex, Model.TreatiseStudentPager.PageSize, Model.TreatiseStudentPager.TotalCount, Model.TreatiseStudentPager.HasPreviousPage, Model.TreatiseStudentPager.HasNextPage, Model.TreatiseStudentPager.PageList, "studentlist")
+        </div>
+    </div>
+</div>

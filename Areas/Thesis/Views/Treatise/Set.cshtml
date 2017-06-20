@@ -1,0 +1,105 @@
+﻿@model Treatise
+@{
+    Layout = null;
+}
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <form id="treatise-From" data-ajax-update="#wizard-p-4" data-ajax-mode="replace" data-ajax-method="post" data-ajax-confirm="确认要保存此设置吗？" data-ajax="true" action="/prms/treatise/set/@Model.ID" class="form-horizontal">
+                        <div class="form-group">
+                                <label class="col-sm-2 control-label">标题</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(d => d.TreatiseName, new { @class = "form-control required" })
+                                </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="col-sm-3 control-label">选题显示老师姓名</label>
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(d => d.ShowTeacher, ViewData["ShowTeacher"] as SelectList, new { @class = "form-control required" })
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-3 control-label">时间分</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(d => d.TimeGrades, new { @class = "form-control required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="col-sm-3 control-label">质量分</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(d => d.QualityGrades, new { @class = "form-control required" })
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-3 control-label">及格分</label>
+                                <div class="col-sm-8">
+                                    @Html.TextBoxFor(d => d.PassMark, new { @class = "form-control required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="col-sm-3 control-label">阶段开启模式</label>
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(d => d.StageMode, ViewData["StageMode"] as SelectList, new { @class = "form-control required" })
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="col-sm-3 control-label">选题方式</label>
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(d => d.ChooseTeacher, ViewData["ChooseTeacher"] as SelectList, new { @class = "form-control required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="col-sm-3 control-label">开题报告方式</label>
+                                <div class="col-sm-8">
+                                    @Html.DropDownListFor(d => d.IsReport, ViewData["IsReport"] as SelectList, new { @class = "form-control required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">描述</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(d => d.Comment, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-sm-offset-4">
+                                <button class="btn btn-primary" type="submit" onclick="changestart(1)">保存并开启项目</button>
+                                <button class="btn btn-primary" type="submit" onclick="changestart(2)">保存但不开启</button>
+                                <a class="btn btn-white" href="/prms/treatise/set/@Model.ID" data-ajax-update="#wizard-p-4" data-ajax-mode="replace" data-ajax="true">取消</a>
+                                <input type="hidden" id="Start" name="Start" value="" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $.getScript('/Content/kindeditor/kindeditor-all-min.js', function () {
+            KindEditor.create('input[name="Comment"]');
+
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        var validate = $("#treatise-From").validate();
+    });
+</script>

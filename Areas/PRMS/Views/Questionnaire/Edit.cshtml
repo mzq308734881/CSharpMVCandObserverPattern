@@ -1,0 +1,96 @@
+﻿@model Questionnaire
+<link href="~/Content/admin/Css/plugins/webuploader/webuploader.css" rel="stylesheet" />
+<link href="~/Content/admin/css/plugins/chosen/chosen.css" rel="stylesheet" />
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>公告添加</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/prms/">主页</a>
+            </li>
+            <li>
+                <a href="/prms/Questionnaire">问卷管理</a>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form method="post" class="form-horizontal" id="subject-From">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">通知标题</label>
+                            <div class="col-sm-8">
+                                @Html.TextBoxFor(d => d.Title, new { @class = "form-control required" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">通知内容</label>
+                            <div class="col-sm-8">
+                                @Html.TextAreaFor(d => d.Comment, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"></label>
+                            <div class="col-sm-8">
+                                <span id="filemsg"></span><br />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">保存内容</button>
+                                <a class="btn btn-white" onclick="return confirm('返回后您输入的数据将不被储存，确认返回吗？')" href="/prms/Questionnaire">取消</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/admin/js/plugins/chosen/chosen.jquery.js"></script>
+@section Scripts{
+    <script>
+            KindEditor.ready(function (K) {
+                var editor1 = K.create('#Content', {
+                    uploadJson: '/upfile/uploadfile',
+                    allowFileManager: true,
+                    afterCreate: function () {
+                        var self = this;
+                        K.ctrl(document, 13, function () {
+                            self.sync();
+                        });
+                        K.ctrl(self.edit.doc, 13, function () {
+                            self.sync();
+                        });
+                    }
+                });
+            });
+    </script>
+    <script>
+            $(document).ready(function () {
+                $.getScript("/Content/scrollbar/js/minified/jquery.mCustomScrollbar.min.js", function () {
+                    var validate = $("#subject-From").validate();
+                    $("#abloeds").mCustomScrollbar({
+                        scrollButtons: {
+                            enable: true
+                        },
+                        theme: "dark-thin"
+                    });
+                });
+            });
+    </script>
+}
+
+
+
+

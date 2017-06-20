@@ -1,0 +1,245 @@
+﻿@model StudentProcessViewModel
+@{
+    var num = 0;
+    var notsubmit = Model.StudentProcess == null || !Model.StudentProcess.StudentProcessLogs.Any(d => (d.CheckState == 0 || d.CheckState == 1) && d.IsBest == 1);
+}
+<link href="~/Content/admin/Css/plugins/webuploader/webuploader.css" rel="stylesheet" />
+<link href="~/Content/scrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
+<div class="myts_tm">提交截止时间： @string.Format("{0:yyyy年MM月dd日}", Model.Process.EndTime)</div>
+<h3 class="tydvrg_tit">@Model.Process.ProcessName</h3>
+<div class="dhg2"></div>
+<div class="cdiv ps" tabindex="5000" style="overflow: hidden; outline: none;height: 90%">
+    <form action="@Url.Action("savelog", new { id = Model.Process.ID })" method="post" data-ajax-update="#studentright" data-ajax-mode="replace" data-ajax="true" id="treatise">
+        <div class="r_con_over chenposi" id="abloeds">
+            <div class="myts_xtit">注：标准时间分 @Model.Process.TimeMark 分，标准质量分为 @Model.Process.QualityMark 分。</div>
+            <div class="myts_xtit">注：记得先保存再提交哦!</div>
+            <div class="dhg2"></div>
+            <div class="addv">
+                @if (Model.StudentProcess != null)
+                {
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>编号</th>
+                                <th>附件名称</th>
+                                <th>上传时间</th>
+                                <th>审核结果</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model.StudentProcess.StudentProcessLogs.Where(d => d.State == 1).OrderBy(d => d.CreateTime))
+                            {
+                                num++;
+                                var annex = StaticHelper.GetAnnex(item.AnnexID ?? 0);
+                                var checkannex = StaticHelper.GetAnnex(item.CheckAnnexID ?? 0);
+                                <tr id="item_@item.ID">
+                                    <td>@num</td>
+                                    <td>
+                                        @if (annex != null)
+                                        {
+                                            <a href="@Url.Action("Annex", "DownLoad", new {area = "", id = annex.ID})" target="_blank">@annex.AnnexName</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="#">暂无附件</a>
+                                        }
+                                    </td>
+                                    <td>@string.Format("{0:yyyy-MM-dd HH:mm}", item.CreateTime)</td>
+                                    <td>
+                                        <a href="@Url.Action("detail", new {id = item.ID})" data-ajax-update="#logdetail" data-ajax-mode="replace" data-ajax="true">@SelectListHelper.StudentProcessLogCheckStateName(item.CheckState)</a>
+                                    </td>
+                                    <td>
+                                        @if (item.IsBest == 1)
+                                        {
+                                            <text>已提交</text>
+                                        }
+                                        else
+                                        {
+                                            if (notsubmit)
+                                            {
+                                                <a href="#" onclick="deletelog(@(item.ID))">删除</a>
+                                                <a href="@Url.Action("submit", new {id = item.ID})" data-ajax-update="#studentright" data-ajax-mode="replace" data-ajax="true">提交</a>
+                                            }
+                                            else
+                                            {
+                                                <text>审核中</text>
+                                            }
+
+                                        }
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div style="text-align: center;">暂未提交内容</div>
+                }
+            </div>
+
+            <div class="dhg4"></div>
+            <div class="addv" id="logdetail">
+            </div>
+            <div class="dhg4"></div>
+            @if (notsubmit)
+            {
+                <div class="addv">
+                    <dl class="tydl ptmg_stp_dl">
+                        <dt>上传附件：</dt>
+                        <dd>
+                            <div class="upcont">
+                                <div id="uploader">
+                                    <!--用来存放文件信息-->
+                                    <div id="thelist" class="uploader-list"></div>
+                                    <div class="btns">
+                                        <div id="picker">选择论文文档</div>
+                                    </div>
+                                </div>
+                                <font>*文件必须是 .docx .doc</font>
+                            </div>
+                            <div id="filecontent" class="upcont" style="display: none">
+                                <span id="filemsg"></span><br />
+                                <div class="progress fl">
+                                    <span class="progress">
+                                        <span id="filepro" class="blue" style="width: 0%;">
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <input type="hidden" id="filename" name="filename" />
+                            <input id="filepath" name="filepath" type="hidden" datatype="*" nullmsg="请先上传论文文档！" />
+                            <span class="help-block m-b-none Validform_checktip"></span>
+                        </dd>
+                    </dl>
+                    <div class="dhg2"></div>
+                    <dl class="tydl ptmg_stp_dl ">
+                        <dt>相关说明：</dt>
+                        <dd class="stp_txtarea">
+                            <textarea class="ctbord hei12em stp_twh3" name="comment" datatype="*"></textarea>
+                            <span class="help-block m-b-none Validform_checktip"></span>
+                        </dd>
+                    </dl>
+                    <div class="dhg4"></div>
+                    <dl class="tydl ptmg_stp_dl ">
+                        <dt></dt>
+                        <dd><input type="submit" class="tydv_but1 bd_rd5  fl" value="保存" /></dd>
+                    </dl>
+                    <div class="dhg3"></div>
+                </div>
+            }
+            @if (Model.StudentProcess != null && (Model.StudentProcess.TimeMark != null || Model.StudentProcess.QualityMark != null))
+            {
+                <div class="addv">
+                    <dl class="tydl ptmg_stp_dl">
+                        <dt>时间分：</dt>
+                        <dd>
+                            @Model.StudentProcess.TimeMark
+                        </dd>
+                    </dl>
+                    <div class="dhg2"></div>
+                    <dl class="tydl ptmg_stp_dl ">
+                        <dt>质量分：</dt>
+                        <dd class="stp_txtarea">
+                            @Model.StudentProcess.QualityMark
+                        </dd>
+                    </dl>
+                    <div class="dhg4"></div>
+                </div>
+            }
+
+        </div>
+    </form>
+</div>
+<script>
+    $.getScript("/Content/Scripts/Validform_v5.3.2.js", function () {
+        $(document).ready(function () {
+            var Validform = $("#treatise").Validform({
+                tiptype: 3,
+                ignoreHidden: false
+            });
+        });
+    })
+</script>
+<script>
+    $(document).ready(function () {
+        $.getScript("/Content/scrollbar/js/minified/jquery.mCustomScrollbar.min.js", function () {
+            $.getScript('/Content/Admin/js/plugins/webuploader/webuploader.min.js', function () {
+                $("#abloeds").mCustomScrollbar({
+                    scrollButtons: {
+                        enable: true
+                    },
+                    theme: "dark-thin"
+                });
+                var uploader = WebUploader.create({
+                    auto: true,
+                    // swf文件路径
+                    swf: + '/Content/js/Uploader.swf',
+                    // 文件接收服务端。
+                    server: '@Url.Action("word", "upload")',
+                    // 选择文件的按钮。可选。
+                    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                    pick: {
+                        id: '#picker',
+                        multiple: false
+                    },
+
+                    // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+                    resize: false,
+                    //fileNumLimit: 1,
+                    fileSingleSizeLimit: 40 * 1024 * 1024,
+                    // 选址文件选择格式。
+                    accept: {
+                        title: '论文文档',
+                        extensions: 'doc,docx'
+                    }
+                });
+                // 验证文件格式以及文件大小
+                uploader.on("error", function (type) {
+                    if (type == "Q_TYPE_DENIED") {
+                        alert("仅能上传doc、docx格式文档");
+                    } else if (type == "F_EXCEED_SIZE") {
+                        alert("文件大小不能超过40M");
+                    }
+                });
+                // 当有文件被添加进队列的时候
+                uploader.on('fileQueued', function (file) {
+                    $("#filemsg").html("文件 " + file.name + "准备上传…… ");
+                });
+                // 文件上传过程中创建进度条实时显示。
+                uploader.on('uploadProgress', function (file, percentage) {
+                    $("#filemsg").html("文件 " + file.name + "正在上传");
+                    $("#filecontent").show();
+                    $("#filepro").css('width', percentage * 100 + '%');
+                });
+                // 文件上传成功
+                uploader.on('uploadSuccess', function (file, response) {
+                    $("#filemsg").html("文件 " + file.name + "已上传");
+                    $("#filename").val(response.FileName);
+                    $("#filepath").val(response.FilePath);
+                });
+                // 文件上传失败
+                uploader.on('uploadError', function (file) {
+                    $("#filemsg").html("文件 " + file.name + "上传失败！");
+                });
+            });
+        });
+    });
+    function deletelog(id) {
+        layer.confirm('确认要删除此次提交记录吗?<br/>删除后无法恢复！', { icon: 3, title: '确认删除' }, function (index) {
+            $.post("@Url.Action("delete")", { id: id }, function (data) {
+                if (data == "OK") {
+                    $("#item_" + id).remove();
+                } else {
+                    layer.alert(data);
+                }
+            })
+            layer.close(index);
+        });
+
+    }
+</script>

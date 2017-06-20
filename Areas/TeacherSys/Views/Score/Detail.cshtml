@@ -1,0 +1,101 @@
+﻿@model StudentProcess
+@{
+    var num = 0;
+}
+<style>
+    .ablogs_pwd_item input {
+        color: #000;
+        height: 28px;
+    }
+
+    .black {
+        color: #fff !important;
+    }
+</style>
+<h3 class="tydvrg_tit">@StaticHelper.StudentName(Model.StudentID)</h3>
+<div class="cdiv ps" id="content_cp" style="height:80%;">
+    <div class="dhg2"></div>
+    <div class="r_con_over chenposi" id="abloeds" tabindex="5000" style="overflow: hidden; outline: none;">
+        <div class="addv">
+            <table width="100%" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>名称</th>
+                        <th>上传时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.StudentProcessLogs.Where(d => d.IsBest == 1 && d.State == 1).OrderBy(d => d.CreateTime))
+            {
+                num++;
+                var annex = StaticHelper.GetAnnex(item.AnnexID ?? 0);
+                if (annex == null)
+                {
+                    continue;
+                }
+                <tr>
+                    <td>@num</td>
+                    <td>
+                        <a href="@annex.AnnexPath">@annex.AnnexName</a>
+                    </td>
+                    <td>@string.Format("{0:yyyy-MM-dd HH:mm}", item.CreateTime)</td>
+                    <td>
+                        @switch (item.CheckState)
+                        {
+
+                            case 0:
+                                <a href="@Url.Action("log", new {id = item.ID})" data-ajax-update="#checkcomment" data-ajax-mode="replace" data-ajax="true">审阅</a>
+                                break;
+                            case 1:
+                                <a href="@Url.Action("log", new {id = item.ID})" data-ajax-update="#checkcomment" data-ajax-mode="replace" data-ajax="true">已通过</a>
+                                break;
+                            case 2:
+                                <a href="@Url.Action("log", new {id = item.ID})" data-ajax-update="#checkcomment" data-ajax-mode="replace" data-ajax="true">未通过</a>
+                                break;
+                        }
+                    </td>
+                </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div id="checkcomment" class="ablogs_pwd">
+        </div>
+        <div class="ablogs_pwd">
+            <div class="ablogs_pwd_item">
+                <label>时间分：</label>
+                @Model.TimeMark
+            </div>
+            <div class="ablogs_pwd_item">
+                <label>质量分：</label>
+                @Model.QualityMark
+            </div>
+            <div class="ablogs_pwd_item">
+                <label>评分说明：</label>
+                @Model.ScoreComment
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cdiv_cen" id="mg-btn-pos" style="height: 10%; width: 10%">
+    <dl class="tydl mytc_ad2">
+        <dd>
+            <a class="tydv_btn_pka bd_rd5 fl" href="@Url.Action("search")" data-ajax-update="#teacherpage" data-ajax-mode="replace" data-ajax="true">返回</a>
+        </dd>
+    </dl>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $.getScript("/Content/scrollbar/js/minified/jquery.mCustomScrollbar.min.js", function () {
+            $("#abloeds").mCustomScrollbar({
+                scrollButtons: {
+                    enable: true
+                },
+                theme: "dark-thin"
+            });
+        });
+    });
+</script>

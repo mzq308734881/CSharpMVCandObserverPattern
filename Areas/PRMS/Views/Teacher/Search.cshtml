@@ -1,0 +1,79 @@
+﻿@model SchoolDTO
+<div class="row">
+    <div class="col-lg-10">
+        <div class="input-group">
+            <form action="@Url.Action("search")" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage">
+                <div class="input-group">
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="teano" placeholder="登录账号">
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <input type="text" class="form-control" name="teaname" placeholder="姓名">
+                                <button type="submit" class="btn btn-primary">
+                                    搜索
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <div class="input-group">
+            <a class="btn btn-sm btn-primary" href="@Url.Action("add",new { id=Model.SchoolID})"> 添加</a>
+            <a class="btn btn-sm btn-primary" href="@Url.Action("import",new { id=Model.SchoolID})"> 导入</a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>登陆账号</th>
+                    <th>姓名</th>
+                    <th>所属专业</th>
+                    <th>手机号</th>
+                    <th>邮箱</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+               <tbody>
+                        @foreach (var item in Model.TeacherPage)
+                        {
+                            <tr id="item_@item.ID">
+                                <td>@item.UserInfo.LoginName</td>
+                                <td>@item.UserInfo.TrueName</td>
+
+                                <td>@item.School.InfoName</td>
+
+                                <td>@item.UserInfo.Tel</td>
+                                <td>@item.UserInfo.Email</td>
+                                <td>
+                                    <a href="#" class="btn btn-sm btn-warning " onclick="czmm(@item.InfoID)">
+                                        <i class="fa fa-paste"></i>
+                                        重置密码
+                                    </a>
+                                    <a href="@Url.Action("edit",new { id=item.ID})" class="btn btn-sm btn-info ">
+                                        <i class="fa fa-paste"></i>
+                                        编辑
+                                    </a>
+                                    <a href="@Url.Action("detail",new { id=item.ID})" class="btn btn-sm btn-info">
+                                        <i class="fa fa-paste"></i>
+                                        查看
+                                    </a>
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="btndel(@item.ID)">
+                                        <i class="fa fa-paste"></i>
+                                        刪除
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+        </table>
+    </div>
+</div>
+@UIHelper.AjaxPageHelper("#teacherpage", "teacher","id",Model.SchoolID.ToString(), Model.TeacherPage.TotalPages, Model.TeacherPage.PageIndex, Model.TeacherPage.PageSize, Model.TeacherPage.TotalCount, Model.TeacherPage.HasPreviousPage, Model.TeacherPage.HasNextPage, Model.TeacherPage.PageList)

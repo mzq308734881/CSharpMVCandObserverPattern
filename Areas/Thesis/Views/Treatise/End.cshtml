@@ -1,0 +1,39 @@
+﻿@model Treatise
+@{
+    Layout = null;
+}
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+
+                    @switch (Model.StageMode)
+                    {
+                        case 0:
+                            <p class="text-center">保存完成，点击<a class="btn btn-white" href="/prms/treatise/set/@Model.ID" data-ajax-update="#wizard-p-4" data-ajax-mode="replace" data-ajax="true">返回</a>可做修改</p>
+                            break;
+                        case 1:
+                        <p class="text-center">当前项目已开启，将无法再进行修改操作</p>
+                            break;
+                        case 2:
+                        <p class="text-center">当前项目已结束，无法进行修改操作</p>
+                            break;
+                    }
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    function changestart(i) {
+        if (i == 1) {
+            $("#Start").val("12345")
+        } else {
+            $("#Start").val('')
+        }
+    }
+</script>

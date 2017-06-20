@@ -1,0 +1,115 @@
+﻿@model Pager<Notice>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>公告管理</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/prms/">主页</a>
+            </li>
+            <li>
+                <strong>公告管理</strong>
+            </li>
+            <li>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>公告管理</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <form action="/prms/notice/search" method="post">
+                                    <div class="input-group">
+                                        <input type="text" name="keyword" placeholder="标题名称" class="form-control"> <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-primary">
+                                                搜索
+                                            </button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-md-offset-7">
+                            <div class="input-group">
+                                <a class="btn btn-sm btn-primary" href="/prms/notice/add"> 添加</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>通知标题</th>
+                                    <th>类型</th>
+                                    <th>创建人</th>
+                                    <th>创建时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr id="item_@item.ID">
+                                        <td>@item.Title</td>
+                                        <td>@SelectListHelper.GetNoticeName(item.Type)</td>
+                                        <td>@StaticHelper.AdminName(item.CreateUserID)</td>
+                                        <td>@string.Format("{0:d}", item.CreateDate)</td>
+                                        <td>
+                                            <a href="/prms/notice/edit/@item.ID" class="btn btn-info ">
+                                                <i class="fa fa-paste"></i>编辑
+                                            </a>
+                                            @if (item.AnnexID != null && item.AnnexID != 0)
+                                            {
+                                                <a href="/download/annex/@item.AnnexID" class="btn btn-info" target="_blank">
+                                                    <i class="fa fa-paste"></i>
+                                                    附件下载
+                                                </a>
+                                            }
+                                            <a href="#" class="btn btn-info" onclick="btndel(@item.ID)">
+                                                <i class="fa fa-paste"></i>刪除
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    @UIHelper.PageHelper("notice", Model.TotalPages, Model.PageIndex, Model.PageSize, Model.TotalCount, Model.HasPreviousPage, Model.HasNextPage, Model.PageList)
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section Scripts{
+    <script>
+        function btndel(id) {
+            layer.confirm('"删除后数据无法恢复，确定要删除吗?"', { icon: 3, title: '确认删除' }, function (index) {
+                $.post("@Url.Action("delete")", { id: id }, function (data) {
+                    if (data == "OK") {
+                        layer.msg("删除成功！");
+                        $("#item_" + id).hide();
+                    } else {
+                        layer.alert(data);
+                    }
+                });
+                layer.close(index);
+            });
+        }
+    </script>
+}

@@ -1,0 +1,174 @@
+﻿@model Teacher
+@{
+    var school = ViewBag.SchoolName;
+}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>老师添加</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/prms/">主页</a>
+            </li>
+            <li>
+                <a href="/prms/teacher">老师管理</a>
+            </li>
+            <li>
+                <strong>老师添加</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <small>老师添加</small>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <ul id="schooltree" class="ztree"></ul>
+                        </div>
+                        <div class="col-lg-9">
+                            <form method="post" class="form-horizontal" id="school-From">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">所属学校信息</label>
+                                    <div class="col-sm-8">
+                                        <label class="form-control-static" id="schoolname">
+                                            @(Model.School != null ? Model.School.InfoName : "请选择左侧学校信息！")
+                                        </label>
+                                        @Html.HiddenFor(d => d.SchoolID)
+                                    </div>
+                                </div>
+                                @if (Model.ID == 0)
+                                {
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">登录名</label>
+                                        <div class="col-sm-8">
+                                            @Html.TextBoxFor(d => d.UserInfo.LoginName, new { @class = "form-control required teacherno" })
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">登录名</label>
+                                        <div class="col-sm-8">
+                                            @Model.UserInfo.LoginName
+                                        </div>
+                                    </div>
+                                }
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">姓名</label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(d => d.UserInfo.TrueName, new { @class = "form-control required" })
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">联系电话</label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(d => d.UserInfo.Tel, new { @class = "form-control " })
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">邮箱</label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(d => d.UserInfo.Email, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">QQ</label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(d => d.UserInfo.QQ, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">微信</label>
+                                    <div class="col-sm-8">
+                                        @Html.TextBoxFor(d => d.UserInfo.WeChat, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">性别</label>
+                                    <div class="col-sm-8">
+                                        @Html.DropDownListFor(d => d.UserInfo.Sex, ViewData["UserInfo.Sex"] as SelectList, new { @class = "form-control required" })
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                        <button class="btn btn-primary" type="submit">保存内容</button>
+                                        <a class="btn btn-white" onclick="return confirm('返回后您输入的数据将不被储存，确认返回吗？')" href="/prms/teacher">取消</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Content/plugins/zTree/js/jquery.ztree.all.min.js"></script>
+<script type="text/javascript">
+    var schoolid=@(Model.SchoolID ?? 0);
+        $(document).ready(function () {
+            var setting = {
+                data: {
+                    simpleData: { enable: true },
+                    rootPid: 0,
+                },
+                callback: {
+                    onClick: zTreeOnClick
+                }
+            };
+            $.ajax({
+                type: "get",
+                dataType: "json",
+                traditional: true,
+                url: "@(Url.Action("ztree", "ajax"))",
+                data:{id:schoolid},
+                async: false,//表示同步执行
+                success: function (data, textStatus) {
+                    if (data != null) {
+                        $.fn.zTree.init($("#schooltree"), setting, data);
+                    }
+                },
+                error: function (e) {
+                    layer.alert("学校信息加载失败，请刷新页面重新加载！");
+                }
+            });
+
+        });
+        function zTreeOnClick(event, treeId, treeNode) {
+            $("#schoolname").html(treeNode.name);
+            $("#SchoolID").val(treeNode.id);
+        };
+        //-->
+</script>
+    <script>
+        $(document).ready(function () {
+            var validate = $("#school-From").validate({
+                debug: flase, //调试模式取消submit的默认提交功能
+                submitHandler: function (form) {   //表单提交句柄,为一回调函数，带一个参数：form
+                    form.submit();   //提交表单
+                },
+            });
+        });
+    </script>
+}

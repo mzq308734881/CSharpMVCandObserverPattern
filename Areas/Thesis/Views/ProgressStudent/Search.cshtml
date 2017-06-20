@@ -1,0 +1,109 @@
+﻿@model TreatiseProcessViewModel
+@{
+    var isfrist = true;
+    var eventlist = ViewBag.EventList as List<ProcessEventViewModel> ?? new List<ProcessEventViewModel>();
+}
+<div class="row">
+    <div class="col-md-4">
+        <div class="input-group">
+            @using (Ajax.BeginForm("search", new AjaxOptions()
+            {
+                HttpMethod = "post",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "tab-progressstudent"
+            }))
+            {
+                <form role="form" class="form-control" method="post" action="@Url.Action("search")/">
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="stuno" placeholder="学号">
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="stuname" placeholder="姓名">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-primary">
+                                    搜索
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="table-responsive">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>学生项目流程</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="panel-body">
+                            <div class="panel-group" id="accordion">
+                                @foreach (var item in Model.TreatiseStudentPager)
+                                {
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="tabs_panels.html#ProgressStudent-@(item.StudentID)">
+                                                    @item.Student.UserInfo.TrueName - @item.Student.UserInfo.LoginName
+                                                </a>
+                                            </h5>
+                                        </div>
+                                        <div id="ProgressStudent-@(item.StudentID)" class="panel-collapse collapse @(isfrist?"in":"")">
+                                            <div class="panel-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>流程名称</th>
+                                                                <th>时间分</th>
+                                                                <th>质量分</th>
+                                                                <th>流程总分</th>
+                                                                <th>提交时间</th>
+                                                                <th>Action</th>
+                                                                <th>操作</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var process in Model.ProcessList.OrderBy(d => d.Sort))
+                                                            {
+                                                                var stupro = item.StudentProcesses.FirstOrDefault(d => d.ProcessID == process.ID);
+                                                                var list = eventlist.Where(d => process.TreatiseProcessEvents.Any(c => c.EventID == d.ID)).Select(d => d.Identity + d.Action);
+                                                                <tr>
+                                                                    <th>@process.ProcessName</th>
+                                                                    @if (stupro == null)
+                                                                    {
+                                                                        <td colspan="4" style="text-align: center">暂未提交</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td>@stupro.TimeMark</td>
+                                                                        <td>@stupro.QualityMark</td>
+                                                                        <td>@stupro.TotalMark</td>
+                                                                        <td>@string.Format("{0:yyyy年 MM月 dd日}", stupro.SubmitTime)</td>
+                                                                    }
+                                                                    <td>@string.Join("，", list.ToArray())</td>
+                                                                    <td></td>
+                                                                </tr>
+                                                            }
+                                                            @if (isfrist) { isfrist = false; }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @UIHelper.ThesisPageHelper("#tab-progressstudent", "progressstudent", null, null, Model.TreatiseStudentPager.TotalPages, Model.TreatiseStudentPager.PageIndex, Model.TreatiseStudentPager.PageSize, Model.TreatiseStudentPager.TotalCount, Model.TreatiseStudentPager.HasPreviousPage, Model.TreatiseStudentPager.HasNextPage, Model.TreatiseStudentPager.PageList)
+        </div>
+    </div>
+</div>

@@ -1,0 +1,103 @@
+﻿@model TreatiseTeacherViewModel
+<!-- <div class="myts_tm">提交截止时间： 2015年2月1日</div> -->
+<h3 class="tydvrg_tit">项目课题</h3>
+<div class="bd_rd5">
+</div>
+@if (Model.InTreatise)
+{
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="col-sm-3">
+                <label class="col-sm-5 control-label">总学生人数：</label>
+                @Model.StudentSum
+            </div>
+            <div class="col-sm-3">
+                <label class="col-sm-5 control-label">已分配人数：</label>
+                @Model.AllocatedSum
+            </div>
+            <div class="col-sm-3">
+                <label class="col-sm-5 control-label">未分配人数：</label>
+                @Model.SurplusSum
+            </div>
+        </div>
+    </div>
+    <div class="fr">
+        <dl class="mytc_ad2 ">
+            <dd>
+
+
+                <a class="tydv_btn_p bd_rd5" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" href="@Url.Action("add", new { id = Model.TreatiseID })">添加</a>
+
+
+            </dd>
+        </dl>
+    </div> 
+}
+<div class="dhg2"></div>
+<div class="dhg2"></div>
+<div class="dhg2"></div>
+<div class="dhg2"></div>
+<div class="cdiv ps" id="content_cp" style="height:65%;">
+    <div class="dhg3"></div>
+    <div class="r_con_over chenposi" id="abloeds">
+        <div class="addv">
+
+            <table width="100%" cellpadding="0" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <th>标题</th>
+                        <th>专业</th>
+                        <th>选题人数</th>
+                        <th>选题人数</th>
+                        <th>审核状态</th>
+                    </tr>
+                    @foreach (var item in Model.UsedSubject)
+                    {
+                        <tr id="item_@(item.ID)">
+                            <td>@item.SubjectTitle</td>
+                            <td>@StaticHelper.GetSchoolName(item.Subject.SchoolID ?? 0)</td>
+                            <td>@item.Total</td>
+                            @if (item.CheckState != 1)
+                            {
+                                <td>无人选题</td>
+                            }
+                            else
+                            {
+                                <td> @item.TreatiseStudents.Count(d=>d.CheckState==3) </td>
+                            }
+                            <td>@SelectListHelper.TreatiseSubjectCheckStateName(item.CheckState)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <div class="dhg2"></div>
+</div>
+
+<script>
+    $("#abloeds").mCustomScrollbar({
+        scrollButtons: {
+            enable: true
+        },
+        theme: "dark-thin"
+    });
+</script>
+<script>
+    function treasubdel(id) {
+        if (confirm("删除后数据无法恢复，确定要删除吗?")) {
+            $.post("@Url.Action("delete","treatisesubject")", { id: id }, function (data) {
+                if (data == "OK") {
+                    $("#item_" + id).remove();
+                    console.log(id);
+                    alert("删除成功！");
+                } else {
+                    alert(data);
+                }
+            });
+        };
+    }
+</script>
+
+

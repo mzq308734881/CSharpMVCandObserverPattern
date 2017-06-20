@@ -1,0 +1,130 @@
+﻿@model TreatiseTeacherViewModel
+<h3 class="tydvrg_tit">我的课题</h3>
+
+<div class="fr">
+    <dl class="mytc_ad2 ">
+        <dd>
+            <a class="tydv_btn_p bd_rd5" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" href="@Url.Action("add", new { id = Model.TreatiseID })">添加</a>
+        </dd>
+        <dd>
+            <a class="tydv_btn_p bd_rd5" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" href="@Url.Action("search","treatise", new { id = Model.TreatiseID })">返回</a>
+        </dd>
+    </dl>
+</div>
+<div class="dhg2"></div>
+<div class="dhg2"></div>
+<div class="dhg2"></div>
+<div class="dhg2"></div>
+<div class="cdiv ps" id="content_cp" style="height:65%;">
+    <div class="dhg3"></div>
+    <div class="r_con_over chenposi" id="abloeds">
+        <div class="addvcp">
+
+            <table width="100%" cellpadding="0" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <th>状态</th>
+                        <th>学号</th>
+                        <th>姓名</th>
+                        <th>课题</th>
+                        <th>操作</th>
+                    </tr>
+                    @foreach (var item in Model.TeacherStudent)
+                    {
+                        var open = item.OpeningReports.OrderByDescending(d => d.ID).FirstOrDefault();
+                        var state = 0;
+                        if (item.TreatiseSubjectID != null && item.TreatiseSubject != null)
+                        { state = 1; }
+                        else
+                        { state = open.CollegeState ?? 0; }
+                        <tr>
+                            <td>
+                                @switch (state)
+                                {
+                                    case 0:
+                                        <span class="label label-default">
+                                            <i class="fa fa-chevron-right "></i> 待审核
+                                        </span>
+                                        break;
+                                    case 1:
+                                        <span class="label label-primary">
+                                            <i class="fa fa-check"></i> 审核通过
+                                        </span>
+                                        break;
+                                    case 2:
+                                        <span class="label label-warning">
+                                            <i class="fa  fa-warning"></i> 审核未通过
+                                        </span>
+                                        break;
+                                }
+                            </td>
+                            <td>
+                                @item.Student.UserInfo.LoginName
+                            </td>
+                            <td>
+                                @item.Student.UserInfo.TrueName
+                            </td>
+                            @if (state == 1)
+                            {
+                                <td>
+                                    @(item.TreatiseSubject != null?item.TreatiseSubject.SubjectTitle:"未知课题")
+                                </td>
+                                    <td>
+                                        <a class="btn btn-sm btn-primary" href="/teachersys/studentsubject/detail/@item.ID"> 查看</a>
+                                    </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @if (open.TreatiseSubject != null)
+                                    {@open.TreatiseSubject.SubjectTitle}
+                                </td>
+                                    <td>
+                                        <a class="btn btn-sm btn-primary" href="/teachersys/studentsubject/detail/@item.ID"> 查看</a>
+                                        @if (open.TeacherTime == null)
+                                        {
+                                            <a class="btn btn-sm btn-primary" href="/teachersys/studentsubject/check/@open.ID"> 审核</a>}
+                                    </td>
+                            }
+
+
+
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <div class="dhg2"></div>
+</div>
+<div class="cdiv_cen" id="mg-btn-pos">
+    @*@UIHelper.TeacherPageHelper("#teacherpage","subject", "search", null, null, null, Model.TotalPages, Model.PageIndex, Model.PageSize, Model.TotalCount, Model.HasPreviousPage, Model.HasNextPage, Model.PageList)*@
+</div>
+
+
+<div class="tab-pane" id="tab-2">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>状态</th>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>课题</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+<script>
+    $("#abloeds").mCustomScrollbar({
+        scrollButtons: {
+            enable: true
+        },
+        theme: "dark-thin"
+    });
+</script>
+
+

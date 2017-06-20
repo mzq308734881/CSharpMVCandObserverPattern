@@ -1,0 +1,96 @@
+.footer_menu_box{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	border-top:1px solid #b3b3b3;
+  background:#e6e6e6;
+  width:10%;
+  text-align:center;
+  box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+}
+.menu{position:relative;
+    float:left;
+    width:100%;
+    height:50px;
+    line-height:50px;
+    background:#DEE7EF;
+    border-right:1px solid #ebebeb;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+cursor: pointer;}
+.menu:last-child{border-right:none;}
+.new-sub{position:absolute;
+      bottom:60px;
+      z-index:10;
+      width:100%;
+      padding: 0px 10px;
+      background:#DEE7EF;
+      box-sizing:border-box;
+      -webkit-box-sizing:border-box;
+      border: 1px solid #DEE7EF;
+      border-radius: 5px;
+      display:none;}
+.new-sub li{width: 100%;
+        background:#DEE7EF;
+        float:none;
+        box-sizing:border-box;
+        -webkit-box-sizing:border-box;
+        border-top:1px solid #fff;}
+.new-sub li a{display:block;
+          height:50px;
+          line-height:50px;
+          text-align:left;
+          background:#DEE7EF;
+          color:#333;
+          border:none;
+          text-align:center;
+          font-size:16px;}
+.sanjiao{position:absolute;bottom:5px;right:5px;width:0;
+	height:0;border:5px solid transparent;border-right:5px solid #348ACC;
+	border-bottom:5px solid #348ACC;opacity:.5;}
+.bt-name{font-size:16px;color:#000;}
+.bt-name a{display:block;font-size:16px;color:#000;}
+.new-sub .tiggle{
+	width:0px;
+      height:0px;
+      position:absolute;
+      left:50%;
+      margin-left:-10px;
+      bottom:-9px;
+      border-top:10px solid #EEEEEE;
+      border-left:10px solid transparent;
+      border-right:10px solid transparent;
+      z-index:10;
+  }
+  .new-sub .innertiggle{
+  	width:0px;
+      height:0px;
+      position:absolute;
+      left:50%;
+      margin-left:-9px;
+      bottom:-8px;
+      border-top:9px solid #DEE7EF;
+      border-left:9px solid transparent;
+      border-right:9px solid transparent;
+      z-index:11;
+  }
+ .new-sub ul{width: 100%;}
+.tydvrg_ga{
+    width: 100% ;
+    float: right;
+    display: block;
+    overflow: hidden;
+}
+.new-sub li a:hover{
+	color: #348ACC;
+}
+
+
+
+
+
+
+
+
+

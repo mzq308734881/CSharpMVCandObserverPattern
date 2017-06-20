@@ -1,0 +1,93 @@
+﻿@model TreatiseTeacherViewModel
+@{
+    var isfirst = true;
+}
+<h3 class="tydvrg_tit">学生论文管理</h3>
+
+<div class="tysearch_c bd_rd5 ps">
+    <form action="@Url.Action("search")" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage">
+        <input type="text" class="tyshtxt" placeholder="学号/姓名" name="keywords"><button type="submit" class="tyshbut"></button>
+    </form>
+</div>
+<div id="content_cp" class="cdiv ps" style="height:90%;">
+    <div class="dhg2"></div>
+    <div class="r_con_over wid_a100 chenposi" id="abloeds" tabindex="5000" style="overflow: hidden; outline: none;">
+        <div class="cdiv">
+            <div class="dhg3"></div>
+            @foreach (var item in Model.TeacherStudent)
+            {
+                <div class="addvcp">
+                    <div class="xslw_manven_project">@item.Student.UserInfo.TrueName </div>
+                    <div class="xslw_manven_project_content" style="@(isfirst ? "" : "display: none")">
+                        <table width="100%" cellpadding="0" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>编号</th>
+                                    <th>名称</th>
+                                    <th>是否提交</th>
+                                    <th>流程得分（时间分/质量分）</th>
+                                    <th>上传时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var process in Model.ProcessList.OrderBy(d => d.Sort))
+                                {
+                                    var stupr = item.StudentProcesses.FirstOrDefault(d => d.ProcessID == process.ID);
+                                    <tr>
+                                        <td>@process.Sort</td>
+                                        <td>@process.ProcessName</td>
+                                        @switch (process.IsOpen)
+                                        {
+                                            case 1:
+                                            case 2:
+                                                if (stupr != null && stupr.StudentProcessLogs.Any(d => d.IsBest == 1))
+                                                {
+                                                    <td class="center">
+                                                        @(stupr.ScoreTime != null ? "是" : "否")
+                                                    </td>
+                                                    <td>
+                                                        @stupr.TimeMark / @stupr.QualityMark
+                                                    </td>
+                                                    <td>
+                                                        @string.Format("{0:yyyy-MM-dd HH:mm}", stupr.CreateTime)
+                                                    </td>
+                                                    <td>
+                                                        @if (stupr.StudentProcessLogs.Any(d => d.IsBest == 1))
+                                                        {
+                                                            if (process.TreatiseProcessEvents.Any())
+                                                            {
+                                                                <a href="@Url.Action("","action", new {id = stupr.ID})" class="btn btn-info" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage">
+                                                                    评阅
+                                                                </a>
+                                                            }
+                                                            <span><a class="btn btn-primary" href="@Url.Action("detail", "action", new {id = stupr.ID})" data-ajax-update="#teacherpage" data-ajax-mode="replace" data-ajax="true">查看</a></span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>暂未提交</span>
+                                                        }
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td colspan="4">暂未提交</td>
+                                                }
+                                                break;
+                                            default:
+                                                <td colspan="4">暂未开始</td>
+                                                break;
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="dhg2"></div>
+                </div>
+
+                isfirst = false;
+            }
+        </div>
+    </div>
+</div>

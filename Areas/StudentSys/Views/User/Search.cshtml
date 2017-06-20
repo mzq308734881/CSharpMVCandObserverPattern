@@ -1,0 +1,41 @@
+﻿@model Student
+
+<h3 class="tydvrg_tit">基本信息</h3>
+<div class="dhg2"></div>
+<div class="cdiv ps" id="content_cp" style="height:65%;">
+    <div class="r_con_over chenposi" id="abloeds">
+        <div class="ablogs_pwd">
+            <div class="ablogs_pwd_item">
+                <p class="">
+                    <span class="tydvrg_hf">姓名：</span>
+                    <span class="">@Model.UserInfo.LoginName</span>
+                </p>
+            </div>
+            <div class="ablogs_pwd_item">
+                <p class="">
+                    <span class="tydvrg_hf">性别：</span>
+                    <span class="ablogs_pwd_check">@SelectListHelper.GetSexName(Model.UserInfo.Sex)</span>
+                </p>
+            </div>
+            <div class="ablogs_pwd_item">
+                <label>联系方式：</label>
+                <span class="ablogs_pwd_check ">@Model.UserInfo.Tel</span>
+            </div>
+            <div class="ablogs_pwd_item">
+                <label>邮箱：</label>
+                <span class="ablogs_pwd_check ">@Model.UserInfo.Email</span>
+            </div>
+            <div class="ablogs_pwd_item">
+                <label>QQ：</label>
+                <span class="ablogs_pwd_check ">@Model.UserInfo.QQ</span>
+            </div>
+            <div class="ablogs_pwd_item">
+                <label>个人简介：</label>
+                <span class="ablogs_pwd_check ">@Model.UserInfo.Comment</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cdiv_cen" id="mg-btn-pos" style="height: 10%">
+    <a class="tydv_btn_p bd_rd5" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" href="@Url.Action("edit")">修改信息</a>
+</div>

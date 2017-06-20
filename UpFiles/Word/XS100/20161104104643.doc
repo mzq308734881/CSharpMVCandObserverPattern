@@ -1,0 +1,777 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>投标报名申请书</title>
+</style>
+
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:宋体;
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-alt:SimSun;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 135135232 16 0 262145 0;}
+@font-face
+	{font-family:黑体;
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-alt:SimHei;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:1 135135232 16 0 262144 0;}
+@font-face
+	{font-family:仿宋_GB2312;
+	panose-1:2 1 6 9 3 1 1 1 1 1;
+	mso-font-charset:134;
+	mso-generic-font-family:modern;
+	mso-font-pitch:fixed;
+	mso-font-signature:1 135135232 16 0 262144 0;}
+@font-face
+	{font-family:"Calisto MT";
+	mso-font-charset:0;
+	mso-generic-font-family:roman;
+	mso-font-pitch:variable;
+	mso-font-signature:3 0 0 0 1 0;}
+@font-face
+	{font-family:"\@黑体";
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:1 135135232 16 0 262144 0;}
+@font-face
+	{font-family:"\@宋体";
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 135135232 16 0 262145 0;}
+@font-face
+	{font-family:"\@仿宋_GB2312";
+	panose-1:2 1 6 9 3 1 1 1 1 1;
+	mso-font-charset:134;
+	mso-generic-font-family:modern;
+	mso-font-pitch:fixed;
+	mso-font-signature:1 135135232 16 0 262144 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	mso-pagination:none;
+	font-size:10.5pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:宋体;
+	mso-font-kerning:1.0pt;}
+h3
+	{mso-style-next:正文;
+	margin-top:13.0pt;
+	margin-right:0cm;
+	margin-bottom:13.0pt;
+	margin-left:0cm;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	line-height:170%;
+	mso-pagination:lines-together;
+	page-break-after:avoid;
+	mso-outline-level:3;
+	font-size:16.0pt;
+	font-family:"Times New Roman";
+	mso-font-kerning:1.0pt;}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-noshow:yes;
+	margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	mso-pagination:none;
+	font-size:9.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:宋体;
+	mso-font-kerning:1.0pt;}
+p.CharCharCharCharCharCharCharCharCharCharCharCharCharCharCharChar, li.CharCharCharCharCharCharCharCharCharCharCharCharCharCharCharChar, div.CharCharCharCharCharCharCharCharCharCharCharCharCharCharCharChar
+	{mso-style-name:"Char Char Char Char Char Char Char Char Char Char Char Char Char Char Char Char";
+	mso-style-update:auto;
+	margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	mso-pagination:none;
+	tab-stops:list 18.0pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:宋体;
+	mso-font-kerning:1.0pt;}
+p.a, li.a, div.a
+	{mso-style-name:公文正文;
+	mso-style-parent:"";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	text-indent:31.45pt;
+	line-height:150%;
+	mso-pagination:none;
+	font-size:16.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:仿宋_GB2312;
+	mso-hansi-font-family:"Calisto MT";
+	mso-bidi-font-family:"Times New Roman";
+	color:black;
+	mso-no-proof:yes;}
+p.a0, li.a0, div.a0
+	{mso-style-name:公文标题;
+	mso-style-parent:"标题 3";
+	margin-top:13.0pt;
+	margin-right:77.1pt;
+	margin-bottom:13.0pt;
+	margin-left:73.45pt;
+	text-align:center;
+	mso-pagination:lines-together;
+	page-break-after:avoid;
+	mso-outline-level:3;
+	font-size:22.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:宋体;
+	mso-font-kerning:1.0pt;
+	font-weight:bold;
+	mso-bidi-font-weight:normal;}
+p.a1, li.a1, div.a1
+	{mso-style-name:发文落款;
+	mso-style-parent:公文正文;
+	margin-top:0cm;
+	margin-right:30.35pt;
+	margin-bottom:0cm;
+	margin-left:204.7pt;
+	margin-bottom:.0001pt;
+	text-align:center;
+	line-height:150%;
+	mso-pagination:none;
+	font-size:16.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:仿宋_GB2312;
+	mso-hansi-font-family:"Calisto MT";
+	mso-bidi-font-family:"Times New Roman";
+	color:black;}
+ /* Page Definitions */
+ @page
+	{mso-page-border-surround-header:no;
+	mso-page-border-surround-footer:no;}
+@page Section1
+	{size:595.3pt 841.9pt;
+	margin:54.45pt 46.2pt 62.35pt 2.0cm;
+	mso-header-margin:42.55pt;
+	mso-footer-margin:49.6pt;
+	mso-paper-source:0;
+	layout-grid:15.6pt;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:普通表格;
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+	mso-para-margin:0cm;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+table.MsoTableGrid
+	{mso-style-name:网格型;
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	border:solid windowtext 1.0pt;
+	mso-border-alt:solid windowtext .5pt;
+	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+	mso-border-insideh:.5pt solid windowtext;
+	mso-border-insidev:.5pt solid windowtext;
+	mso-para-margin:0cm;
+	mso-para-margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	mso-pagination:none;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+</style>
+<![endif]-->
+</head>
+
+
+
+
+<body lang=ZH-CN style='tab-interval:21.0pt;text-justify-trim:punctuation'>
+
+<div class=Section1 style='layout-grid:15.6pt'>
+
+<p class=MsoNormal align=center style='text-align:center;line-height:22.0pt;
+mso-line-height-rule:exactly'><b style='mso-bidi-font-weight:normal'><span
+style='font-size:16.0pt;font-family:黑体;mso-hansi-font-family:宋体;mso-bidi-font-family:
+宋体;mso-font-kerning:0pt'>华中师范大学招标</span></b><b><span style='font-size:16.0pt;
+font-family:黑体;mso-hansi-font-family:宋体;mso-bidi-font-family:宋体;mso-font-kerning:
+18.0pt'>项目</span></b><b><span style='font-size:16.0pt;font-family:黑体'>投标报名申请表</span></b></p>
+
+<p class=MsoNormal align=center style='text-align:center;line-height:22.0pt;
+mso-line-height-rule:exactly'><b><span lang=EN-US style='font-size:16.0pt;
+font-family:黑体;mso-hansi-font-family:宋体;mso-bidi-font-family:宋体;mso-font-kerning:
+18.0pt'><o:p>&nbsp;</o:p></span></b></p>
+
+<p class=a style='text-indent:18.0pt;line-height:28.0pt;mso-line-height-rule:
+exactly'><span style='font-size:14.0pt;font-family:宋体;color:windowtext'>华中师范大学招标管理办公室：<span
+lang=EN-US><o:p></o:p></span></span></p>
+
+<p class=a style='text-indent:18.0pt;line-height:28.0pt;mso-line-height-rule:
+exactly'><span style='font-size:14.0pt;font-family:宋体;color:windowtext'>根据贵校招标公告，本公司具备相关投标条件，特申报报名参加<u>（档案信息化建设（一期）采购项目，编号：2016CXC050008）</u>项目的投标。<span
+lang=EN-US><o:p></o:p></span></span></p>
+
+<p class=a style='text-indent:18.0pt;line-height:28.0pt;mso-line-height-rule:
+exactly'><span style='font-size:14.0pt;font-family:宋体;color:windowtext'>本公司基本信息如下：<span
+lang=EN-US><o:p></o:p></span></span></p>
+
+<div align=center>
+
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;border:none;mso-border-alt:solid windowtext .5pt;
+ mso-yfti-tbllook:480;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;mso-border-insideh:
+ .5pt solid windowtext;mso-border-insidev:.5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:19.85pt'>
+  <td width=115 style='width:86.4pt;border:solid windowtext 1.0pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:19.85pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>投标人全称</span></p>
+  </td>
+  <td width=547 colspan=8 style='width:410.4pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:19.85pt'>
+  <p class=MsoNormal><span lang=EN-US><o:p>武汉览山科技有限公司</o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;height:19.85pt'>
+  <td width=115 style='width:86.4pt;border:solid windowtext 1.0pt;border-top:
+  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:19.85pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>注册地址</span></p>
+  </td>
+  <td colspan=5 style='width:451px;border-top:medium none;border-left:
+  medium none;border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal><span lang=EN-US><o:p>武汉市东湖开发区华师园路5号武汉华中师大科技园发展有限公司办公楼（2栋）</o:p></span></p>
+  </td>
+  <td style='width:49px;border-top:medium none;border-left:medium none;border-bottom:
+  1.0pt solid windowtext;border-right:1.0pt solid windowtext;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>邮编</span></p>
+  </td>
+  <td colspan=2 style='width:92px;border-top:medium none;border-left:medium none;
+  border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal><span lang=EN-US><o:p>430000</o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;height:19.85pt'>
+  <td width=115 style='width:86.4pt;border:solid windowtext 1.0pt;border-top:
+  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:19.85pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>企业类型</span></p>
+  </td>
+  <td colspan=2 style='width:114px;border-top:medium none;border-left:medium none;
+  border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal><span lang=EN-US><o:p>有限责任公司</o:p></span></p>
+  </td>
+  <td style='width:64px;border-top:medium none;border-left:medium none;border-bottom:
+  1.0pt solid windowtext;border-right:1.0pt solid windowtext;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>联系电话</span></p>
+  </td>
+  <td style='border-left:medium none; border-top:medium none; border-bottom:medium none; width:116px;border-right:1.0pt solid windowtext;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-right-alt:solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal><span lang=EN-US><o:p>18627706818</o:p></span></p>
+  </td>
+  <td style='width:112px;border-top:medium none;border-left:medium none;
+  border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>税务登记号</span></p>
+  </td>
+  <td colspan=3 style='width:156px;border-top:medium none;border-left:
+  medium none;border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal><span lang=EN-US><o:p>420101303448291</o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;height:19.85pt'>
+  <td width=115 style='width:86.4pt;border:solid windowtext 1.0pt;border-top:
+  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:19.85pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>注册资金</span></p>
+  </td>
+  <td colspan=2 style='width:114px;border-top:medium none;border-left:medium none;
+  border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal><span lang=EN-US><o:p>500万元</o:p></span></p>
+  </td>
+  <td style='width:64px;border-top:medium none;border-left:medium none;border-bottom:
+  1.0pt solid windowtext;border-right:1.0pt solid windowtext;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>成立日期</span></p>
+  </td>
+  <td style='border-right:1.0pt solid windowtext; border-top:1.0pt solid windowtext; border-bottom:1.0pt solid windowtext; width:116px;border-left:
+  medium none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal><span lang=EN-US><o:p>2014年06月16日</o:p></span></p>
+  </td>
+  <td style='width:112px;border-top:medium none;border-left:medium none;
+  border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>年审情况</span></p>
+  </td>
+  <td colspan=3 style='width:156px;border-top:medium none;border-left:
+  medium none;border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal><span lang=EN-US><o:p>年审合格</o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;height:19.85pt'>
+  <td width=115 style='width:86.4pt;border:solid windowtext 1.0pt;border-top:
+  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:19.85pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>法人代表</span></p>
+  </td>
+  <td colspan=4 style='width:324px;border-top:medium none;border-left:
+  medium none;border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal><span lang=EN-US><o:p>喻争光
+</o:p></span></p>
+  </td>
+  <td style='width:112px;border-top:medium none;border-left:medium none;
+  border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>法人身份证号</span></p>
+  </td>
+  <td colspan=3 style='width:156px;border-top:medium none;border-left:
+  medium none;border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal><span lang=EN-US><o:p>420922198207222877</o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;height:19.85pt'>
+  <td width=115 style='width:86.4pt;border:solid windowtext 1.0pt;border-top:
+  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:19.85pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>法人住址</span></p>
+  </td>
+  <td width=547 colspan=8 style='width:410.4pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:19.85pt'>
+  <p class=MsoNormal><span lang=EN-US><o:p>武汉市东湖开发区华师园路5号武汉华中师大科技园发展有限公司办公楼（2栋）
+</o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;height:19.85pt'>
+  <td width=115 style='width:86.4pt;border:solid windowtext 1.0pt;border-top:
+  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:19.85pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>本项目负责人</span></p>
+  </td>
+  <td colspan=3 style='width:193px;border-top:medium none;border-left:
+  medium none;border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal><span lang=EN-US><o:p>王政</o:p></span></p>
+  </td>
+  <td style='width:116px;border-top:medium none;border-left:medium none;
+  border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>技术职称</span></p>
+  </td>
+  <td style='width:112px;border-top:medium none;border-left:medium none;
+  border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal><span lang=EN-US><o:p>总经理</o:p></span></p>
+  </td>
+  <td colspan=2 style='width:81px;border-top:medium none;border-left:medium none;
+  border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>性别</span></p>
+  </td>
+  <td style='width:60px;border-top:medium none;border-left:medium none;border-bottom:
+  1.0pt solid windowtext;border-right:1.0pt solid windowtext;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal><span lang=EN-US><o:p>男</o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;height:19.85pt'>
+  <td width=115 style='width:86.4pt;border:solid windowtext 1.0pt;border-top:
+  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:19.85pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>联系电话</span></p>
+  </td>
+  <td colspan=3 style='width:193px;border-top:medium none;border-left:
+  medium none;border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal><span lang=EN-US><o:p>18064001000</o:p></span></p>
+  </td>
+  <td style='width:116px;border-top:medium none;border-left:medium none;
+  border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>传真</span></p>
+  </td>
+  <td style='width:112px;border-top:medium none;border-left:medium none;
+  border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal><span lang=EN-US><o:p></o:p></span></p>
+  </td>
+  <td colspan=2 style='width:81px;border-top:medium none;border-left:medium none;
+  border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>报名时间</span></p>
+  </td>
+  <td style='width:60px;border-top:medium none;border-left:medium none;border-bottom:
+  1.0pt solid windowtext;border-right:1.0pt solid windowtext;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;height:19.85pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal><span lang=EN-US><o:p>2016-5-30</o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8;height:22.8pt'>
+  <td width=662 colspan=9 style='width:496.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22.8pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span style='font-family:宋体;mso-ascii-font-family:
+  "Times New Roman";mso-hansi-font-family:"Times New Roman"'>投标人近两年内相类似典型项目实施案例</span><span
+  lang=EN-US><o:p></o:p></span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9;height:39.0pt'>
+  <td colspan=5 style='border-left:1.0pt solid windowtext; border-right:1.0pt solid windowtext; border-bottom:1.0pt solid windowtext; width:454px;border-top:medium none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  height:39.0pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal style="text-align: center"><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
+  mso-hansi-font-family:"Times New Roman"'>项目名称或实施地点</span></p>
+  </td>
+  <td style='width:112px;border-top:medium none;border-left:medium none;
+  border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:39.0pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal style="text-align: center"><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
+  mso-hansi-font-family:"Times New Roman"'>竣工时间</span></p>
+  </td>
+  <td colspan=3 style='width:156px;border-top:medium none;border-left:
+  medium none;border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:39.0pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal style="text-align: center"><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
+  mso-hansi-font-family:"Times New Roman"'>项目负责人</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:10;height:35.25pt'>
+  <td colspan=5 style='border-left:1.0pt solid windowtext; border-right:1.0pt solid windowtext; border-bottom:1.0pt solid windowtext; width:454px;border-top:medium none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  height:35.25pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal><span lang=EN-US><o:p>毕业论文管理系统</o:p></span></p>
+  </td>
+  <td style='width:112px;border-top:medium none;border-left:medium none;
+  border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:35.25pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm; text-align:center'>
+  <p class=MsoNormal><span lang=EN-US><o:p>2015.6</o:p></span></p>
+  </td>
+  <td colspan=3 style='width:156px;border-top:medium none;border-left:
+  medium none;border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:35.25pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm; text-align:center'>
+  <p class=MsoNormal><span lang=EN-US><o:p>邹华</o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:11;height:35.25pt'>
+  <td colspan=5 style='border-left:1.0pt solid windowtext; border-right:1.0pt solid windowtext; border-bottom:1.0pt solid windowtext; width:454px;border-top:medium none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  height:35.25pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal><span lang=EN-US><o:p>随堂练习管理系统</o:p></span></p>
+  </td>
+  <td style='width:112px;border-top:medium none;border-left:medium none;
+  border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:35.25pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm; text-align:center'>
+  <p class=MsoNormal><span lang=EN-US><o:p>2014.8</o:p></span></p>
+  </td>
+  <td colspan=3 style='width:156px;border-top:medium none;border-left:
+  medium none;border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:35.25pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm; text-align:center'>
+  <p class=MsoNormal><span lang=EN-US><o:p>邹华</o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:12;height:35.25pt'>
+  <td colspan=5 style='border-left:1.0pt solid windowtext; border-right:1.0pt solid windowtext; border-bottom:1.0pt solid windowtext; width:454px;border-top:medium none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  height:35.25pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal><span lang=EN-US><o:p>网上签约管理系统</o:p></span></p>
+  </td>
+  <td style='width:112px;border-top:medium none;border-left:medium none;
+  border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:35.25pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm; text-align:center'>
+  <p class=MsoNormal><span lang=EN-US><o:p>2015.11</o:p></span></p>
+  </td>
+  <td colspan=3 style='width:156px;border-top:medium none;border-left:
+  medium none;border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:35.25pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm; text-align:center'>
+  <p class=MsoNormal><span lang=EN-US><o:p>张雪</o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:13;height:35.25pt'>
+  <td colspan=5 style='border-left:1.0pt solid windowtext; border-right:1.0pt solid windowtext; border-bottom:1.0pt solid windowtext; width:454px;border-top:medium none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  height:35.25pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal><span lang=EN-US><o:p>就业信息网</o:p></span></p>
+  </td>
+  <td style='width:112px;border-top:medium none;border-left:medium none;
+  border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:35.25pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm; text-align:center'>
+  <p class=MsoNormal><span lang=EN-US><o:p>2016.3</o:p></span></p>
+  </td>
+  <td colspan=3 style='width:156px;border-top:medium none;border-left:
+  medium none;border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:35.25pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm; text-align:center'>
+  <p class=MsoNormal><span lang=EN-US><o:p>张雪</o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:14;height:35.25pt'>
+  <td colspan=5 style='border-left:1.0pt solid windowtext; border-right:1.0pt solid windowtext; border-bottom:1.0pt solid windowtext; width:454px;border-top:medium none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  height:35.25pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm'>
+  <p class=MsoNormal><span lang=EN-US><o:p></o:p></span></p>
+  </td>
+  <td style='width:112px;border-top:medium none;border-left:medium none;
+  border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:35.25pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm; text-align:center'>
+  <p class=MsoNormal><span lang=EN-US><o:p></o:p></span></p>
+  </td>
+  <td colspan=3 style='width:156px;border-top:medium none;border-left:
+  medium none;border-bottom:1.0pt solid windowtext;border-right:1.0pt solid windowtext;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;height:35.25pt; padding-left:5.4pt; padding-right:5.4pt; padding-top:0cm; padding-bottom:0cm; text-align:center'>
+  <p class=MsoNormal><span lang=EN-US><o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:15;mso-yfti-lastrow:yes;height:61.45pt'>
+  <td width=163 colspan=2 style='width:122.25pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:61.45pt'>
+  <p class=MsoNormal><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
+  mso-hansi-font-family:"Times New Roman"'>其他情况说明</span></p>
+  </td>
+  <td width=499 colspan=7 style='width:374.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:61.45pt'>
+  <p class=MsoNormal><span lang=EN-US><o:p>邮箱地址：2356737161@qq.com</o:p></span></p>
+  </td>
+ </tr>
+ <![if !supportMisalignedColumns]>
+ <tr height=0>
+  <td width=115 style='border:none'></td>
+  <td width=48 style='border:none'></td>
+  <td width=79 style='border:none'></td>
+  <td width=79 style='border:none'></td>
+  <td width=131 style='border:none'></td>
+  <td width=127 style='border:none'></td>
+  <td width=64 style='border:none'></td>
+  <td width=32 style='border:none'></td>
+  <td width=75 style='border:none'></td>
+ </tr>
+ <![endif]>
+</table>
+
+</div>
+
+<p class=MsoNormal><span lang=EN-US style='font-size:12.0pt;font-family:宋体'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal align=center style='text-align:center'><span
+style='font-size:12.0pt;font-family:宋体'>法人代表签字<span lang=EN-US><span
+style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>报名单位（公章）<span lang=EN-US><o:p></o:p></span></span></p>
+
+<p class=a align=right style='text-align:right;text-indent:396.0pt;line-height:
+28.0pt;mso-line-height-rule:exactly'><span style='font-size:14.0pt;font-family:
+宋体;color:windowtext'>年　月　日</span><span lang=EN-US><br clear=all
+style='mso-special-character:line-break;page-break-before:always'>
+</span></p>
+
+<p class=a0 style='margin-top:0cm;margin-right:77.1pt;margin-bottom:0cm;
+margin-left:73.45pt;margin-bottom:.0001pt;line-height:28.0pt;mso-line-height-rule:
+exactly'><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";
+mso-hansi-font-family:"Times New Roman";mso-font-kerning:0pt'>投标申请人</span><span
+style='mso-bidi-font-size:18.0pt;font-family:宋体;mso-ascii-font-family:"Times New Roman";
+mso-hansi-font-family:"Times New Roman"'>声明</span><span lang=EN-US
+style='mso-bidi-font-size:18.0pt'><o:p></o:p></span></p>
+
+<p class=a style='margin-top:0cm;margin-right:-14.9pt;margin-bottom:0cm;
+margin-left:-18.6pt;margin-bottom:.0001pt;mso-para-margin-top:0cm;mso-para-margin-right:
+-1.42gd;mso-para-margin-bottom:0cm;mso-para-margin-left:-1.77gd;mso-para-margin-bottom:
+.0001pt;line-height:28.0pt;mso-line-height-rule:exactly'><span lang=EN-US
+style='font-size:14.0pt;font-family:宋体;color:windowtext'><o:p>&nbsp;</o:p></span></p>
+
+<p class=a style='margin-right:-2.5pt;mso-para-margin-right:-.24gd;text-indent:
+18.6pt;line-height:28.0pt;mso-line-height-rule:exactly'><span style='font-size:
+14.0pt;font-family:宋体;color:windowtext'>致华中师范大学<span lang=EN-US><o:p></o:p></span></span></p>
+
+<p class=a style='margin-right:-2.5pt;mso-para-margin-right:-.24gd;text-indent:
+36.0pt;line-height:28.0pt;mso-line-height-rule:exactly'><span style='font-size:
+14.0pt;font-family:宋体;color:windowtext'>本公司就参加<u>（档案信息化建设（一期）采购项目，编号：2016CXC050008）</u>投标工作，作出郑重声明：<span
+lang=EN-US><o:p></o:p></span></span></p>
+
+<p class=a style='margin-right:-2.5pt;mso-para-margin-right:-.24gd;text-indent:
+36.0pt;line-height:28.0pt;mso-line-height-rule:exactly'><span style='font-size:
+14.0pt;font-family:宋体;color:windowtext'>一、本公司保证投标报名材料及其后提供的一切材料都是真实的。<span
+lang=EN-US><o:p></o:p></span></span></p>
+
+<p class=a style='margin-right:-2.5pt;mso-para-margin-right:-.24gd;text-indent:
+36.0pt;line-height:28.0pt;mso-line-height-rule:exactly'><span style='font-size:
+14.0pt;font-family:宋体;color:windowtext'>二、本公司保证在本项目投标中不与其他单位围标、串标，不出让投标资格，不向招标人或评标委员会成员行贿。<span
+lang=EN-US><o:p></o:p></span></span></p>
+
+<p class=a style='margin-right:-2.5pt;mso-para-margin-right:-.24gd;text-indent:
+36.0pt;line-height:28.0pt;mso-line-height-rule:exactly'><span style='font-size:
+14.0pt;font-family:宋体;color:windowtext'>三、本公司没有处于被责令停业的状态；没有处于被建设行政主管部门取消投标资格的处罚期内；没有处于财产被接管、冻结、破产的状态；在投标报名截止日期前两年内没有建设行政主管部门已书面认定的重大工程质量问题；在武汉市人民检察院行贿犯罪档案查询结果中，本公司没有在投标报名截止时间前两年内被人民法院判决犯有行贿罪的记录。<span
+lang=EN-US><o:p></o:p></span></span></p>
+
+<p class=a style='margin-right:-2.5pt;mso-para-margin-right:-.24gd;text-indent:
+36.0pt;line-height:28.0pt;mso-line-height-rule:exactly'><span style='font-size:
+14.0pt;font-family:宋体;color:windowtext'>四、本公司及其有隶属关系的机构没有参加本项目的设计、前期工作、招标文件编写、监理工作；本公司与承担本招标项目监理业务的单位没有隶属关系或其他利害关系。
+<span lang=EN-US><o:p></o:p></span></span></p>
+
+<p class=a style='margin-right:-2.5pt;mso-para-margin-right:-.24gd;text-indent:
+36.0pt;line-height:28.0pt;mso-line-height-rule:exactly'><span style='font-size:
+14.0pt;font-family:宋体;color:windowtext'>本公司违反上述保证，或本声明陈述与事实不符，经查实，本公司愿意接受贵校的公开通报和依法作出的其它相应处罚，并承担由此带来的法律后果。<span
+lang=EN-US><o:p></o:p></span></span></p>
+
+<p class=a style='margin-right:-2.5pt;mso-para-margin-right:-.24gd;text-indent:
+54.6pt;line-height:28.0pt;mso-line-height-rule:exactly'><span style='font-size:
+14.0pt;font-family:宋体;color:windowtext'>特此声明<span lang=EN-US><o:p></o:p></span></span></p>
+
+<p class=a style='margin-right:-2.5pt;mso-para-margin-right:-.24gd;text-indent:
+252.0pt;line-height:28.0pt;mso-line-height-rule:exactly'><span
+style='font-size:14.0pt;font-family:宋体;color:windowtext'>声明企业：<span lang=EN-US><o:p></o:p></span></span></p>
+
+<p class=a style='margin-right:-2.5pt;mso-para-margin-right:-.24gd;text-indent:
+252.0pt;line-height:28.0pt;mso-line-height-rule:exactly'><span
+style='font-size:14.0pt;font-family:宋体;color:windowtext'>法定代表人签字：<span
+lang=EN-US><span style='mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>(</span>企业公章<span lang=EN-US>)<o:p></o:p></span></span></p>
+
+<p class=a style='margin-right:-2.5pt;mso-para-margin-right:-.24gd;text-indent:
+297.0pt;line-height:28.0pt;mso-line-height-rule:exactly'><span
+style='font-size:14.0pt;font-family:宋体;color:windowtext'>年<span lang=EN-US><span
+style='mso-spacerun:yes'>&nbsp;&nbsp; </span></span>月<span lang=EN-US><span
+style='mso-spacerun:yes'>&nbsp;&nbsp; </span></span>日<span lang=EN-US><o:p></o:p></span></span></p>
+
+<p class=MsoNormal style='margin-right:-2.5pt;mso-para-margin-right:-.24gd;
+text-indent:36.0pt'><span lang=EN-US style='font-size:12.0pt;font-family:宋体'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='margin-right:-2.5pt;mso-para-margin-right:-.24gd'><span
+lang=EN-US style='font-size:12.0pt;font-family:宋体'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoNormal style='margin-right:-2.5pt;mso-para-margin-right:-.24gd'><span
+style='font-size:12.0pt;font-family:宋体'>说明：<span lang=EN-US><o:p></o:p></span></span></p>
+
+<p class=MsoNormal style='margin-right:-2.5pt;mso-para-margin-right:-.24gd'><b
+style='mso-bidi-font-weight:normal'>
+<span lang=EN-US style='font-size:12.0pt;
+font-family:宋体;'>1</span><span
+style='font-size:12.0pt;font-family:宋体;'>、签章后</span></b><b
+style='mso-bidi-font-weight:normal'><span
+style='font-size:12.0pt;font-family:宋体;'>按招标公告规定的时间</span></b><b
+style='mso-bidi-font-weight:normal'><span
+style='font-size:12.0pt;font-family:宋体;'>,带报名表原件资格审查和购买标书。</span></b></p>
+
+</div>
+
+</body>
+
+
+</html>
+
+
+

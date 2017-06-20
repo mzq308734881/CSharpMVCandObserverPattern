@@ -1,0 +1,145 @@
+﻿@model Pager<User>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>用户管理</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/prms/">主页</a>
+            </li>
+            <li>
+                <strong>用户管理</strong>
+            </li>
+            <li>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>用户管理</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <form action="/prms/user/search" method="post">
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" name="userno" placeholder="登录账号">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="keyword" placeholder="姓名">
+                                            <span class="input-group-btn">
+                                                <button type="submit" class="btn btn-primary">
+                                                    搜索
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-md-offset-6">
+                            <div class="input-group">
+                                <a class="btn btn-sm btn-primary" href="/prms/user/add"> 添加</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                   
+                                    <th>登陆账号</th>
+                                    <th>姓名</th>
+                                    <th>所属角色</th>
+                                    <th>手机号</th>
+                                    <th>邮箱</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr id="item_@item.ID">
+                                        <td>@item.UserInfo.LoginName</td>
+                                        <td>@item.UserInfo.TrueName</td>
+                                        @if (item.UserRoles.Any())
+                                        {
+                                            <td>@string.Join(",",item.UserRoles.Select(d=>d.Role.RoleName))</td>
+                                        }
+                                        else
+                                        {
+                                            <td>未分配角色</td>
+                                        }
+                                        <td>@item.UserInfo.Tel</td>
+                                        <td>@item.UserInfo.Email</td>
+                                        <td>
+                                            <a href="/prms/user/edit/@item.ID" class="btn btn-info ">
+                                                <i class="fa fa-paste"></i>
+                                                编辑
+                                            </a>
+                                            <a href="#" class="btn btn-info " onclick="resetpwd(@item.InfoID)">
+                                                <i class="fa fa-paste"></i>
+                                                重置密码
+                                            </a>
+                                            <a href="#" class="btn btn-info" onclick="btndel(@item.ID)">
+                                                <i class="fa fa-paste"></i>
+                                                禁用
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    @UIHelper.PageHelper("user", Model.TotalPages, Model.PageIndex, Model.PageSize, Model.TotalCount, Model.HasPreviousPage, Model.HasNextPage, Model.PageList)
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section scripts{
+<script>
+    function btndel(id) {
+        layer.confirm("禁用后的用户无法恢复，确定要禁用吗?", { icon: 3, title: '确定禁用' }, function (index) {
+            $.post("@Url.Action("delete")", { id: id }, function (data) {
+                if (data == "OK") {
+                    layer.msg("禁用成功！");
+                    $("#item_" + id).hide();
+                } else {
+                    layer.alert(data);
+                }
+            });
+            layer.close(index);
+        });
+    }
+</script>
+}
+<script>
+    function resetpwd(id) {
+        layer.confirm('"重置后密码将为初始密码，确定要重置吗?"', { icon: 3, title: '确认重置' }, function (index) {
+            $.post("@Url.Action("resetpwd")", { id: id }, function (data) {
+                if (data == "OK") {
+                    layer.msg("重置成功！");
+                    window.location.reload();
+                } else {
+                    layer.alert(data);
+                }
+            });
+            layer.close(index);
+        });
+    }
+</script>

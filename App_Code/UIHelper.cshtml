@@ -1,0 +1,301 @@
+﻿@helper PageHelper(string controllername, int TotalPages, int PageIndex, int PageSize, int TotalCount, bool HasPreviousPage, bool HasNextPage, List<int> PageList)
+{
+var url = "";
+if (controllername.Substring(0, 1) == "/")
+{
+    url = "/prms" + controllername + "/search";
+}
+else
+{
+    url = "/prms/" + controllername + "/search";
+}
+if (TotalPages <= 0)
+{
+    return;
+}
+    <div class="col-sm-6"><div class="dataTables_info" role="alert" aria-live="polite" aria-relevant="all">当前页 第@(PageIndex)页  @(PageSize)条/页  共 @TotalCount 条/@TotalPages 页</div></div>
+    <div class="col-sm-6">
+        <div class="dataTables_paginate paging_simple_numbers">
+            <ul class="pagination">
+                @if (HasPreviousPage)
+                {
+                    <li class="paginate_button previous"><a href="@url/1">首页</a></li>
+                    <li class="paginate_button previous"><a href="@url/@PageIndex-1">上一页</a></li>
+                }
+                else
+                {
+                    <li class="paginate_button previous disabled"><a href="#">首页</a></li>
+                    <li class="paginate_button previous disabled"><a href="#">上一页</a></li>
+                }
+                @foreach (var i in PageList)
+                {
+                    if (PageIndex == i)
+                    {
+                        <li class="paginate_button active"><a href="@url/@i">@i.ToString()</a></li>
+
+                    }
+                    else
+                    {
+                        <li class="paginate_button"><a href="@url/@i">@i.ToString()</a></li>
+                    }
+
+                }
+                @if (HasNextPage)
+                {
+                    <li class="paginate_button next"><a href="@url/@(PageIndex + 1)">下一页</a></li>
+                    <li class="paginate_button next"><a href="@url/@TotalPages">末页</a></li>
+                }
+                else
+                {
+                    <li class="paginate_button next disabled"><a href="#">下一页</a></li>
+                    <li class="paginate_button next disabled"><a href="#">末页</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+}
+@helper AjaxPageHelper(string divname, string controllername, string parname, string parvalue, int TotalPages, int PageIndex, int PageSize, int TotalCount, bool HasPreviousPage, bool HasNextPage, List<int> PageList)
+{
+var url = "";
+if (controllername.Substring(0, 1) == "/")
+{
+    url = "/prms" + controllername + "/search?";
+}
+else
+{
+    url = "/prms/" + controllername + "/search?";
+}
+if (!string.IsNullOrWhiteSpace(parname))
+{
+    url += parname + "=" + parvalue + "&&page=";
+}
+if (TotalPages <= 0)
+{
+    return;
+}
+    <div class="col-sm-6"><div class="dataTables_info" role="alert" aria-live="polite" aria-relevant="all">当前页 第@(PageIndex)页  @(PageSize)条/页  共 @TotalCount 条/@TotalPages 页</div></div>
+    <div class="col-sm-6">
+        <div class="dataTables_paginate paging_simple_numbers">
+            <ul class="pagination">
+                @if (HasPreviousPage)
+                {
+                    <li class="paginate_button previous"><a href="@(url)1" data-ajax-update="@divname" data-ajax-mode="replace" data-ajax="true">首页</a></li>
+                    <li class="paginate_button previous"><a href="@url@(PageIndex-1)" data-ajax-update="@divname" data-ajax-mode="replace" data-ajax="true">上一页</a></li>
+                }
+                else
+                {
+                    <li class="paginate_button previous disabled"><a href="#">首页</a></li>
+                    <li class="paginate_button previous disabled"><a href="#">上一页</a></li>
+                }
+                @foreach (var i in PageList)
+                {
+                    if (PageIndex == i)
+                    {
+                        <li class="paginate_button active"><a href="@(url+i)" data-ajax-update="@divname" data-ajax-mode="replace" data-ajax="true">@i.ToString()</a></li>
+
+                    }
+                    else
+                    {
+                        <li class="paginate_button"><a href="@(url+i)" data-ajax-update="@divname" data-ajax-mode="replace" data-ajax="true">@i.ToString()</a></li>
+                    }
+
+                }
+                @if (HasNextPage)
+                {
+                    <li class="paginate_button next"><a href="@url@(PageIndex + 1)" data-ajax-update="@divname" data-ajax-mode="replace" data-ajax="true">下一页</a></li>
+                    <li class="paginate_button next"><a href="@(url+TotalPages)" data-ajax-update="@divname" data-ajax-mode="replace" data-ajax="true">末页</a></li>
+                }
+                else
+                {
+                    <li class="paginate_button next disabled"><a href="#">下一页</a></li>
+                    <li class="paginate_button next disabled"><a href="#">末页</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+}
+
+@helper ThesisPageHelper(string divname, string controllername, string parname, string parvalue, int TotalPages, int PageIndex, int PageSize, int TotalCount, bool HasPreviousPage, bool HasNextPage, List<int> PageList, string actionname = "search")
+{
+var url = "";
+if (controllername.Substring(0, 1) == "/")
+{
+    url = "/thesis" + controllername + "/" + actionname + "?";
+}
+else
+{
+    url = "/thesis/" + controllername + "/" + actionname + "?";
+}
+if (!string.IsNullOrWhiteSpace(parname))
+{
+    url += parname + "=" + parvalue + "&&page=";
+}
+if (TotalPages <= 0)
+{
+    return;
+}
+    <div class="col-sm-6"><div class="dataTables_info" role="alert" aria-live="polite" aria-relevant="all">当前页 第@(PageIndex)页  @(PageSize)条/页  共 @TotalCount 条/@TotalPages 页</div></div>
+    <div class="col-sm-6">
+        <div class="dataTables_paginate paging_simple_numbers">
+            <ul class="pagination">
+                @if (HasPreviousPage)
+                {
+                    <li class="paginate_button previous"><a href="@(url)1" data-ajax-update="@divname" data-ajax-mode="replace" data-ajax="true">首页</a></li>
+                    <li class="paginate_button previous"><a href="@url@(PageIndex-1)" data-ajax-update="@divname" data-ajax-mode="replace" data-ajax="true">上一页</a></li>
+                }
+                else
+                {
+                    <li class="paginate_button previous disabled"><a href="#">首页</a></li>
+                    <li class="paginate_button previous disabled"><a href="#">上一页</a></li>
+                }
+                @foreach (var i in PageList)
+                {
+                    if (PageIndex == i)
+                    {
+                        <li class="paginate_button active"><a href="@(url+i)" data-ajax-update="@divname" data-ajax-mode="replace" data-ajax="true">@i.ToString()</a></li>
+
+                    }
+                    else
+                    {
+                        <li class="paginate_button"><a href="@(url+i)" data-ajax-update="@divname" data-ajax-mode="replace" data-ajax="true">@i.ToString()</a></li>
+                    }
+
+                }
+                @if (HasNextPage)
+                {
+                    <li class="paginate_button next"><a href="@url@(PageIndex + 1)" data-ajax-update="@divname" data-ajax-mode="replace" data-ajax="true">下一页</a></li>
+                    <li class="paginate_button next"><a href="@(url+TotalPages)" data-ajax-update="@divname" data-ajax-mode="replace" data-ajax="true">末页</a></li>
+                }
+                else
+                {
+                    <li class="paginate_button next disabled"><a href="#">下一页</a></li>
+                    <li class="paginate_button next disabled"><a href="#">末页</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+}
+@helper TeacherPageHelper(string divname, string controllername, string actionname, string ParameterName, int? ParameterValue, int? id, int TotalPages, int PageIndex, int PageSize, int TotalCount, bool HasPreviousPage, bool HasNextPage, List<int> PageList)
+{
+if (string.IsNullOrEmpty(actionname))
+{
+    actionname = "Search";
+}
+var url = "";
+if (controllername.Substring(0, 1) == "/")
+{
+    url = controllername + "/" + actionname;
+}
+else
+{
+    url = "/" + controllername + "/" + actionname;
+}
+url = "/teachersys" + url;
+if (id != 0)
+{
+    url = url + "/" + id;
+}
+if (!string.IsNullOrEmpty(ParameterName))
+{
+    url = url + "?" + ParameterName + "=" + ParameterValue + "&page=";
+}
+else
+{
+    url = url + "?page=";
+}
+if (TotalPages <= 0)
+{
+    return;
+}
+    <div class="cdiv_cen" style="height: 10%">
+        <div class="dataTables_paginate paging_bootstrap pagination fr">
+            <ul>
+                <li class="active">
+                    <a href="@(url)1" data-ajax-update="@divname" data-ajax-mode="replace" data-ajax="true">首页</a>
+                </li>
+                @foreach (var i in PageList)
+                {
+                    if (PageIndex == i)
+                    {
+                        <li class="active">
+                            <a href="@(url+i)" data-ajax-update="@divname" data-ajax-mode="replace" data-ajax="true">@i</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a href="@(url+i)" data-ajax-update="@divname" data-ajax-mode="replace" data-ajax="true">@i</a>
+                        </li>
+                    }
+                }
+
+                <li class="active">
+                    <a href="@(url+TotalPages)" data-ajax-update="@divname" data-ajax-mode="replace" data-ajax="true">末页</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+}
+
+@helper StudentPageHelper(string divname, string controllername, string actionname, string ParameterName, int? ParameterValue, int? id, int TotalPages, int PageIndex, int PageSize, int TotalCount, bool HasPreviousPage, bool HasNextPage, List<int> PageList)
+{
+if (string.IsNullOrEmpty(actionname))
+{
+    actionname = "Search";
+}
+var url = "";
+if (controllername.Substring(0, 1) == "/")
+{
+    url = controllername + "/" + actionname;
+}
+else
+{
+    url = "/" + controllername + "/" + actionname;
+}
+url = "/studentsys" + url;
+if (id != 0)
+{
+    url = url + "/" + id;
+}
+if (!string.IsNullOrEmpty(ParameterName))
+{
+    url = url + "?" + ParameterName + "=" + ParameterValue + "&page=";
+}
+else
+{
+    url = url + "?page=";
+}
+
+    <div class="cdiv">
+        <div class="dataTables_paginate paging_bootstrap pagination fr">
+            <ul>
+                @if (TotalPages > 0)
+                {
+                    <li class="active">
+                        <a href="@(url)1" data-ajax-update="@divname" data-ajax-mode="replace" data-ajax="true">首页</a>
+                    </li>
+
+                    foreach (var i in PageList)
+                    {
+                        if (PageIndex == i)
+                        {
+                            <li class="active">
+                                <a href="@(url+i)" data-ajax-update="@divname" data-ajax-mode="replace" data-ajax="true">@i</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a href="@(url+i)" data-ajax-update="@divname" data-ajax-mode="replace" data-ajax="true">@i</a>
+                            </li>
+                        }
+                    }
+
+                    <li class="active">
+                        <a href="@(url+TotalPages)" data-ajax-update="@divname" data-ajax-mode="replace" data-ajax="true">末页</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+}

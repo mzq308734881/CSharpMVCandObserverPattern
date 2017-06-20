@@ -1,0 +1,136 @@
+﻿@model TreatiseViewModel
+@{
+    Layout = null;
+    var unstart = Model.Treatise.TreatiseStage == 0;
+    var isfirst = Model.Treatise.TreatiseStage == 1;
+    var issecoud = Model.Treatise.TreatiseStage == 2;
+    var isthrid = Model.Treatise.TreatiseStage == 3;
+}
+<style>
+    .wizard > .content > .body ul {
+        list-style: none none !important;
+    }
+</style>
+<div class="ibox-content" id="ibox-content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel blank-panel">
+                <div class="panel-heading">
+                    <div class="panel-title m-b-md">
+                        <h4>文字选项卡</h4>
+                    </div>
+                    <div class="panel-options">
+                        <ul class="nav nav-tabs">
+                            <li class="@(unstart?"active":"")">
+                                <a data-toggle="tab" href="#tab-1">第一步：基础信息配置</a>
+                            </li>
+                            <li class="@(isfirst?"active":"")">
+                                <a data-toggle="tab" href="#tab-2">第二步:选题阶段</a>
+                            </li>
+                            <li class="@(issecoud?"active":"")">
+                                <a data-toggle="tab" href="#tab-3">第三步:流程开始阶段</a>
+                            </li>
+                            <li class="@(isthrid?"active":"")">
+                                <a data-toggle="tab" href="#tab-4">第四步:论文结束</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="tab-content">
+                        <div id="tab-1" class="tab-pane @(unstart?"active":"")">
+                            <p>论文流程添加</p>
+                            <p>论文学生添加/导入</p>
+                            <p>论文导师添加/导入</p>
+                            <p>论文课题添加与审核</p>
+                            @if (unstart)
+                            {
+                                <a class="btn btn-info" href="@Url.Action("changestage",new {id=1})" data-ajax-update="#wizard-p-6" data-ajax-mode="replace" data-ajax="true" data-ajax-confirm="是否开启下一阶段？阶段开启不可逆！">进入选题阶段</a>
+                            }
+                        </div>
+
+                        <div id="tab-2" class="tab-pane @(isfirst?"active":"")">
+                            <strong>移动设备优先</strong>
+
+                            <p>已选题人数：10/20 </p>
+                            @if (isfirst)
+                            {
+                                <a class="btn btn-info" href="@Url.Action("changestage",new {id=2})" data-ajax-confirm="@(Model.UnCount > 0?"还剩"+Model.UnCount+"人未进行选题，是否开启下一步？流程开启不可逆！":"是否开启下一步？流程开启不可逆！")" data-ajax-update="#wizard-p-6" data-ajax-mode="replace" data-ajax="true">进入流程阶段</a>
+                            }
+                        </div>
+                        <div id="tab-3" class="tab-pane @(issecoud?"active":"")">
+                            <div class="vertical-container light-timeline center-orientation">
+                                @foreach (var item in Model.ProcessList.OrderBy(d => d.Sort))
+                                {
+                                    <div class="vertical-timeline-block">
+                                        <div class="vertical-timeline-icon navy-bg">
+                                            <i class="fa fa-star"></i>
+                                        </div>
+
+                                        <div class="vertical-timeline-content">
+                                            <h2>
+                                                @item.ProcessName
+                                                @switch (item.IsOpen)
+                                                {
+                                                    case 0:
+                                                        <small class="label label-primary">暂未开始</small>
+                                                        break;
+                                                    case 1:
+                                                        <small class="label label-danger">进行中</small>
+                                                        break;
+                                                    case 2:
+                                                        <small class="label label-info">已结束</small>
+                                                        break;
+                                                }
+                                        </h2>
+
+                                        <p>
+                                            @item.Comment
+                                        </p>
+                                        @switch (item.IsOpen)
+                                        {
+                                            //暂未开始
+                                            case 0:
+                                                if (item.Sort == Model.ProcessList.Min(d => d.Sort))
+                                                {
+                                                    <a href="@Url.Action("process",new {id=item.ID})" class="btn btn-sm btn-success" data-ajax-update="#wizard-p-6" data-ajax-mode="replace" data-ajax="true" data-ajax-confirm="是否开启下一阶段？阶段开启不可逆！"> 开启流程</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="#" class="btn btn-sm btn-primary"> 暂未开始</a>
+                                                }
+                                                break;
+                                            //进行中
+                                            case 1:
+                                                <a href="@Url.Action("process",new {id=item.ID})" class="btn btn-sm btn-danger" data-ajax-update="#wizard-p-6" data-ajax-mode="replace" data-ajax="true" data-ajax-confirm="是否开启下一阶段？阶段开启不可逆！"> 开启下一流程</a>
+                                                break;
+                                            //已结束
+                                            case 2:
+                                                <a href="#" class="btn btn-sm btn-info"> 已结束</a>
+                                                break;
+                                        }
+
+                                        <span class="vertical-date">
+                                            @string.Format("{0:yyyy年MM月dd日}", item.StartTime)
+                                            <small>@string.Format("{0:yyyy年MM月dd日}", item.EndTime)</small>
+                                        </span>
+                                    </div>
+                                </div>
+                                }
+                            </div>
+
+                        </div>
+                        <div id="tab-4" class="tab-pane @(isthrid?"active":"")">
+                            <strong>论文结束阶段</strong>
+                            <p>到此阶段为止整个论文流程到此结束</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

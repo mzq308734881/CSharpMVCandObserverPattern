@@ -1,0 +1,107 @@
+﻿@model StudentProcessViewModel
+<link href="~/Content/admin/Css/plugins/webuploader/webuploader.css" rel="stylesheet" />
+<style>
+    .progress .blue {
+        background: #5aaadb linear-gradient(to bottom, #aed5ed 0%, #7bbbe2 70%, #5aaadb 100%) repeat scroll 0 0;
+        border-color: #459fd6 #3094d2 #277db2;
+    }
+
+    .progress > span > span {
+        color: rgba(0, 0, 0, 0.7);
+        font-size: 11px;
+        font-weight: bold;
+        padding: 0 8px;
+        text-shadow: 0 1px rgba(255, 255, 255, 0.4);
+    }
+
+    .progress > span {
+        -moz-border-bottom-colors: none;
+        -moz-border-left-colors: none;
+        -moz-border-right-colors: none;
+        -moz-border-top-colors: none;
+        background: #cccccc linear-gradient(to bottom, #f0f0f0 0%, #dbdbdb 70%, #cccccc 100%) repeat scroll 0 0;
+        border-color: #bfbfbf #b3b3b3 #9e9e9e;
+        border-image: none;
+        border-radius: 10px;
+        border-style: solid;
+        border-width: 1px;
+        box-shadow: 0 1px rgba(255, 255, 255, 0.3) inset, 0 1px 2px rgba(0, 0, 0, 0.2);
+        float: left;
+        height: 12px;
+        line-height: 12px;
+        margin: 0 -1px;
+        min-width: 30px;
+        position: relative;
+        text-align: right;
+    }
+    .ablogs_pwd_item input {
+        color: #ffffff;
+        height: 28px;
+    }
+</style>
+<form action="@Url.Action("check",new {id=Model.ProcessLog.ID})" method="post"  data-ajax-update="#checkcomment" data-ajax-mode="replace" data-ajax="true">
+    <div class="ablogs_pwd_item">
+        <p class="">
+            <span class="fl tydvrg_hf_title mg_top10">姓名：</span>
+            <span class="fl tydvrg_hf_content mg_top10">@Model.UserInfo.TrueName</span>
+        </p>
+    </div>
+
+    <div class="ablogs_pwd_item">
+        <p class="">
+            <span class="fl tydvrg_hf_title mg_top10">选择课题：</span>
+            <span class="fl tydvrg_hf_content mg_top10">@Model.TreatiseSubject.SubjectTitle</span>
+        </p>
+    </div>
+    <div class="ablogs_pwd_item">
+        <p class="">
+            <span class="fl tydvrg_hf_title mg_top10">相关说明：</span>
+            <span class="fl tydvrg_hf_content mg_top10">@Model.ProcessLog.Comment</span>
+        </p>
+    </div>
+
+    <div class="ablogs_pwd_item">
+        <p class="">
+            <span class="fl tydvrg_hf_title mg_top10">下载文档：</span>
+            @if (Model.Annex != null)
+            {
+                <span class="fl  tydvrg_hf_content mg_top10"><a href="@Url.Action("Annex", "DownLoad", new {area = "", id = Model.Annex.ID})" target="_blank" class="col025">@Model.Annex.AnnexName</a></span>
+            }
+            else
+            {
+                <span class="fl  tydvrg_hf_content mg_top10">未上传</span>
+            }
+        </p>
+    </div>
+
+    <div class="ablogs_pwd_item">
+        <p class="">
+            <span class="fl tydvrg_hf_title mg_top10">评阅后文档：</span>
+                @if (Model.CheckAnnex != null)
+            {
+                    <span class="fl  tydvrg_hf_content mg_top10"><a href="@Url.Action("Annex", "DownLoad", new {area = "", id = Model.CheckAnnex.ID})" target="_blank" class="col025">@Model.CheckAnnex.AnnexName</a></span>
+                }
+                else
+                {
+                    <span class="fl  tydvrg_hf_content mg_top10">未上传</span>
+                }
+        </p>
+    </div>
+    <div class="ablogs_pwd_item">
+        <p class="">
+            <span class="fl tydvrg_hf_title mg_top10">评阅结果： </span>
+            <span class="fl tydvrg_hf_content mg_top10">
+                @SelectListHelper.StudentProcessLogCheckStateName(Model.ProcessLog.CheckState)
+            </span>
+
+        </p>
+    </div>
+    <div class="ablogs_pwd_item">
+        <p class="">
+            <span class="fl tydvrg_hf_title mg_top10">评阅说明： </span>
+            <span class="fl tydvrg_hf_content mg_top10">
+              @Html.Raw(Model.ProcessLog.CheckComment)
+            </span>
+        </p>
+    </div>
+</form>

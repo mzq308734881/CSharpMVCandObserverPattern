@@ -1,0 +1,102 @@
+﻿@model TreatiseStudent
+@{
+    Layout = null;
+}
+@using (Ajax.BeginForm("change", new { id = Model.ID }, new AjaxOptions()
+                        {
+
+                            Confirm = "确认要指定吗？",
+                            HttpMethod = "post",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "tab-studentsubject"
+                        }, new { @class = "form-horizontal" ,id="subjectstu"}))
+{
+    <input type="hidden" namt="ID" value="@Model.ID" />
+    <input type="hidden" name="TreatiseID" value="@Model.TreatiseID" />
+    <div class="form-group">
+        <label class="col-sm-3 control-label">学生姓名：</label>
+
+        @try
+        {
+            <div class="col-sm-8">
+                @Model.Student.UserInfo.TrueName ( @Model.Student.UserInfo.LoginName )
+            </div>
+        }
+        catch
+        {
+            <div class="col-sm-8">
+                <b>错误的学生信息 </b>
+            </div>
+        }
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">导师名称：</label>
+        <div class="col-sm-8">
+            @Html.DropDownListFor(d => d.TeacherID, ViewBag.TeacherID as SelectList, new { @class = "form-control required", onchange = "GetInfoByParent(this.value)" })
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">课题标题：</label>
+        <div class="col-sm-8">
+            @Html.DropDownListFor(d => d.TreatiseSubjectID, ViewBag.TreatiseSubjectID as SelectList, new {@class = "form-control required", onchange = "GetCommentbySubject(this.value)"})
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">审阅老师：</label>
+        <div class="col-sm-8">
+            @Html.DropDownList("ReviewID", ViewBag.ReviewID as SelectList, new { @class = "form-control required"})
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div id="subjectcomment">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">课题内容：</label>
+            <div class="col-sm-8 form-control-static">
+
+            </div>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <div class="col-sm-4 col-sm-offset-4">
+            <button class="btn btn-primary" type="submit">保存内容</button>
+            <a class="btn btn-white" href="@Url.Action("search")" data-ajax-update="#tab-studentsubject" data-ajax-mode="replace" data-ajax="true">取消</a>
+        </div>
+    </div>
+}
+<script>
+    ///依据父级ID查询下级下拉框
+    function GetInfoByParent(id) {
+        if(id-0>0){
+            $.getJSON("@Url.Action("GetTeacherTreatiseSubject", "ajax")", { id: id}, function (data) {
+                if (data == null || data.length == 0) {
+                    html = '<option value="0">未找到' + name + '</option>';
+                } else {
+                    html = '<option value="0">请选择' + name + '</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        html += '<option value="' + data[i].ItemID + '">' + data[i].ItemName + '</option>';
+                    }
+                }
+                $("#TreatiseSubjectID").html(html);
+            });
+        }
+    }
+    function GetCommentbySubject(id) {
+        if(id-0>0){
+            $.get("@Url.Action("subjectcomment")", { id: id}, function (data) {
+                if (data == null || data.length == 0) {
+                    data = '未找到';
+                }
+                $("#subjectcomment").html(data);
+            });
+        }
+    }
+</script>
+<script type="text/javascript">
+    $(function () {
+        var validate = $("#subjectstu").validate();
+    });
+</script>

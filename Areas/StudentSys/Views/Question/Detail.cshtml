@@ -1,0 +1,77 @@
+﻿@model Question
+<div class="cdiv pd20 ptmg ow tyhg5">
+    <div class="ps">
+        <!-- <div class="myts_tm">提交截止时间： 2015年2月1日</div> -->
+        <h3 class="tydvrg_tit">我的提问</h3>
+        <div class="dhg2"></div>
+        <form class="ablogs_pwd" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage" action="@Url.Action("add")">
+            <div class="addv" id="abloeds">
+                <dl class="tydl ptmg_stp_dl">
+                    <dt>日志所属课题</dt>
+                    <dd>
+                        @((Model != null && Model.TreatiseStudent!=null && Model.TreatiseStudent.TreatiseSubject != null) ?  Model.TreatiseStudent.TreatiseSubject.SubjectTitle : "未选题")
+                    </dd>
+                </dl>
+                <div class="dhg2"></div>
+                <dl class="tydl ptmg_stp_dl">
+                    <dt>标题</dt>
+                    <dd class="stp_txtarea">
+                        @Model.Title
+                    </dd>
+                </dl>
+                <dl class="tydl ptmg_stp_dl">
+                    <dt>是否公开</dt>
+                    <dd class="stp_txtarea">
+                        @SelectListHelper.GetIsOrNoName(Model.IsOpen)
+                    </dd>
+                </dl>
+                <dl class="tydl ptmg_stp_dl">
+                    <dt>是否关闭</dt>
+                    <dd class="stp_txtarea">
+                        @SelectListHelper.GetIsOrNoName(Model.IsClose)
+                    </dd>
+                </dl>
+                <div class="dhg2"></div>
+                <dl class="tydl ptmg_stp_dl">
+                    <dt>内容</dt>
+                    <dd class="stp_txtarea">
+                        @Html.Raw(Model.Content)
+                    </dd>
+                </dl>
+                <div class="dhg3"></div>
+                <h3>历史回复</h3>
+                @foreach (var item in Model.QuestionReplies.Where(d => d.State == 1).OrderByDescending(d => d.CreateTime))
+                {
+                    <dl class="tydl ptmg_stp_dl">
+                        @switch ((UserInfoType)(item.UserType ?? 0))
+                        {
+                            case UserInfoType.Teacher:
+                                <dt>@(item.Teacher != null ? item.Teacher.UserInfo.TrueName : "未知用户") ：</dt>
+                                break;
+                            case UserInfoType.Student:
+                                <dt>@(item.Student != null ? item.Student.UserInfo.TrueName : "未知用户") ：</dt>
+                                break;
+                            default:
+                                <dt>未知用户 ：</dt>
+                                break;
+                        }
+                        <dd class="stp_txtarea">
+                            @Html.Raw(item.Content)
+                        </dd>
+                    </dl>
+                }
+            </div>
+        </form>
+        <div class="dhg2"></div>
+        <div class="dhg2"></div>
+        <div class="cdiv_cen" id="mg-btn-pos" style="height: 5%;">
+            <dl class="tydl mytc_ad2">
+                <dt></dt>
+                <dd>
+                    <a href="@Url.Action("search")" class="tydv_but bd_rd5" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#teacherpage">返回</a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+

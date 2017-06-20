@@ -1,0 +1,90 @@
+﻿@model TreatiseStudentViewModel
+@{Layout = "~/Areas/StudentSys/Views/Shared/_Layout.cshtml";}
+@section menu{
+    <div class="footer_menu_box">
+        <div class="menu">
+            <div class="bt-name">毕业论文成绩</div>
+        </div>
+    </div>
+}
+<div class="tycdv bd_rd10 bg_wite">
+    <div class="cdiv pd20 ptmg ow tyhg5">
+        <div class="ps hei-a85">
+            <!-- <div class="myts_tm">提交截止时间： 2015年2月1日</div> -->
+            <h3 class="tydvrg_tit">毕业论文成绩</h3>
+            <div class="dhg3"></div>
+            <div class="cdiv ps" id="content_cp" style="height:65%;">
+                <div class="dhg3"></div>
+                <div class="r_con_over chenposi" id="abloeds">
+                    <div class="tydvrg_bylw_table">
+                        <div class="pment">
+                            <table width="95%" cellpadding="0" cellspacing="0">
+
+                                <thead>
+                                    <tr>
+                                        <th>流程名称</th>
+                                        <th>标准时间分</th>
+                                        <th>时间分</th>
+                                        <th>标准质量分</th>
+                                        <th>质量分</th>
+                                        <th>流程状态</th>
+                                        <th>成绩</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.ProcessList)
+                                    {
+                                        var stupro = Model.StudentProcessList.FirstOrDefault(d => d.ProcessID == item.ID);
+                                        <tr>
+                                            <td width="12%">@item.ProcessName</td>
+                                            <td width="12%">@item.TimeMark</td>
+                                            <td width="12%">@(stupro!=null?stupro.TimeMark.ToString():"暂无评分")</td>
+                                            <td width="12%">@item.QualityMark</td>
+                                            <td width="12%">@(stupro != null ? stupro.QualityMark.ToString() : "暂无评分")</td>
+                                            @switch (item.IsOpen)
+                                            {
+                                                case 0:
+                                            <td width="12%" class="colFE3">未开始</td>
+                                                    break;
+                                                case 1:
+                                            <td width="12%" class="col035">进行中</td>
+                                                    break;
+                                                case 2:
+                                                    <td width="12%">已结束</td>
+                                                    break;
+                                            }
+                                            
+                                            <td width="12%">@(stupro != null ? stupro.TotalMark.ToString() : "暂无评分")</td>
+                                        <td width="12%">
+                                            <span>
+                                                <a class="btn_override btn-primary pd4_8" href="@Url.Action("detail",new {id=item.ID})" data-ajax-update="#studentpage" data-ajax-mode="replace" data-ajax="true">查看详情</a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="pment_title">
+                <p>*满分 @(Model.TotalMark) 分，及格成绩 @Model.PassMark 分</p>
+            </div>
+
+            <div class="pment_title_fs">
+                <p>
+                    总成绩：
+                    <span>时间总分： <span>@Model.StudentProcessList.Sum(d=>d.TimeMark)</span>分,</span>
+                    <span>质量总分： <span>@Model.StudentProcessList.Sum(d => d.QualityMark)</span>分,</span>
+                    <span>合计总分： <span>@Model.StudentProcessList.Sum(d => d.TotalMark)</span>分</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
